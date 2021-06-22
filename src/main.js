@@ -14,6 +14,7 @@ import axios from 'axios';
 import VueAxios from 'vue-axios';
 import VueLoading from 'vue-loading-overlay';
 import bootstrap from 'bootstrap';
+import CKEditor from '@ckeditor/ckeditor5-vue';
 
 // fontawesome
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -63,6 +64,7 @@ createApp(App).use(store).use(VueI18n).use(router)
   .use(VueLoading, {
     loader: 'dots',
   })
+  .use(CKEditor)
   .component('Form', Form)
   .component('Field', Field)
   .component('ErrorMessage', ErrorMessage)

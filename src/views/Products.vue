@@ -57,6 +57,7 @@
         <Pagination
           :current-page="pagination.current_page"
           :total-page="pagination.total_pages"
+          @change-page="changePage"
         ></Pagination>
       </ul>
     </div>
@@ -93,6 +94,9 @@ export default {
         product_id: productId,
         qty,
       });
+    },
+    async changePage(page) {
+      await this.$store.dispatch('getProductLists', page);
     },
   },
 };

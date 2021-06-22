@@ -25,8 +25,20 @@
           </router-link>
         </li>
         <li class="nav-item">
+          <router-link class="nav-link" to="/News">
+            前台文章列表
+            <i class="bi bi-arrow-bar-left"></i>
+          </router-link>
+        </li>
+        <li class="nav-item">
           <router-link class="nav-link" to="/admin/products">
             後台購物車列表頁
+            <i class="bi bi-arrow-bar-left"></i>
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/admin/News">
+            後台文章列表
             <i class="bi bi-arrow-bar-left"></i>
           </router-link>
         </li>

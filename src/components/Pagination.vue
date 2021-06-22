@@ -6,7 +6,7 @@
       :key="index"
     >
       <a class="page-link" href="#"
-      @click.prevent="$store.dispatch('getProductLists', page)">{{ page }}</a>
+      @click.prevent="$emit('changePage', page)">{{ page }}</a>
     </li>
 </template>
 

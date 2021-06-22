@@ -215,6 +215,7 @@ export default {
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/order`;
       await this.axios.post(url, { data: this.form }).then((res) => {
         this.submitSpinner = false;
+        this.$store.dispatch('getCartLists');
         if (res.data.success) {
           this.$swal.fire({
             icon: 'success',

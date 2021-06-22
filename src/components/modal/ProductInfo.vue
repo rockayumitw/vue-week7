@@ -27,7 +27,7 @@
                     type="text"
                     class="form-control"
                     placeholder="請輸入圖片連結"
-                    v-model="product.imageUrl"
+                    v-model="tempProduct.imageUrl"
                   />
                 </div>
                 <img class="img-fluid" :src="image" alt="" />
@@ -68,7 +68,7 @@
                   type="text"
                   class="form-control"
                   placeholder="請輸入標題"
-                  v-model="product.title"
+                  v-model="tempProduct.title"
                 />
               </div>
 
@@ -80,7 +80,7 @@
                     type="text"
                     class="form-control"
                     placeholder="請輸入分類"
-                    v-model="product.category"
+                    v-model="tempProduct.category"
                   />
                 </div>
                 <div class="form-group col-md-6">
@@ -90,7 +90,7 @@
                     type="text"
                     class="form-control"
                     placeholder="請輸入單位"
-                    v-model="product.unit"
+                    v-model="tempProduct.unit"
                   />
                 </div>
               </div>
@@ -104,7 +104,7 @@
                     min="0"
                     class="form-control"
                     placeholder="請輸入原價"
-                    v-model.number="product.origin_price"
+                    v-model.number="tempProduct.origin_price"
                   />
                 </div>
                 <div class="form-group col-md-6">
@@ -115,7 +115,7 @@
                     min="0"
                     class="form-control"
                     placeholder="請輸入售價"
-                    v-model.number="product.price"
+                    v-model.number="tempProduct.price"
                   />
                 </div>
               </div>
@@ -128,7 +128,7 @@
                   type="text"
                   class="form-control"
                   placeholder="請輸入產品描述"
-                  v-model="product.description"
+                  v-model="tempProduct.description"
                 >
                 </textarea>
               </div>
@@ -139,7 +139,7 @@
                   type="text"
                   class="form-control"
                   placeholder="請輸入說明內容"
-                  v-model="product.content"
+                  v-model="tempProduct.content"
                 >
                 </textarea>
               </div>
@@ -151,7 +151,7 @@
                     type="checkbox"
                     :true-value="1"
                     :false-value="0"
-                    v-model="product.is_enabled"
+                    v-model="tempProduct.is_enabled"
                   />
                   <label class="form-check-label" for="is_enabled">是否啟用</label>
                 </div>
@@ -164,11 +164,12 @@
             type="button"
             class="btn btn-outline-secondary"
             data-bs-dismiss="modal"
-            @click="$emit('cancel')"
           >
             取消
           </button>
-          <button type="button" class="btn btn-primary" @click="$emit('changeProducts')">
+          <button type="button" class="btn btn-primary"
+          data-bs-dismiss="modal"
+          @click="$emit('changeProducts', tempProduct)">
             確認
           </button>
         </div>
@@ -180,16 +181,73 @@
 <script>
 
 export default {
-  props: ['product', 'image'],
+  props: ['product'],
+  data() {
+    return {
+      tempProduct: {},
+      image: '',
+    };
+  },
   watch: {
-    product(newValue, oldValue) {
-      console.log(newValue, oldValue);
+    product() {
+      this.tempProduct = JSON.parse(JSON.stringify(this.product));
+      this.image = this.product.imageUrl;
     },
   },
+  computed: {
+  },
+  mounted() {
+    this.$refs.productModal.addEventListener('hidden.bs.modal', () => {
+      this.tempProduct = {};
+      this.due_date = 0;
+    });
+  },
   methods: {
-    uploadImage(e) {
+    async uploadImage(e) {
       this.$refs.uploadImage.click();
-      this.$emit('uploadImage', e);
+      this.tempProduct.imageUrl = [];
+      this.image = '';
+      const vm = this;
+      if (e.target.files === undefined) {
+        return;
+      }
+      const file = e.target.files[0]; // 讀取圖片
+      const fr = new FileReader();
+      // eslint-disable-next-line no-shadow
+      fr.onload = function (e) {
+        vm.image = e.target.result;
+      };
+      fr.readAsDataURL(file);
+
+      // 上傳圖片
+      const formData = new FormData();
+      formData.append('file-to-upload', file);
+
+      // 圖片api上傳
+      await this.axios.post('https://vue3-course-api.hexschool.io/api/traveltime1221/admin/upload', formData).then((res) => {
+        if (!res.data.success) {
+          this.$swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: res.data.message,
+          });
+        } else {
+          this.tempProduct.imageUrl = res.data.imageUrl;
+          this.$swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: '上傳成功',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      }).catch((err) => {
+        this.$swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: err.data.message,
+        });
+      });
     },
   },
 };

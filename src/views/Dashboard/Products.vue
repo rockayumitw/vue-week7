@@ -3,8 +3,7 @@
     <h1 class="h3 pt-4 text-white font-weight-bold text-center">Product List</h1>
     <div class="btn-area text-end mt-4">
       <button
-        class="btn btn-primary font-weight-bold mr-5 d-none"
-        @click="getProductID()"
+        class="btn btn-primary font-weight-bold mr-5"
         data-bs-toggle="modal"
         data-bs-target="#productModal"
       >
@@ -23,7 +22,7 @@
           </tr>
         </thead>
         <tbody id="productList" class="js-productList">
-          <tr v-for="(product, key) in products" :key="key">
+          <tr v-for="(product, key) in productLists" :key="key">
             <td class="text-left" width="150">{{ product.category }}</td>
             <td>
               <div>{{ product.title }}</div>
@@ -40,40 +39,45 @@
               <span class="text-center" v-if="product.is_enabled">啟用</span>
               <span class="text-center" v-else>未啟用</span>
             </td>
-            <!-- <td width="120" class="text-center">
+            <td width="120" class="text-center">
               <div class="btn-group">
                 <button
                   type="button"
                   class="btn btn-sm js-edit"
-                  @click="getProductID(product)"
+                  @click="getProduct(product)"
                   data-bs-toggle="modal"
                   data-bs-target="#productModal"
                 >
-                  <i class="fas fa-edit"></i>
+                  <!-- <i class="fas fa-edit"></i> -->
+                  編輯
                 </button>
                 <button
                   type="button"
                   class="btn btn-sm js-del"
                   data-bs-toggle="modal"
-                  data-bs-target="#delProductModal"
-                  @click="getProductID(product)"
+                  data-bs-target="#delModal"
+                  @click="getProduct(product)"
                 >
-                  <i class="far fa-trash-alt"></i>
+                  <!-- <i class="far fa-trash-alt"></i> -->
+                  刪除
                 </button>
               </div>
-            </td> -->
+            </td>
           </tr>
         </tbody>
       </table>
       <ul class="pagination justify-content-center">
         <Pagination
-          :current-page="currentPage"
-          :total-page="totalPage"
-          @get-product-lists="getProductLists"
+          :current-page="pagination.current_page"
+          :total-page="pagination.total_pages"
+          @change-page="changePage"
+          v-if="productLists.length > 1"
         ></Pagination>
       </ul>
     </div>
   <loading v-model:active="loading" :can-cancel="true" loader="dots"></loading>
+  <DelModal :item="tempProduct" @del-item="delProduct" @cancel="cancel"/>
+  <ProdcutInfo @change-products="changeProducts" :product="tempProduct"/>
   </div>
 </template>
 
@@ -81,73 +85,54 @@
 import Pagination from '@/components/Pagination.vue';
 import { mapGetters } from 'vuex';
 import Loading from 'vue-loading-overlay';
+import DelModal from '@/components/modal/DelModal.vue';
+import ProdcutInfo from '@/components/modal/ProductInfo.vue';
 
 export default {
   props: ['token'],
   components: {
     Pagination,
     Loading,
+    DelModal,
+    ProdcutInfo,
   },
   computed: {
     ...mapGetters({
       loading: 'loading',
+      product: 'product',
+      pagination: 'pagination',
+      productLists: 'productLists',
     }),
+  },
+  watch: {
+    product() {
+      this.tempProduct = JSON.parse(JSON.stringify(this.product));
+    },
   },
   data() {
     return {
-      productId: '',
-      productName: '',
-      product: {
-        category: '',
-        content: '',
-        description: '',
-        id: '',
-        imageUrl: '',
-        is_enabled: 0,
-        num: '',
-        origin_price: '',
-        price: '',
-        title: '',
-        unit: '',
-      },
-      products: [],
       tempProduct: {},
-      currentPage: '',
-      totalPage: '',
       image: '',
-      // isLoading: true,
     };
   },
-  created() {
-    console.log('後台產品列表');
-    this.getProductLists();
+  async created() {
+    await this.$store.dispatch('getAdminProductLists', 1);
   },
   mounted() {
-    console.log(this);
   },
   methods: {
-    async getProductLists(page = 1) {
-      this.$store.commit('SAVE_LOADING', true);
-      console.log('取得產品列表');
-      // 取得產品列表
-      const url = `https://vue3-course-api.hexschool.io/api/traveltime1221/admin/products?page=${page}`;
-      await this.axios
-        .get(url)
-        .then((res) => {
-          this.$store.commit('SAVE_LOADING', false);
-          if (res.data.success) {
-            this.products = res.data.products;
-            this.totalPage = res.data.pagination.total_pages;
-            this.currentPage = res.data.pagination.current_page;
-          } else {
-            this.$swal.fire({
-              icon: 'error',
-              title: res.data.message,
-              text: '',
-            });
-          }
-        })
-        .catch((err) => console.log(err.response));
+    async getProduct(product) {
+      await this.$store.commit('SAVE_PRODUCT', product);
+    },
+    async delProduct(id) {
+      this.$store.dispatch('removeAdminProduct', id);
+    },
+    async changeProducts(product) {
+      console.log(product);
+      await this.$store.dispatch('changeAdminProduct', product);
+    },
+    async changePage(page) {
+      await this.$store.dispatch('getAdminProductLists', page);
     },
   },
 };
