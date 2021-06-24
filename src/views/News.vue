@@ -38,16 +38,16 @@ export default {
   },
   computed: {
     ...mapGetters({
-      articleLists: 'articleLists',
-      loading: 'loading',
+      articleLists: 'frontend/articleLists',
+      loading: 'all/loading',
     }),
   },
   async created() {
-    await this.$store.dispatch('getArticleLists', 1);
+    await this.$store.dispatch('frontend/fetchGetArticleLists', 1);
   },
   methods: {
     async changePage(page) {
-      await this.$store.dispatch('getArticleLists', page);
+      await this.$store.dispatch('frontend/fetchGetArticleLists', page);
     },
   },
 };

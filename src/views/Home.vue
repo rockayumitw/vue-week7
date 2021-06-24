@@ -30,8 +30,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      loading: 'loading',
-      lang: 'lang',
+      loading: 'all/loading',
+      lang: 'all/lang',
     }),
   },
   data() {
@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     setLang(value) {
-      this.$store.commit('SAVE_LANGUAGE', value);
+      this.$store.commit('all/SAVE_LANGUAGE', value);
       this.$i18n.locale = value;
     },
   },

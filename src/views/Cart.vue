@@ -29,7 +29,8 @@
                 min="1"
                 type="number"
                 class="form-control"
-                @blur="this.$store.dispatch('addToCart', {product_id: item.product.id,qty: qty})"
+                @blur="this.$store.dispatch('fetchAddToCart',
+                {product_id: item.product.id,qty: qty})"
                 :disabled="spinner === item.product.id"
               />
               <span class="input-group-text" id="basic-addon2">{{
@@ -175,16 +176,16 @@ export default {
   },
   computed: {
     ...mapGetters({
-      loading: 'loading',
-      cartLists: 'cartLists',
-      spinner: 'spinner',
+      loading: 'all/loading',
+      cartLists: 'frontend/cartLists',
+      spinner: 'all/spinner',
     }),
   },
   components: {
     Loading,
   },
   async created() {
-    await this.$store.dispatch('getCartLists');
+    await this.$store.dispatch('frontend/fetchGetCartLists');
   },
   mounted() {
     this.$nextTick(() => {
@@ -204,18 +205,18 @@ export default {
       };
     },
     async delSingleProduct(id) {
-      await this.$store.commit('SAVE_SPINNER', id);
-      await this.$store.dispatch('delSingleProduct', id);
+      await this.$store.commit('all/SAVE_SPINNER', id);
+      await this.$store.dispatch('frontend/fetchRemoveSingleProduct', id);
     },
     async delAllProduct() {
-      await this.$store.dispatch('delAllProduct');
+      await this.$store.dispatch('frontend/fetchRemoveAllProduct');
     },
     async onSubmit() { // 付款訂單
       this.submitSpinner = true;
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/order`;
       await this.axios.post(url, { data: this.form }).then((res) => {
         this.submitSpinner = false;
-        this.$store.dispatch('getCartLists');
+        this.$store.dispatch('frontend/fetchGetCartLists');
         if (res.data.success) {
           this.$swal.fire({
             icon: 'success',

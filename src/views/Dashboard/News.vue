@@ -81,22 +81,22 @@ export default {
   },
   computed: {
     ...mapGetters({
-      articleLists: 'articleLists',
-      loading: 'loading',
+      articleLists: 'backend/articleLists',
+      loading: 'all/loading',
     }),
   },
   async created() {
-    await this.$store.dispatch('getAdminArticles', 1);
+    await this.$store.dispatch('backend/fetchGetArticles', 1);
   },
   methods: {
     getArticle(article) {
       this.tempArticle = JSON.parse(JSON.stringify(article));
     },
     async updateArticle(tempArticle) {
-      await this.$store.dispatch('updateAdminArticle', tempArticle);
+      await this.$store.dispatch('backend/fetchUpdateArticle', tempArticle);
     },
     async delArticle(id) {
-      await this.$store.dispatch('delAdminArticle', id);
+      await this.$store.dispatch('backend/fetchRemoveArticle', id);
     },
   },
 };

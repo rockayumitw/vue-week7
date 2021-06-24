@@ -98,10 +98,10 @@ export default {
   },
   computed: {
     ...mapGetters({
-      loading: 'loading',
-      product: 'product',
-      pagination: 'pagination',
-      productLists: 'productLists',
+      loading: 'all/loading',
+      product: 'backend/product',
+      pagination: 'backend/pagination',
+      productLists: 'backend/productLists',
     }),
   },
   watch: {
@@ -116,23 +116,23 @@ export default {
     };
   },
   async created() {
-    await this.$store.dispatch('getAdminProductLists', 1);
+    await this.$store.dispatch('backend/fetchgetProductLists', 1);
   },
   mounted() {
   },
   methods: {
     async getProduct(product) {
-      await this.$store.commit('SAVE_PRODUCT', product);
+      await this.$store.commit('backend/SAVE_PRODUCT', product);
     },
     async delProduct(id) {
-      this.$store.dispatch('removeAdminProduct', id);
+      this.$store.dispatch('backend/fetchRemoveProduct', id);
     },
     async changeProducts(product) {
       console.log(product);
-      await this.$store.dispatch('changeAdminProduct', product);
+      await this.$store.dispatch('backend/fetchChangeProduct', product);
     },
     async changePage(page) {
-      await this.$store.dispatch('getAdminProductLists', page);
+      await this.$store.dispatch('backend/fetchgetProductLists', page);
     },
   },
 };

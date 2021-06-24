@@ -20,12 +20,12 @@ export default {
   },
   computed: {
     ...mapGetters({
-      loading: 'loading',
-      product: 'product',
+      loading: 'all/loading',
+      product: 'frontend/product',
     }),
   },
   async created() {
-    await this.$store.dispatch('getProductInfo', this.$route.params);
+    await this.$store.dispatch('frontend/fetchGetProductInfo', this.$route.params);
   },
 };
 </script>

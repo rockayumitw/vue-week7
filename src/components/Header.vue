@@ -38,7 +38,7 @@
         </li>
         <li class="nav-item">
           <router-link class="nav-link" to="/admin/News">
-            後台文章列表
+            後台文章列表 {{ message }}
             <i class="bi bi-arrow-bar-left"></i>
           </router-link>
         </li>
@@ -47,3 +47,9 @@
   </div>
 </nav>
 </template>
+
+<script>
+
+export default {
+};
+</script>

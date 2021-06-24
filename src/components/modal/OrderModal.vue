@@ -129,7 +129,7 @@
             type="button"
             class="btn btn-primary"
             data-bs-dismiss="modal"
-            @click="$store.dispatch('updateAdminOrderPaid', tempOrder)"
+            @click="$store.dispatch('backend/fetchUpdateOrderPaid', tempOrder)"
           >
             修改付款狀態
           </button>

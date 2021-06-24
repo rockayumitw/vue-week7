@@ -77,26 +77,26 @@ export default {
   },
   computed: {
     ...mapGetters({
-      loading: 'loading',
-      product: 'product',
-      pagination: 'pagination',
-      productLists: 'productLists',
-      spinner: 'spinner',
+      loading: 'all/loading',
+      spinner: 'all/spinner',
+      product: 'frontend/product',
+      pagination: 'frontend/pagination',
+      productLists: 'frontend/productLists',
     }),
   },
   async created() {
-    await this.$store.dispatch('getProductLists');
+    await this.$store.dispatch('frontend/fetchgetProductLists');
   },
   methods: {
     async addToCart(productId, qty = 1) {
-      await this.$store.commit('SAVE_SPINNER', productId);
-      await this.$store.dispatch('addToCart', {
+      await this.$store.commit('all/SAVE_SPINNER', productId);
+      await this.$store.dispatch('frontend/fetchAddToCart', {
         product_id: productId,
         qty,
       });
     },
     async changePage(page) {
-      await this.$store.dispatch('getProductLists', page);
+      await this.$store.dispatch('frontend/fetchgetProductLists', page);
     },
   },
 };

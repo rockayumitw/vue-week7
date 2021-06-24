@@ -39,15 +39,15 @@ export default {
   },
   computed: {
     ...mapGetters({
-      loading: 'loading',
+      loading: 'all/loading',
     }),
   },
   methods: {
     async login() {
-      this.$store.commit('SAVE_LOADING', true);
+      this.$store.commit('all/SAVE_LOADING', true);
       const api = `${process.env.VUE_APP_API}/admin/signin`;
       await this.axios.post(api, this.user).then((res) => {
-        this.$store.commit('SAVE_LOADING', false);
+        this.$store.commit('all/SAVE_LOADING', false);
         if (res.data.success) {
           const { token, expired } = res.data;
           document.cookie = `token=${token};expires=${new Date(expired)};`;

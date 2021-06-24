@@ -1,7 +1,7 @@
 <template>
   <loading v-model:active="loading" :can-cancel="true" loader="dots"></loading>
   <h1>後台訂單列表</h1>
-  <button @click="$store.dispatch('delAllAdminOrder')">刪除全部訂單</button>
+  <button @click="$store.dispatch('backend/fetchRemoveAllOrder')">刪除全部訂單</button>
   <table class="table mt-4">
     <thead>
       <tr>
@@ -101,23 +101,23 @@ export default {
   },
   computed: {
     ...mapGetters({
-      loading: 'loading',
-      orderLists: 'orderLists',
-      pagination: 'pagination',
+      loading: 'all/loading',
+      pagination: 'backend/pagination',
+      orderLists: 'backend/orderLists',
     }),
   },
   async created() {
-    await this.$store.dispatch('getAdminOrders', 1);
+    await this.$store.dispatch('backend/fetchGetOrders', 1);
   },
   methods: {
     getOrder(item) {
       this.tempOrder = JSON.parse(JSON.stringify(item));
     },
     async delProduct(id) {
-      this.$store.dispatch('delAdminOrder', id);
+      this.$store.dispatch('backend/fetchRemoveOrder', id);
     },
     async changePage(page) {
-      await this.$store.dispatch('getAdminProductLists', page);
+      await this.$store.dispatch('backend/fetchgetProductLists', page);
     },
   },
 };

@@ -13,12 +13,12 @@ export default {
   },
   computed: {
     ...mapGetters({
-      article: 'article',
-      loading: 'loading',
+      article: 'frontend/article',
+      loading: 'all/loading',
     }),
   },
   async created() {
-    await this.$store.dispatch('getArticle', this.$route.params.id);
+    await this.$store.dispatch('frontend/fetchGetArticle', this.$route.params.id);
   },
   methods: {
   },

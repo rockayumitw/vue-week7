@@ -78,23 +78,23 @@ export default {
   },
   computed: {
     ...mapGetters({
-      loading: 'loading',
-      couponLists: 'couponLists',
-      pagination: 'pagination',
+      loading: 'all/loading',
+      couponLists: 'backend/couponLists',
+      pagination: 'backend/pagination',
     }),
   },
   async created() {
-    await this.$store.dispatch('getAdminCoupons');
+    await this.$store.dispatch('backend/fetchGetCoupons');
   },
   methods: {
     async tempCouponObj(coupon) {
       this.tempCoupon = JSON.parse(JSON.stringify(coupon));
     },
     async updateCoupon(tempCoupon) {
-      await this.$store.dispatch('changeAdminCoupons', tempCoupon);
+      await this.$store.dispatch('backend/fetchChangeCoupons', tempCoupon);
     },
     async delCoupon(coupon) {
-      await this.$store.dispatch('delAdminSingleCoupon', coupon.id);
+      await this.$store.dispatch('backend/fetchRemoveSingleCoupon', coupon.id);
     },
   },
 };
