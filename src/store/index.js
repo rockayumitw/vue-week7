@@ -3,6 +3,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 
 export default createStore({
+  namespaced: true,
   state: {
     lang: null,
     loading: false,
@@ -52,7 +53,6 @@ export default createStore({
     },
     SAVE_ARTICLE_LISTS(state, data) {
       state.articleLists = data;
-      console.log(state.articleLists);
     },
     SAVE_PRODUCT_LISTS(state, data) {
       state.productLists = data;

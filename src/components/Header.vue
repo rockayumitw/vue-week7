@@ -1,5 +1,5 @@
 <template>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="header navbar navbar-expand-lg navbar-light bg-light">
   <div class="container">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -21,7 +21,7 @@
         </li>
         <li class="nav-item">
           <router-link class="nav-link" to="/cart">
-            前台購物車列表頁
+            前台購物車列表頁<span class="material-icons">face</span>
           </router-link>
         </li>
         <li class="nav-item">

@@ -1,0 +1,141 @@
+// .header{
+//     background:#000;
+//     @include transition(.3s ease);
+//     &.pinned {
+//         @include transform(translateY(0%));
+//         @include transition(.3s);
+//     }
+//     &.unpinned {
+//         @include transform(translateY(-100%));
+//         @include transition(.3s);
+//     }
+//     &.sticky{
+//         background:map-get($colorGroup,'daintree');
+//         padding-bottom: 0px !important;
+//         padding-top: 0px !important;
+//         @include opacity(.95);
+//         @include media-max(md){
+//             padding-bottom: 0px;
+//             padding-top: 0px;
+//         }
+//         @include media-max(sm){
+//             padding-bottom: 0px;
+//             padding-top: 0px;
+//         }
+//     }
+//     nav{
+//         img{
+//             @include transform (scale(.8));
+//             @include transition(.3s);
+//             @include media-max(lg){
+//                 @include transform (scale(.65));
+//                 @include transition(.3s);
+//             }
+//         }
+//         .container{
+//             max-width:1300px;
+//             @include relative();
+//             @include media-max(md){
+//                 width:100%;
+//             }
+//             .navbar-brand{
+//                 img{
+//                     max-width:225px;
+//                     @include media-max(lg){
+//                         margin-top:0px;
+//                         max-width:170px;
+//                     }
+//                     @include media-max(md){
+//                         margin-top:0px;
+//                         max-width:190px;
+//                         margin-left:-15px;
+//                     }
+//                 }
+//             }
+//             ul.tool{
+//                 @include absolute(right 5px);
+//                 @include media-max(xxl){
+//                     right: 45px;
+//                     // right:30px;
+//                 }
+//                 @include media-max(xl){
+//                     right:75px;
+//                 }
+//             }
+//             .menu{
+//                 @include media-max(lg){
+//                     @include imgBg(false,100%,100vh,map-get($colorGroup,'daintree'),false,false,false);
+//                     @include opacity(.95);
+//                     @include fixed(left 0 top 60px);
+//                     // display:none; //暫時註解
+//                 }
+//                 @include media-max(md){
+//                     @include absolute(left 0 top 70px);
+//                 }
+//                 @include media-min(lg){
+//                     @include absolute(right 190px);
+//                 }
+//                 @include media-min(xl){
+//                     @include absolute(right 145px);
+//                 }
+//                 ul.navbar-nav{
+//                     li.nav-item{
+//                         margin-right:15px;
+//                         margin-left:16px;
+//                         a{
+//                             color:map-get($headerGroup,'normal-color');
+//                             @include transition(1s);
+//                             &:hover{
+//                                 color:map-get($headerGroup,'hover-color');
+//                                 @include transition(1s);
+//                             }
+//                         }
+//                         &:hover{
+//                             ul.dropdown-menu{
+//                                 display:block;
+//                             }
+//                         }
+//                         ul.dropdown-menu{
+//                             background:map-get($headerGroup,'hover-color');
+//                         }
+//                     }
+//                 }
+//             }
+//             @include hack_ie10-11(){
+//                 .menu{
+//                     top:35px;
+//                     @include media-max(md){
+//                         @include relative(left 0 top 0px);
+//                     }
+//                 }
+//                 ul.tool{
+//                     @include media-max(md){
+//                         top:25px;
+//                     }
+//                 }
+//             }
+//             .navbar-toggler{
+//                 width: 50px;
+//                 height: 50px;
+//                 border:none;
+//                 margin-right:20px;
+//                 @include borderRadius(0);
+//                 &:hover{
+//                     background:map-get($headerGroup,'lg-hover-color');
+//                 }
+//                 @include hamburger-style('rotate-x');
+//             }
+//         }
+//     }  
+// }
+
+// @include keyframes(dropdownFadeIn){
+//     0%{
+//         @include opacity(0);
+//         top:20px;
+//     }
+//     100%{
+//         @include opacity(1);
+//         top:25px;
+//     }
+// }
