@@ -1,17 +1,20 @@
 <template>
-  <div class="hello">
+  <div class="home">
     <h1>此頁面為首頁</h1>
     <swiper
-    :slidesPerView="'auto'"
+    :slidesPerView="3"
+    :spaceBetween="0"
     :centeredSlides="true"
-    :spaceBetween="30"
-    :pagination="{
-    'clickable': true
-    }" class="mySwiper">
-    <swiper-slide v-for="slide in swiperList" :key="slide">
-      <img :src="slide" alt="">
-    </swiper-slide>
-  </swiper>
+    :loop="true"
+    :pagination='{
+      "clickable": true
+    }' class="swiper">
+      <swiper-slide v-for="slide in swiperList" :key="slide">
+        <div class="">
+          <img :src="slide" alt="">
+        </div>
+      </swiper-slide>
+    </swiper>
   </div>
 </template>
 
