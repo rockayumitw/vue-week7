@@ -1,0 +1,25 @@
+
+
+// opacity-10
+@each $name,$item in $opacity {
+    .opacity-#{$name}{
+        opacity: $item;
+    }
+}
+
+// index-10
+@each $name, $item in $z-index{
+    .index-#{$name}{
+        z-index:$item;
+    }
+}
+
+// rotate-90
+@each $item in $rotate{
+    .rotate-#{$item}{
+        transform:rotate($item+deg);
+    }
+    .rotate-y-#{$item}{
+        transform:rotate(-$item+deg);
+    }
+}

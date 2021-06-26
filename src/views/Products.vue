@@ -1,5 +1,5 @@
 <template>
-  <div class="products">
+  <div class="inner-page products">
     <h1>產品列表頁面</h1>
     <div class="table-box">
       <table class="table align-middle">

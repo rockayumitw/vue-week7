@@ -1,0 +1,369 @@
+// 重複蓋過, 變數需要研究調整為何不能從_variables蓋過
+$grid-breakpoints: (
+  xs: 319px,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+) !default;
+
+$position-value: 350; // 設定position位數
+$rotate: 90, 100, 180; // 設定旋轉角度
+
+// size
+$sizes: () !default;
+$sizes:(
+  10: 10%,
+  20: 20%,
+  25: 25%,
+  30: 30%,
+  35: 35%,
+  40: 40%,
+  45: 45%,
+  50: 50%,
+  60: 60%,
+  65: 65%,
+  70: 70%,
+  75: 75%,
+  80: 80%,
+  90: 90%,
+  95: 95%,
+  100: 100%,
+  auto: auto
+);
+
+// z-index
+$z-index: (
+  header: 2,
+  carousel: 1,
+  mask: 1
+);
+
+$opacity-base: 10;
+$opacity:(
+  base: $opacity-base,
+  0: ($opacity-base * 0),
+  1: ($opacity-base * 0.01),
+  2: ($opacity-base * 0.02),
+  3: ($opacity-base * 0.03),
+  4: ($opacity-base * 0.04),
+  5: ($opacity-base * 0.05),
+  6: ($opacity-base * 0.06),
+  7: ($opacity-base * 0.07),
+  8: ($opacity-base * 0.08),
+  9: ($opacity-base * 0.09),
+);
+
+// user-photo, teacher-photo, icon-photo
+$photo-base: 10px;
+$photo-size: () !default;
+$photo-size: map-merge(
+  (
+    base: $photo-base,         // 10  base 
+    1:  ($photo-base * 3.0),   // 30   
+    2:  ($photo-base * 4.8),   // 48   
+  ),
+  $photo-size
+);
+
+$spacer: 1rem !default;
+$spacers: (
+  0: 0,
+  1: $spacer * 0.25, // 4
+  2: $spacer * 0.5, // 8
+  3: $spacer * 0.75, // 12
+  4: $spacer * 0.9375, // 15
+  5: $spacer * 1, // 16
+  6: $spacer * 1.25, // 20
+  7: $spacer * 1.5, // 24
+  8: $spacer * 1.75, // 28
+  9: $spacer * 1.875, // 30
+  10: $spacer * 2, // 32
+  11: $spacer * 2.25, // 36
+  12: $spacer * 2.5, // 40
+  13: $spacer * 2.75, // 44
+  14: $spacer * 3, // 48
+  15: $spacer * 3.25, // 52
+  16: $spacer * 3.5, // 56
+  17: $spacer * 3.75, // 60
+) !default;
+
+// font-size
+$font-size-base: 1rem;
+$font-sizes: (
+  1: $font-size-base * 0.625, // 10
+  2: $font-size-base * 0.75, // 12
+  3: $font-size-base * 0.875, // 14
+  4: $font-size-base * 1, // 16
+  5: $font-size-base * 1.25, // 20
+  6: $font-size-base * 1.5, // 24
+  7: $font-size-base * 2, // 32
+  8: $font-size-base * 3, // 48
+) !default;
+
+// rwd: 最小寬度
+// example: @include media-max(md){}
+@mixin media-max($breakpoint) {
+    @if map-has-key($grid-breakpoints, $breakpoint) {
+        @media (max-width: map-get($grid-breakpoints, $breakpoint)) {
+            @content;
+        }
+    }
+}
+
+// rwd: 最大寬度
+// example: @include media-min(md){}
+@mixin media-min($breakpoint) {
+    @if map-has-key($grid-breakpoints, $breakpoint) {
+        @media (min-width: map-get($grid-breakpoints, $breakpoint)) {
+            @content;
+        }
+    }
+}
+
+@function breakpoint-min($name, $breakpoints: $grid-breakpoints) {
+    $min: map-get($breakpoints, $name);
+    @return if($min != 0, $min, null);
+}
+
+@function breakpoint-infix($name, $breakpoints: $grid-breakpoints) {
+    @return if(breakpoint-min($name, $breakpoints) == null, "", "-#{$name}");
+}
+
+@mixin media-breakpoint-up($name, $breakpoints: $grid-breakpoints) {
+    $min: breakpoint-min($name, $breakpoints);
+    @if $min {
+        @media (min-width: $min) {
+            @content;
+        }
+    } @else {
+        @content;
+    }
+}
+
+// font-size 字型大小設定
+// example: text-lg-xs
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    @each $size, $value in $font-sizes {
+    @include media-breakpoint-up($breakpoint) {
+      $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+        .text#{$infix}-#{$size} {
+         font-size: $value;
+        }
+      }
+    }
+  }
+
+// line-height: 行高設定
+// lh-lg-xs
+//   @each $breakpoint in map-keys($grid-breakpoints) {
+//     @each $size, $value in $font-line-Height {
+//     @include media-breakpoint-up($breakpoint) {
+//       $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+//         .lh#{$infix}-#{$size} {
+//           line-height: $value;
+//         }
+//       }
+//     }
+//   }
+
+// user-photo-size
+// user-photo-xxs-2
+// icon-xs-2
+//   @each $breakpoint in map-keys($grid-breakpoints) {
+//     @each $size, $value in $photo-size {
+//     @include media-breakpoint-up($breakpoint) {
+//       $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+//         .user-photo#{$infix}-#{$size} {
+//           width: $value;
+//           height: $value;
+//           min-width: $value;
+//         }
+//         .teacher-photo#{$infix}-#{$size} {
+//           width: $value;
+//           height: $value;
+//           min-width: $value;
+//         }
+//         .icon#{$infix}-#{$size}{
+//           width: $value;
+//           height: $value;
+//         }
+//       }
+//     }
+//   }
+
+// position
+// example: top-lg-10
+@each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+        // Some special margin utils
+        @for $i from 0 through $position-value {
+            .top#{$infix}-#{$i} {
+                top: $i + px;
+            }
+            .left#{$infix}-#{$i} {
+                left: $i + px;
+            }
+            .right#{$infix}-#{$i} {
+                right: $i + px;
+            }
+            .bottom#{$infix}-#{$i} {
+                bottom: $i + px;
+            }
+            .top#{$infix}-y-#{$i} {
+                top: -$i + px;
+            }
+            .left#{$infix}-y-#{$i} {
+                left: -$i + px;
+            }
+            .right#{$infix}-y-#{$i} {
+                right: -$i + px;
+            }
+            .bottom#{$infix}-y-#{$i} {
+                bottom: -$i + px;
+            }
+        }
+    }
+}
+
+// example: position-lg-relative
+@each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+        // Some special margin utils
+        .position#{$infix}-relative {
+            position: relative !important;
+        }
+        .position#{$infix}-absolute {
+            position: absolute !important;
+        }
+        .position#{$infix}-fixed {
+            position: fixed;
+        }
+    }
+}
+
+// example: text-lg-center
+@each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+        // Some special margin utils
+        .text#{$infix}-center {
+            text-align: center;
+        }
+        .text#{$infix}-left {
+            text-align: left;
+        }
+        .text#{$infix}-right {
+            text-align: right;
+        }
+    }
+}
+
+// example: h-lg-auto, w-lg-45
+@each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+        // Some special margin utils
+        @each $prop, $abbrev in (width: w, height: h) {
+            @each $size, $length in $sizes {
+                .#{$abbrev}#{$infix}-#{$size} {
+                    #{$prop}: $length !important;
+                }
+            }
+        }
+    }
+}
+
+// spacing
+@each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+        @each $prop, $abbrev in (margin: m, padding: p) {
+            @each $size, $length in $spacers {
+                .#{$abbrev}#{$infix}-#{$size} {
+                    #{$prop}: $length !important;
+                }
+                .#{$abbrev}t#{$infix}-#{$size},
+                .#{$abbrev}y#{$infix}-#{$size} {
+                    #{$prop}-top: $length !important;
+                }
+                .#{$abbrev}r#{$infix}-#{$size},
+                .#{$abbrev}x#{$infix}-#{$size} {
+                    #{$prop}-right: $length !important;
+                }
+                .#{$abbrev}b#{$infix}-#{$size},
+                .#{$abbrev}y#{$infix}-#{$size} {
+                    #{$prop}-bottom: $length !important;
+                }
+                .#{$abbrev}l#{$infix}-#{$size},
+                .#{$abbrev}x#{$infix}-#{$size} {
+                    #{$prop}-left: $length !important;
+                }
+            }
+        }
+
+        //
+        @each $size, $length in $spacers {
+            @if $size != 0 {
+                .m#{$infix}-n#{$size} {
+                    margin: -$length !important;
+                }
+                .mt#{$infix}-n#{$size},
+                .my#{$infix}-n#{$size} {
+                    margin-top: -$length !important;
+                }
+                .mr#{$infix}-n#{$size},
+                .mx#{$infix}-n#{$size} {
+                    margin-right: -$length !important;
+                }
+                .mb#{$infix}-n#{$size},
+                .my#{$infix}-n#{$size} {
+                    margin-bottom: -$length !important;
+                }
+                .ml#{$infix}-n#{$size},
+                .mx#{$infix}-n#{$size} {
+                    margin-left: -$length !important;
+                }
+            }
+        }
+
+        // Some special margin utils
+        .m#{$infix}-auto {
+            margin: auto !important;
+        }
+        .mt#{$infix}-auto,
+        .my#{$infix}-auto {
+            margin-top: auto !important;
+        }
+        .mr#{$infix}-auto,
+        .mx#{$infix}-auto {
+            margin-right: auto !important;
+        }
+        .mb#{$infix}-auto,
+        .my#{$infix}-auto {
+            margin-bottom: auto !important;
+        }
+        .ml#{$infix}-auto,
+        .mx#{$infix}-auto {
+            margin-left: auto !important;
+        }
+    }
+}
+
+// opacity-10
+@each $name,$item in $opacity {
+    .opacity-#{$name}{
+        opacity: $item;
+    }
+}
+
+// index-10
+@each $name, $item in $z-index{
+    .index-#{$name}{
+        z-index:$item;
+    }
+}

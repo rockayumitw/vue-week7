@@ -1,5 +1,35 @@
 <template>
- <div>{{article}}</div>
+<div class="inner-page">
+  <div class="inner-banner"></div>
+  <div class="bg-white pb-17">
+    <div class="container pt-17">
+      <img class="img-fulid w-100 mb-17" src="/product/1.jpg">
+      <div class="d-flex">
+        <div class="d-none d-md-flex flex-column tool-share">
+          <span class="material-icons-outlined text-center text-7 mb-3">facebook</span>
+          <span class="material-icons-outlined text-center text-7 mb-3">facebook</span>
+          <span class="material-icons-outlined text-center text-7 mb-3">facebook</span>
+          <span class="back">
+            <p class="mixed mt-4">SHARE</p>
+            <span class="material-icons-outlined text-center text-7 mb-3">reply</span>
+          </span>
+        </div>
+        <div class="pl-0 pl-md-9">
+          <h3 class="font-weight-bold"> {{ article.title }} </h3>
+          <div class="mb-5">
+            <small class="text-gray-200">{{ article.create_at }} / </small>
+            <small class="text-gray-200">{{ article.author }} / </small>
+            <span class="badge rounded-pill bg-primary mr-1"
+              v-for="tag in article.tag" :key="tag">
+              {{tag}}
+            </span>
+          </div>
+          <div v-html="article.description"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 </template>
 
 <script>
@@ -16,6 +46,9 @@ export default {
       article: 'frontend/article',
       loading: 'all/loading',
     }),
+  },
+  mounted() {
+    console.log(this.article);
   },
   async created() {
     await this.$store.dispatch('frontend/fetchGetArticle', this.$route.params.id);
