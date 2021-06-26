@@ -1,5 +1,6 @@
 <template>
-  <div class="container">
+<div>
+    <div class="container">
     <h1 class="h3 pt-4 text-white font-weight-bold text-center">Product List</h1>
     <div class="btn-area text-end mt-4">
       <button
@@ -79,6 +80,7 @@
   <DelModal :item="tempProduct" @del-item="delProduct" @cancel="cancel"/>
   <ProdcutInfo @change-products="changeProducts" :product="tempProduct"/>
   </div>
+</div>
 </template>
 
 <script>

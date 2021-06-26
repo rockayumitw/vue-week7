@@ -1,5 +1,6 @@
 <template>
-  <loading v-model:active="loading" :can-cancel="true" loader="dots"></loading>
+<div>
+    <loading v-model:active="loading" :can-cancel="true" loader="dots"></loading>
   <h1>後台訂單列表</h1>
   <button @click="$store.dispatch('backend/fetchRemoveAllOrder')">刪除全部訂單</button>
   <table class="table mt-4">
@@ -80,6 +81,7 @@
     ref="orderModal"
     @update-paid="updatePaid"></OrderModal>
   <DelModal :item="tempOrder" @del-item="delProduct" @cancel="cancel" />
+</div>
 </template>
 
 <script>

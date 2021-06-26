@@ -1,5 +1,5 @@
 <template>
-    <div>
+  <div class="inner-page">
     <h1>後台頁面</h1>
     <div id="nav">
       <router-link to="/">回到前台</router-link> |

@@ -19,17 +19,19 @@
           <router-link to="/login">
             <span class="material-icons text-5 px-2 cursor-pointer">person</span>
           </router-link>
-          <span class="position-relative" role="button">
-            <span
-            class="unread-message position-absolute top-y-5 left-30
-            translate-middle badge rounded-pill bg-danger text-1">
-              9
-              <span class="visually-hidden">unread messages</span>
+          <router-link to="/cart">
+            <span class="position-relative" role="button">
+              <span
+              class="unread-message position-absolute top-y-5 left-30
+              translate-middle badge rounded-pill bg-danger text-1">
+                9
+                <span class="visually-hidden">unread messages</span>
+              </span>
+              <span class="material-icons text-5 px-2">
+                shopping_cart
+              </span>
             </span>
-            <span class="material-icons text-5 px-2">
-              shopping_cart
-            </span>
-          </span>
+          </router-link>
           <span class="material-icons-outlined text-5 px-2" role="button">bookmark</span>
         </div>
       </div>
