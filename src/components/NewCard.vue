@@ -2,7 +2,7 @@
   <router-link :to="`/new/${article.id}`" class="item-new row bg-white g-0 mb-5">
     <div class="col-12 col-md-4">
       <div class="item-new-image">
-        <img src="/assets/image/product/1.jpg" class="img-fluid" />
+        <img :src="image" class="img-fluid" />
       </div>
     </div>
     <div class="col-12 col-md-8 text-left">
@@ -24,6 +24,11 @@
 <script>
 export default {
   props: ['article'],
+  data() {
+    return {
+      image: './image/product/1.jpg',
+    };
+  },
   mounted() {
     console.log(this.article);
   },

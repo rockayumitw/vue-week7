@@ -124,11 +124,11 @@ export default {
         './slider/4.jpg',
       ],
       hotProductLists: [
-        './img/hotProduct/1.jpg',
-        './img/hotProduct/1.jpg',
-        './img/hotProduct/1.jpg',
-        './img/hotProduct/1.jpg',
-        './img/hotProduct/1.jpg',
+        './image/hotProduct/1.jpg',
+        './image/hotProduct/1.jpg',
+        './image/hotProduct/1.jpg',
+        './image/hotProduct/1.jpg',
+        './image/hotProduct/1.jpg',
       ],
     };
   },

@@ -1,5 +1,6 @@
 <template>
-  <div>購物車頁面</div>
+<div class="inner-page">
+    <div>購物車頁面</div>
   <div class="text-end mb-2">
     <button class="btn btn-primary" type="button">
       清空購物車
@@ -151,6 +152,7 @@
     </Form>
   </div>
   <loading v-model:active="loading" :can-cancel="true" loader="dots"></loading>
+</div>
 </template>
 
 <script>

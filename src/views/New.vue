@@ -1,4 +1,5 @@
 <template>
+<Loading :active="loading" :z-index="1060"></Loading>
 <div class="inner-page">
   <div class="inner-banner"></div>
   <div class="bg-white pb-17">
