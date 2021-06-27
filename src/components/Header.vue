@@ -130,11 +130,7 @@ export default {
   },
   methods: {
     scrollAnimation() {
-      console.log('捲動');
       this.scrollY = window.scrollY;
-      console.log(this.$refs.header.offsetTop);
-      console.log(window.scrollY);
-
       if (window.scrollY > 100) {
         this.isActive = true;
       } else {

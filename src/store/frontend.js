@@ -69,10 +69,11 @@ const moduleA = {
         commit('all/SAVE_LOADING', false, { root: true });
       }).catch((err) => console.log(err.response));
     },
-    async fetchfetchGetProductInfo({ commit }, paylod) { // 前台 -取得購物商品詳細資訊
+    async fetchGetProductInfo({ commit }, paylod) { // 前台 -取得購物商品詳細資訊
       commit('all/SAVE_LOADING', true, { root: true });
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/product/${paylod.id}`;
       await axios.get(url).then((res) => {
+        console.log(res);
         if (res.data.success) {
           commit('SAVE_PRODUCT', res.data.product);
         } else {

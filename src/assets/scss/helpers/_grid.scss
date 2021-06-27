@@ -102,6 +102,7 @@ $font-sizes: (
   8: $font-size-base * 3, // 48
 ) !default;
 
+
 // rwd: 最小寬度
 // example: @include media-max(md){}
 @mixin media-max($breakpoint) {
@@ -367,3 +368,16 @@ $font-sizes: (
         z-index:$item;
     }
 }
+
+// use: text-md-primary
+@each $breakpoint in map-keys($grid-breakpoints) {
+    @each $color, $value in $theme-colors {
+    @include media-breakpoint-up($breakpoint) {
+      $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+        .text#{$infix}-#{$color} {
+         color: $value;
+        }
+      }
+    }
+  }
+  
