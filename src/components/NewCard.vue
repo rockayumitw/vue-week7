@@ -7,7 +7,7 @@
     </div>
     <div class="col-12 col-md-8 text-left">
       <div class="item-new-content py-4 px-9">
-        <small class="d-block text-gray-200 text-1">{{ article.create_at }}</small>
+        <small class="d-block text-gray-200 text-1">{{ $filters.date(article.create_at) }}</small>
         <span class="badge rounded-pill bg-primary mr-1"
         v-for="tag in article.tag" :key="tag">{{tag}}</span>
         <div class="text-5 font-weight-bold">{{ article.title }}</div>

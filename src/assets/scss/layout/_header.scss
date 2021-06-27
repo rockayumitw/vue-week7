@@ -131,6 +131,35 @@
             }
         }
     }
+    // 購物車
+    .cart{
+        &:hover{
+            .cart-list{
+                display: block;
+            }
+        }
+        // 購物清單
+        .cart-list{
+            display: none;
+            width: 400px;
+            right: -100px;
+            .item-cart-list{
+                overflow: auto;
+                max-height: 400px;
+                li{
+                    background: rgba(222,222,222,0.3);
+                }
+            }
+            .item-cart-pic{
+                background: url('../image/bg-hot-product.png');
+                background-size: cover;
+                min-width: 120px;
+                width: 120px;
+                height: 90px;
+                display: block;
+            }
+        }
+    }
 }
 
 // slick

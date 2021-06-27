@@ -18,7 +18,7 @@
         <div class="pl-0 pl-md-9">
           <h3 class="font-weight-bold"> {{ article.title }} </h3>
           <div class="mb-5">
-            <small class="text-gray-200">{{ article.create_at }} / </small>
+            <small class="text-gray-200">{{ $filters.date(article.create_at) }} / </small>
             <small class="text-gray-200">{{ article.author }} / </small>
             <span class="badge rounded-pill bg-primary mr-1"
               v-for="tag in article.tag" :key="tag">

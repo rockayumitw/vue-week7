@@ -21,6 +21,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCoffee, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { faGooglePlus } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { date, currency } from './methods/filter';
 
 // 原始引用
 import App from './App.vue';
@@ -56,18 +57,26 @@ setLocale('zh_TW'); // 設定預設語系
 
 // fontawesome載入
 library.add(faCoffee, faGooglePlus, faSpinner);
+const app = createApp(App);
 
-createApp(App).use(store).use(VueI18n).use(router)
-  .use(bootstrap)
-  .use(VueAxios, axios)
-  .use(VueSweetalert2)
-  .use(VueLoading, {
-    loader: 'dots',
-  })
-  .use(CKEditor)
-  .component('Form', Form)
-  .component('Field', Field)
-  .component('ErrorMessage', ErrorMessage)
-  .component('Loading', VueLoading)
-  .component('font-awesome-icon', FontAwesomeIcon)
-  .mount('#app');
+app.config.globalProperties.$filters = {
+  date,
+  currency,
+};
+
+app.use(store);
+app.use(VueI18n);
+app.use(router);
+app.use(bootstrap);
+app.use(VueAxios, axios);
+app.use(VueSweetalert2);
+app.use(VueLoading, {
+  loader: 'dots',
+});
+app.use(CKEditor);
+app.component('Form', Form);
+app.component('Field', Field);
+app.component('ErrorMessage', ErrorMessage);
+app.component('Loading', VueLoading);
+app.component('font-awesome-icon', FontAwesomeIcon);
+app.mount('#app');

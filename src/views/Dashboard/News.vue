@@ -25,7 +25,7 @@
           <td>{{ article.title }}</td>
           <td>{{ article.author }}</td>
           <td><p v-html="article.description"></p></td>
-          <td>{{ article.create_at }}</td>
+          <td>{{ $filters.date(article.create_at) }}</td>
           <td>
             <span v-if="article.isPublic">已公開</span>
             <span v-else>未公開</span>

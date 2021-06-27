@@ -19,19 +19,50 @@
           <router-link to="/login">
             <span class="material-icons text-5 px-2 cursor-pointer">person</span>
           </router-link>
-          <router-link to="/cart">
-            <span class="position-relative" role="button">
+            <span class="cart position-relative" role="button">
               <span
               class="unread-message position-absolute top-y-5 left-30
               translate-middle badge rounded-pill bg-danger text-1">
                 9
                 <span class="visually-hidden">unread messages</span>
               </span>
+            <router-link to="/cart">
               <span class="material-icons text-5 px-2">
                 shopping_cart
               </span>
+            </router-link>
+            <!--購物車清單-->
+            <div class="cart-list bg-white rounded p-4 position-absolute">
+              <ul class="item-cart-list">
+                <li class="d-flex align-items-center p-2 rounded" v-for="item in 10" :key="item">
+                  <div class="item-cart-pic rounded mr-4"></div>
+                  <div>
+                    <div class="text-4">Faux Sued Ankle Boots</div>
+                    <div class="text-4 text-secondary">$49.99</div>
+                    <div>
+                      <!-- <button class="btn btn-primary">-</button> -->
+                      <input type="number" min="0" class="form-control border-0 w-80">
+                      <!-- <button class="btn btn-primary">+</button> -->
+                    </div>
+                  </div>
+                  <div>
+                    <span class="material-icons text-danger text-6">
+                      delete_forever
+                      </span>
+                  </div>
+                </li>
+              </ul>
+              <hr class="text-gray-100"/>
+              <div class="d-flex justify-content-between mb-3">
+                <span class="text-secondary">總額</span>
+                <span class="text-secondary">$700</span>
+              </div>
+              <div>
+                <a href="/" class="btn btn-primary w-100 text-white">結帳去</a>
+              </div>
+            </div>
+            <!--購物車清單-->
             </span>
-          </router-link>
           <span class="material-icons-outlined text-5 px-2" role="button">bookmark</span>
         </div>
       </div>
