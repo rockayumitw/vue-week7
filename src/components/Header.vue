@@ -1,5 +1,5 @@
 <template>
-<nav ref="header" class="header navbar navbar-expand-lg navbar-light pt-1 pb-0 index-header"
+<nav ref="header" class="header navbar navbar-expand-lg navbar-light pt-0 pt-lg-1 pb-0 index-header"
 :class="{'unpinned': scrolled,'sticky':isActive}">
   <div class="container d-flex d-lg-block p-0">
     <div class="navbar-content d-flex justify-content-between align-items-center">
@@ -67,19 +67,22 @@
         </div>
       </div>
     </div>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+    <button class="navbar-toggler hamburger rounded-0" type="button" data-bs-toggle="collapse"
     data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
     aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+      <!-- <span class="navbar-toggler-icon"></span> -->
+      <i></i>
+      <i></i>
+      <i></i>
     </button>
     <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
       <ul class="navbar-nav">
-        <li class="nav-item">
+        <li class="nav-item text-center">
           <router-link class="nav-link active text-4" aria-current="page" to="/">
             首頁
           </router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item text-center">
           <router-link class="nav-link text-4" to="/products">
             商品列表頁
           </router-link>
@@ -89,7 +92,7 @@
             前台購物車列表頁<span class="material-icons">face</span>
           </router-link>
         </li> -->
-        <li class="nav-item">
+        <li class="nav-item text-center">
           <router-link class="nav-link text-4" to="/News">
             最新消息
           </router-link>

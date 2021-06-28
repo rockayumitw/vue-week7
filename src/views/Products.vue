@@ -1,6 +1,24 @@
 <template>
   <div class="inner-page products">
+    <div class="inner-banner mb-17"></div>
     <h1>產品列表頁面</h1>
+    <div class="mb-3">
+      <button class="btn btn-primary mr-1">全部商品</button>
+      <div class="btn-group mr-1">
+        <button type="button" class="btn btn-primary dropdown-toggle"
+        data-bs-toggle="dropdown" aria-expanded="false">
+          商品分類
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">Action</a></li>
+          <li><a class="dropdown-item" href="#">Another action</a></li>
+          <li><a class="dropdown-item" href="#">Something else here</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="#">Separated link</a></li>
+        </ul>
+      </div>
+      <button class="btn btn-primary mr-1">依價格分類</button>
+    </div>
     <div class="table-box">
       <table class="table align-middle">
         <thead>

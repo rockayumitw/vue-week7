@@ -18,6 +18,8 @@
 @import "~bootstrap";
 
 // 自訂義
+@import '../scss/helpers/animation';
+@import '../scss/helpers/mixin';
 @import "../scss/helpers/grid";
 @import "../scss/layout/header";
 @import "../scss/custome/custome";  // 自訂義樣式

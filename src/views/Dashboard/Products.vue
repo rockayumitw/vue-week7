@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="inner-page">
     <div class="container">
     <h1 class="h3 pt-4 text-white font-weight-bold text-center">Product List</h1>
     <div class="btn-area text-end mt-4">

@@ -38,6 +38,7 @@ ul{
 }
 
 .home, .inner-page{
+    overflow: hidden;
     &:before{
         content: '';
         height: 100px;
