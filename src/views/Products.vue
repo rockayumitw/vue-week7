@@ -2,10 +2,10 @@
   <div class="inner-page products">
     <div class="inner-banner mb-17"></div>
     <h1>產品列表頁面</h1>
-    <div class="mb-3">
-      <button class="btn btn-primary mr-1">全部商品</button>
+    <div class="mb-3 text-center">
+      <button class="btn btn-primary mr-1 text-white">全部商品</button>
       <div class="btn-group mr-1">
-        <button type="button" class="btn btn-primary dropdown-toggle"
+        <button type="button" class="btn btn-primary dropdown-toggle text-white"
         data-bs-toggle="dropdown" aria-expanded="false">
           商品分類
         </button>
@@ -17,8 +17,10 @@
           <li><a class="dropdown-item" href="#">Separated link</a></li>
         </ul>
       </div>
-      <button class="btn btn-primary mr-1">依價格分類</button>
+      <button class="btn btn-primary mr-1 text-white">依價格排序</button>
     </div>
+    <div></div>
+
     <div class="table-box">
       <table class="table align-middle">
         <thead>
