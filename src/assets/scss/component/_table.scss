@@ -1,0 +1,46 @@
+.table {
+    tbody {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 13px;
+    }
+    thead {
+        background: rgba(255, 255, 255, 0.3);
+    }
+    th {
+        color: white;
+        border: 0;
+    }
+    tr {
+        color: white;
+        display: inline-table;
+        width: 100%;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        &:hover{
+            .item-product-pic{
+                transition: .3s;
+                transform: scale(1.2);
+            }
+        }
+    }
+    td {
+        vertical-align: middle;
+    }
+    &.cart-list-table{
+        th{
+            &:nth-child(1){
+                width: 200px;
+                @include media-max(md){
+                    width: 100px;
+                }
+            }
+        }
+        td{
+            &:nth-child(1){
+                width: 200px;
+                @include media-max(md){
+                    width: 100px;
+                }
+            }
+        }
+    }
+}

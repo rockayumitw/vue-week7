@@ -2,77 +2,52 @@
   <div class="inner-page products">
     <div class="inner-banner mb-17"></div>
     <h1>產品列表頁面</h1>
-    <div class="mb-3 text-center">
-      <button class="btn btn-primary mr-1 text-white">全部商品</button>
-      <div class="btn-group mr-1">
-        <button type="button" class="btn btn-primary dropdown-toggle text-white"
-        data-bs-toggle="dropdown" aria-expanded="false">
-          商品分類
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
-          <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="#">Separated link</a></li>
-        </ul>
+    <div class="container">
+      <div class="mb-5 text-center">
+        <button class="btn btn-primary mr-1 text-white">全部商品</button>
+        <div class="btn-group mr-1">
+          <button type="button" class="btn btn-primary dropdown-toggle text-white"
+          data-bs-toggle="dropdown" aria-expanded="false">
+            商品分類
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Separated link</a></li>
+          </ul>
+        </div>
+        <button class="btn btn-primary mr-1 text-white">依價格排序</button>
       </div>
-      <button class="btn btn-primary mr-1 text-white">依價格排序</button>
-    </div>
-    <div></div>
-
-    <div class="table-box">
-      <table class="table align-middle">
-        <thead>
-          <tr>
-            <th width="200">圖片</th>
-            <th width="400">商品名稱</th>
-            <th width="300">價格</th>
-            <th width="200">功能</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(product, index) in productLists" :key="index">
-            <td style="width: 200px">
-              <img
-                v-if="product.imageUrl != ''"
-                width="150"
-                :src="product.imageUrl"
-                alt=""
-              />
-            </td>
-            <td width="400">
-              {{ product.title }}
-            </td>
-            <td width="300">
-              <del class="h6">原價 {{ product.origin_price }} 元</del>
-              <div class="h5">現在只要 {{ product.price }} 元</div>
-            </td>
-            <td width="200">
-              <div class="btn-group btn-group-sm">
-                <button
-                  type="button"
-                  class="btn js-edit"
-                  @click="this.$router.push(`/product/${product.id}`)"
-                >
-                  查看更多
-                </button>
-                <button
-                  type="button"
-                  class="btn js-edit"
-                  @click="addToCart(product.id)"
-                  :disabled="spinner === product.id"
-                >
-                  <!-- <i class="fas fa-spinner fa-pulse"
-                        v-if="addCartSpinner === product.id"></i>
-                        <i class="fas fa-cart-plus" v-else></i> -->
-                  加入購物車
-                </button>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="">
+      <!--商品列表-->
+      <ul class="product-list d-flex flex-wrap justify-content-start">
+        <li class="item-product" v-for="product in productLists" :key="product">
+          <div class="card mb-5 bg-gray-400">
+            <a @click="this.$router.push(`/product/${product.id}`)"
+            href="javascript:;" class="card bg-gray-400" style="width: 16rem;">
+            <div class="overflow-hidden rounded">
+              <div class="item-product-pic _lg"
+            :style="{backgroundImage: 'url('+ product.imageUrl +')'}"></div>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title text-right text-white font-weight-bold">蛋糕 CACK CACK</h5>
+              <p class="card-text text-right text-white">
+                <del>{{ product.origin_price }}</del> |
+                <span>{{product.price}}</span> /
+                <span>{{product.unit}}</span>
+              </p>
+            </div>
+            </a>
+            <div class="body-footer">
+              <a href="javascript:;" class="btn btn-secondary rounded-0 text-white w-100"
+              @click.prevent="addToCart(product.id)" :disabled="spinner === product.id">加入購物車</a>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <!--商品列表-->
       <ul class="pagination justify-content-center">
         <Pagination
           :current-page="pagination.current_page"
@@ -80,6 +55,7 @@
           @change-page="changePage"
         ></Pagination>
       </ul>
+    </div>
     </div>
     <loading v-model:active="loading" :can-cancel="true" loader="dots"></loading>
   </div>

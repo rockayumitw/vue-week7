@@ -1,36 +1,58 @@
 <template>
 <div class="inner-page">
+  <div class="inner-banner mb-17"></div>
     <div>購物車頁面</div>
-  <div class="text-end mb-2">
-    <button class="btn btn-primary" type="button">
-      清空購物車
-      <!--@click="delAllProduct()"-->
-    </button>
-  </div>
-  <div class="table-box">
-    <table class="table align-middle">
+  <div class="table-box container">
+    <div class="text-end mb-2">
+      <button class="btn btn-primary text-white" type="button"
+      @click="$store.dispatch('frontend/fetchRemoveAllProduct')">
+        清空購物車
+        <!--@click="delAllProduct()"-->
+      </button>
+    </div>
+    <table class="table cart-list-table align-middle">
       <thead>
         <tr>
-          <th width="400">品名</th>
-          <th>數量/單位</th>
-          <th class="text-right">單價</th>
-          <th width="100"></th>
+          <th scope="col">商品圖片</th>
+          <th class="text-left" scope="col">商品名稱</th>
+          <th scope="col">數量/單位</th>
+          <th class="text-right" scope="col">小計</th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="item in cartLists.carts" :key="item.id">
-          <td width="400">
-            {{ item.product.title }}
-            <div class="text-success">已套用優惠券</div>
+          <td>
+            <div class="overflow-hidden rounded item-product-box">
+              <div class="item-product-pic _sm"
+            :style="{backgroundImage: 'url('+ item.product.imageUrl +')'}"></div>
+            </div>
           </td>
           <td>
+            <div class="font-weight-bold">{{ item.product.title }}</div>
+            <div class="input-group input-group-sm d-table d-md-none">
+              <input
+                v-model.number="item.qty"
+                min="1"
+                type="number"
+                class="form-control"
+                @blur="this.$store.dispatch('frontend/fetchAddToCart',
+                {product_id: item.product.id,qty: qty})"
+                :disabled="spinner === item.product.id"
+              />
+              <span class="input-group-text" id="basic-addon2">{{
+                item.product.unit
+              }}</span>
+            </div>
+          </td>
+          <td class="d-none d-md-table">
             <div class="input-group input-group-sm">
               <input
                 v-model.number="item.qty"
                 min="1"
                 type="number"
                 class="form-control"
-                @blur="this.$store.dispatch('fetchAddToCart',
+                @blur="this.$store.dispatch('frontend/fetchAddToCart',
                 {product_id: item.product.id,qty: qty})"
                 :disabled="spinner === item.product.id"
               />
@@ -40,8 +62,12 @@
             </div>
           </td>
           <td class="text-end">
-            <small class="text-success">折扣價：</small>
-            {{ item.final_total }}
+            <!-- <small class="text-success">折扣價：</small> -->
+            <del>{{origin_price}}</del> / <span>{{price}}</span>
+            <div>{{ item.final_total }}</div>
+            <span class="material-icons-outlined text-success">
+              confirmation_number
+            </span>
           </td>
           <td class="text-right" width="100">
             <button
@@ -50,9 +76,10 @@
               @click="delSingleProduct(item.id)"
               :disabled="spinner === item.id"
             >
-              <!-- <i class="fas fa-spinner fa-pulse" v-if="delSpinner === item.id"></i>
-              <i class="fas fa-times" v-else></i> -->
-              刪除
+              <span class="material-icons text-danger text-6"
+                role="button">
+                  delete_forever
+              </span>
             </button>
           </td>
         </tr>
@@ -63,8 +90,9 @@
           <td class="text-end">{{ cartLists.total }}</td>
         </tr>
         <tr>
-          <td colspan="4" class="text-end text-success">折扣價</td>
-          <td class="text-end text-success">{{ cartLists.final_total }}</td>
+          <td></td>
+          <!-- <td colspan="4" class="text-end text-success">折扣價</td> -->
+          <!-- <td class="text-end text-success">{{ cartLists.final_total }}</td> -->
         </tr>
       </tfoot>
     </table>
@@ -190,6 +218,7 @@ export default {
     await this.$store.dispatch('frontend/fetchGetCartLists');
   },
   mounted() {
+    console.log(this.cartLists.cart);
     this.$nextTick(() => {
       AOS.init();
     });
@@ -209,9 +238,6 @@ export default {
     async delSingleProduct(id) {
       await this.$store.commit('all/SAVE_SPINNER', id);
       await this.$store.dispatch('frontend/fetchRemoveSingleProduct', id);
-    },
-    async delAllProduct() {
-      await this.$store.dispatch('frontend/fetchRemoveAllProduct');
     },
     async onSubmit() { // 付款訂單
       this.submitSpinner = true;

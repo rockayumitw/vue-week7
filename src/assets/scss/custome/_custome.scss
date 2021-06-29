@@ -215,6 +215,64 @@ ul{
     display: block;
 }
 
+// header-購物車產品列表
+.item-product-pic{
+    &._lg{
+        max-width: 100%;
+        width: 100%;
+        height:250px;
+        overflow: hidden;
+        position: relative;
+        transition: .3s;
+        transform: scale(1);
+        background-size: cover;
+    }
+    &._sm{
+        // max-width: 200px;
+        width: 200px;
+        height:150px;
+        overflow: hidden;
+        position: relative;
+        transition: .3s;
+        transform: scale(1);
+        background-size: cover;
+        @include media-max(md){
+            width: 100px;
+            height: 100px;
+        }
+    }
+}
+
+// 購物車列表
+.card{
+    &:hover{
+        .item-product-pic{
+            transition: .3s;
+            transform: scale(1.2);
+        }
+    }
+}
+
+// 商品列表
+.product-list{
+    .item-product{
+        width: calc(100% / 5);
+        @include media-max(lg){
+            width: calc(100% / 4);
+        }
+        @include media-max(md){
+            width: calc(100% / 3);
+        }
+        @include media-max(sm){
+            width: calc(100% / 2);
+        }
+        
+    }
+}
+
+// 購物車列表
+
+
 @keyframes newsLine {
     0%{
         width: 0%;

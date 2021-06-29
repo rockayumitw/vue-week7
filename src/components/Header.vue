@@ -34,35 +34,46 @@
             <!--購物車清單-->
             <div class="cart-list bg-white rounded p-4 position-absolute">
               <ul class="item-cart-list">
-                <li class="d-flex align-items-center p-2 rounded" v-for="item in 10" :key="item">
-                  <div class="item-cart-pic rounded mr-4"></div>
+                <li class="d-flex align-items-center mb-2 p-2 rounded"
+                v-for="item in cartLists.carts" :key="item">
+                  <div class="item-cart-pic rounded mr-4"
+                  :style="{backgroundImage: 'url('+ item.product.imageUrl +')'}"></div>
                   <div>
-                    <div class="text-4">Faux Sued Ankle Boots</div>
-                    <div class="text-4 text-secondary">$49.99</div>
+                    <div class="text-4">{{item.product.title}}</div>
+                    <div class="text-4 text-secondary">{{item.product.price}}</div>
                     <div>
                       <!-- <button class="btn btn-primary">-</button> -->
-                      <input type="number" min="0" class="form-control border-0 w-80">
+                      <input
+                          v-model.number="item.qty"
+                          min="1"
+                          type="number"
+                          class="form-control"
+                          @blur="this.$store.dispatch('frontend/fetchAddToCart',
+                          {product_id: item.product.id,qty: qty})"
+                          :disabled="spinner === item.product.id"
+                        />
                       <!-- <button class="btn btn-primary">+</button> -->
                     </div>
                   </div>
                   <div>
-                    <span class="material-icons text-danger text-6">
+                    <span class="material-icons text-danger text-6"
+                    role="button" @click="delSingleProduct(item.id)">
                       delete_forever
-                      </span>
+                    </span>
                   </div>
                 </li>
               </ul>
               <hr class="text-gray-100"/>
               <div class="d-flex justify-content-between mb-3">
                 <span class="text-secondary">總額</span>
-                <span class="text-secondary">$700</span>
+                <span class="text-secondary">{{cartLists.final_total}}</span>
               </div>
               <div>
-                <a href="/" class="btn btn-primary w-100 text-white">結帳去</a>
+                <a href="javascript:;" class="btn btn-primary w-100 text-white">結帳去</a>
               </div>
             </div>
             <!--購物車清單-->
-            </span>
+          </span>
           <span class="material-icons-outlined text-5 px-2" role="button">bookmark</span>
         </div>
       </div>
@@ -116,6 +127,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -128,7 +140,18 @@ export default {
       isActive: false,
     };
   },
+  computed: {
+    ...mapGetters({
+      loading: 'all/loading',
+      cartLists: 'frontend/cartLists',
+      spinner: 'all/spinner',
+    }),
+  },
+  async created() {
+    await this.$store.dispatch('frontend/fetchGetCartLists');
+  },
   mounted() {
+    console.log(this.cartLists.cart);
     window.addEventListener('scroll', this.scrollAnimation);
   },
   methods: {
@@ -139,22 +162,11 @@ export default {
       } else {
         this.isActive = false;
       }
-      // if (this.lastPos < window.scrollY && this.stickyPos < window.scrollY) {
-      //   this.isActive = true;
-      // }
-      // if (this.lastPos < window.scrollY && this.limitPos < window.scrollY) {
-      //   if (window.innerWidth < 768) {
-      //     return false;
-      //   }
-      //   this.scrolled = true;
-      // }
-      // if (this.lastPos > window.scrollY) {
-      //   this.scrolled = false;
-      // }
-      // this.lastPos = window.scrollY;
     },
-  },
-  created() {
+    async delSingleProduct(id) {
+      await this.$store.commit('all/SAVE_SPINNER', id);
+      await this.$store.dispatch('frontend/fetchRemoveSingleProduct', id);
+    },
   },
   destory() {
     window.addEventListener('scroll', this.ScrollAnimation);
