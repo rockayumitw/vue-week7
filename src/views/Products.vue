@@ -1,12 +1,12 @@
 <template>
   <div class="inner-page products">
     <div class="inner-banner mb-17"></div>
-    <h1>產品列表頁面</h1>
     <div class="container">
       <div class="mb-5 text-center">
-        <button class="btn btn-primary mr-1 text-white">全部商品</button>
+        <button class="btn btn-secondary mr-1 text-white">全部商品</button>
+        <button class="btn btn-secondary mr-1 text-white">依價格排序</button>
         <div class="btn-group mr-1">
-          <button type="button" class="btn btn-primary dropdown-toggle text-white"
+          <button type="button" class="btn btn-secondary dropdown-toggle text-white"
           data-bs-toggle="dropdown" aria-expanded="false">
             商品分類
           </button>
@@ -18,23 +18,23 @@
             <li><a class="dropdown-item" href="#">Separated link</a></li>
           </ul>
         </div>
-        <button class="btn btn-primary mr-1 text-white">依價格排序</button>
       </div>
       <div class="">
       <!--商品列表-->
-      <ul class="product-list d-flex flex-wrap justify-content-start">
-        <li class="item-product" v-for="product in productLists" :key="product">
-          <div class="card mb-5 bg-gray-400">
+      <ul class="product-list row">
+        <li class="item-product col-6 col-sm-6 col-md-4 col-lg-3"
+        v-for="product in productLists" :key="product">
+          <div class="card mb-5 border-0">
             <a @click="this.$router.push(`/product/${product.id}`)"
-            href="javascript:;" class="card bg-gray-400" style="width: 16rem;">
-            <div class="overflow-hidden rounded">
+            href="javascript:;" class="card border-0 rounded-0">
+            <div class="overflow-hidden">
               <div class="item-product-pic _lg"
             :style="{backgroundImage: 'url('+ product.imageUrl +')'}"></div>
             </div>
             <div class="card-body">
-              <h5 class="card-title text-right text-white font-weight-bold">蛋糕 CACK CACK</h5>
+              <h5 class="card-title text-right text-white font-weight-bold">{{product.title}}</h5>
               <p class="card-text text-right text-white">
-                <del>{{ product.origin_price }}</del> |
+                <del>{{product.origin_price}}</del> |
                 <span>{{product.price}}</span> /
                 <span>{{product.unit}}</span>
               </p>
@@ -82,6 +82,9 @@ export default {
   },
   async created() {
     await this.$store.dispatch('frontend/fetchgetProductLists');
+  },
+  mounted() {
+    console.log(this.productLists);
   },
   methods: {
     async addToCart(productId, qty = 1) {

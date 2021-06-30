@@ -32,6 +32,12 @@
                 @include media-max(md){
                     width: 100px;
                 }
+                @include media-max(sm){
+                    width: 80px;
+                }
+            }
+            &:nth-child(4){
+                width: 60px;
             }
         }
         td{
@@ -40,7 +46,16 @@
                 @include media-max(md){
                     width: 100px;
                 }
+                @include media-max(sm){
+                    width: 80px;
+                }
             }
+            &:nth-child(4){
+                width: 50px;
+            }
+        }
+        .input-group{
+            max-width: 400px;
         }
     }
 }

@@ -1,23 +1,44 @@
 <template>
 <div class="inner-page">
   <div class="inner-banner mb-17"></div>
-    <div>購物車頁面</div>
   <div class="table-box container">
-    <div class="text-end mb-2">
-      <button class="btn btn-primary text-white" type="button"
-      @click="$store.dispatch('frontend/fetchRemoveAllProduct')">
-        清空購物車
-        <!--@click="delAllProduct()"-->
-      </button>
+    <!--步驟化-->
+    <div class="mx-auto w-80 mb-10">
+      <div class="row">
+        <div class="col-3 text-center text-white">
+          <div class="bg-secondary rounded p-2">
+            STEP.1 <br/>
+            確認購物清單
+          </div>
+        </div>
+        <div class="col-3 text-center text-white">
+          <div class="bg-gray-200 rounded p-2">
+            STEP.2<br/>
+            填寫訂購資料
+          </div>
+        </div>
+        <div class="col-3 text-center text-white">
+          <div class="bg-gray-200 rounded p-2">
+            STEP.3<br/>
+            付款
+          </div>
+        </div>
+        <div class="col-3 text-center text-white">
+          <div class="bg-gray-200 rounded p-2">
+            STEP.4<br/>
+            完成訂單
+          </div>
+        </div>
+      </div>
     </div>
+    <!--步驟化-->
     <table class="table cart-list-table align-middle">
       <thead>
         <tr>
-          <th scope="col">商品圖片</th>
-          <th class="text-left" scope="col">商品名稱</th>
-          <th scope="col">數量/單位</th>
+          <th scope="col">圖片</th>
+          <th class="text-left" scope="col">商品名稱/數量</th>
           <th class="text-right" scope="col">小計</th>
-          <th scope="col"></th>
+          <th class="text-right" scope="col">功能</th>
         </tr>
       </thead>
       <tbody>
@@ -29,23 +50,7 @@
             </div>
           </td>
           <td>
-            <div class="font-weight-bold">{{ item.product.title }}</div>
-            <div class="input-group input-group-sm d-table d-md-none">
-              <input
-                v-model.number="item.qty"
-                min="1"
-                type="number"
-                class="form-control"
-                @blur="this.$store.dispatch('frontend/fetchAddToCart',
-                {product_id: item.product.id,qty: qty})"
-                :disabled="spinner === item.product.id"
-              />
-              <span class="input-group-text" id="basic-addon2">{{
-                item.product.unit
-              }}</span>
-            </div>
-          </td>
-          <td class="d-none d-md-table">
+            <div class="font-weight-bold text-3">{{ item.product.title }}</div>
             <div class="input-group input-group-sm">
               <input
                 v-model.number="item.qty"
@@ -61,15 +66,34 @@
               }}</span>
             </div>
           </td>
+          <!-- <td class="d-none d-md-table">
+            <div class="input-group input-group-sm">
+              <input
+                v-model.number="item.qty"
+                min="1"
+                type="number"
+                class="form-control"
+                @blur="this.$store.dispatch('frontend/fetchAddToCart',
+                {product_id: item.product.id,qty: qty})"
+                :disabled="spinner === item.product.id"
+              />
+              <span class="input-group-text" id="basic-addon2">{{
+                item.product.unit
+              }}</span>
+            </div>
+          </td> -->
           <td class="text-end">
             <!-- <small class="text-success">折扣價：</small> -->
-            <del>{{origin_price}}</del> / <span>{{price}}</span>
-            <div>{{ item.final_total }}</div>
-            <span class="material-icons-outlined text-success">
+            <del class="text-1 text-gray-200">
+              {{ $filters.currency(item.product.origin_price) }}
+            </del><br/>
+            <span class="text-3">{{ $filters.currency(item.product.price) }}</span>
+            <div class="text-4">{{ $filters.currency(item.final_total) }}</div>
+            <!-- <span class="material-icons-outlined text-success">
               confirmation_number
-            </span>
+            </span> -->
           </td>
-          <td class="text-right" width="100">
+          <td class="text-right">
             <button
               type="button"
               class="btn js-del btn-sm"
@@ -86,98 +110,64 @@
       </tbody>
       <tfoot>
         <tr>
-          <td colspan="4" class="text-end">總計</td>
-          <td class="text-end">{{ cartLists.total }}</td>
+          <td></td>
+          <td></td>
+          <td class="text-end">總計</td>
+          <td class="text-end">{{ $filters.currency(cartLists.total) }}</td>
         </tr>
         <tr>
           <td></td>
-          <!-- <td colspan="4" class="text-end text-success">折扣價</td> -->
-          <!-- <td class="text-end text-success">{{ cartLists.final_total }}</td> -->
+          <td></td>
+          <td class="text-end">運費</td>
+          <td class="text-end"> +0</td>
+        </tr>
+        <tr>
+          <td class="d-none d-md-table-cell"></td>
+          <td colspan="2"
+          class="text-end text-success d-flex justify-content-end align-items-center">
+            <span class="material-icons-outlined text-success mr-2">
+              confirmation_number
+            </span>
+            <span class="d-none d-md-table-cell mr-2">優惠券折抵</span>
+            <div class="input-group">
+              <input type="text" class="form-control"
+              placeholder="輸入優惠碼"
+              aria-label="輸入優惠碼"
+              aria-describedby="button-addon2"
+              v-model="coupon">
+              <button class="btn btn-outline-secondary"
+              type="button" id="button-addon2" @click="useCoupon">
+                使用優惠券
+              </button>
+            </div>
+          </td>
+          <td class="text-end text-success" width="150">
+            <span>
+              - {{ $filters.currency(Math.round(cartLists.total - cartLists.final_total)) }}</span>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td class="text-end text-primary font-weight-bold">實付金額</td>
+          <td>{{ $filters.currency(Math.round(cartLists.final_total)) }}</td>
         </tr>
       </tfoot>
     </table>
-  </div>
-  <h1 class="text-white text-center pt-5 mt-5">表單</h1>
-  <div class="my-5 row justify-content-center" data-aos="fade-In" data-aos-duration="1000">
-    <Form ref="form" v-slot="{ errors }" class="col-md-6" @submit="onSubmit">
-      <div class="mb-3">
-        <label for="email" class="form-label text-white">Email</label>
-        <Field
-          id="email"
-          name="email"
-          type="email"
-          class="form-control"
-          :class="{ 'is-invalid': errors['email'] }"
-          placeholder="請輸入 Email"
-          rules="email|required"
-          v-model="form.user.email"
-        ></Field>
-        <ErrorMessage name="email" class="invalid-feedback"></ErrorMessage>
+    <div class="row w-100 mx-auto">
+      <div class="col-4">
+        <router-link class="btn btn-gray-200 w-100 text-white" to="/">繼續購物</router-link>
       </div>
-
-      <div class="mb-3">
-        <label for="name" class="form-label text-white">收件人姓名</label>
-        <Field
-          id="name"
-          name="姓名"
-          type="text"
-          class="form-control"
-          :class="{ 'is-invalid': errors['姓名'] }"
-          placeholder="請輸入姓名"
-          rules="required"
-          v-model="form.user.name"
-        ></Field>
-        <ErrorMessage name="姓名" class="invalid-feedback"></ErrorMessage>
+      <div class="col-4">
+        <a href="javascript:;" class="btn btn-danger w-100 text-white"
+        @click="$store.dispatch('frontend/fetchRemoveAllProduct')">清空購物車</a>
       </div>
-
-      <div class="mb-3">
-        <label for="tel" class="form-label text-white">收件人電話</label>
-        <Field
-          id="tel"
-          name="電話"
-          type="text"
-          class="form-control"
-          :class="{ 'is-invalid': errors['電話'] }"
-          placeholder="請輸入電話"
-          rules="required|min:8|max:10"
-          v-model="form.user.tel"
-        ></Field>
-        <ErrorMessage name="電話" class="invalid-feedback"></ErrorMessage>
+      <div class="col-4" v-if="cartAmount>0">
+        <router-link class="btn btn-secondary w-100 text-white" to="/createOrder">
+          前往結帳
+        </router-link>
       </div>
-
-      <div class="mb-3">
-        <label for="address" class="form-label text-white">收件人地址</label>
-        <Field
-          id="address"
-          name="地址"
-          type="text"
-          class="form-control"
-          :class="{ 'is-invalid': errors['地址'] }"
-          placeholder="請輸入地址"
-          rules="required"
-          v-model="form.user.address"
-        ></Field>
-        <ErrorMessage name="地址" class="invalid-feedback"></ErrorMessage>
-      </div>
-
-      <div class="mb-3">
-        <label for="message" class="form-label text-white">留言</label>
-        <textarea
-          name=""
-          id="message"
-          class="form-control"
-          cols="30"
-          rows="10"
-          v-model="form.message"
-        ></textarea>
-      </div>
-      <div class="text-center mb-2">
-        <button type="submit" class="btn btn-primary" :disabled="submitSpinner">
-          <i class="fas fa-spinner fa-pulse" v-if="submitSpinner"></i>
-          <span v-else>送出訂單</span>
-        </button>
-      </div>
-    </Form>
+    </div>
   </div>
   <loading v-model:active="loading" :can-cancel="true" loader="dots"></loading>
 </div>
@@ -192,16 +182,7 @@ export default {
   data() {
     return {
       qty: 1,
-      submitSpinner: false,
-      form: {
-        message: '',
-        user: {
-          email: '',
-          name: '',
-          tel: '',
-          address: '',
-        },
-      },
+      coupon: '',
     };
   },
   computed: {
@@ -209,6 +190,7 @@ export default {
       loading: 'all/loading',
       cartLists: 'frontend/cartLists',
       spinner: 'all/spinner',
+      cartAmount: 'frontend/cartAmount',
     }),
   },
   components: {
@@ -218,7 +200,6 @@ export default {
     await this.$store.dispatch('frontend/fetchGetCartLists');
   },
   mounted() {
-    console.log(this.cartLists.cart);
     this.$nextTick(() => {
       AOS.init();
     });
@@ -239,29 +220,8 @@ export default {
       await this.$store.commit('all/SAVE_SPINNER', id);
       await this.$store.dispatch('frontend/fetchRemoveSingleProduct', id);
     },
-    async onSubmit() { // 付款訂單
-      this.submitSpinner = true;
-      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/order`;
-      await this.axios.post(url, { data: this.form }).then((res) => {
-        this.submitSpinner = false;
-        this.$store.dispatch('frontend/fetchGetCartLists');
-        if (res.data.success) {
-          this.$swal.fire({
-            icon: 'success',
-            title: res.data.message,
-            text: '',
-          });
-          this.initForm();
-        } else {
-          console.log(res.data.message);
-          this.$swal.fire({
-            icon: 'error',
-            title: res.data.message,
-            text: '',
-          });
-          this.initForm();
-        }
-      }).catch((err) => console.log(err.response));
+    async useCoupon() {
+      await this.$store.dispatch('frontend/fetchUseCoupon', this.coupon);
     },
   },
 };

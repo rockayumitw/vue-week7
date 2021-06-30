@@ -7,7 +7,7 @@
       <router-link to="/admin/orders">後台訂單</router-link> |
       <router-link to="/admin/coupons">優惠券列表</router-link> |
       <router-link to="/admin/news">文章列表</router-link> |
-      <a href="#" @click.prevent="signout">登出</a>
+      <a href="#" @click.prevent="signOut">登出</a>
     </div>
     <router-view v-if="authCheck"></router-view>
   </div>

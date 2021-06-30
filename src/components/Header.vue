@@ -22,8 +22,8 @@
             <span class="cart position-relative" role="button">
               <span
               class="unread-message position-absolute top-y-5 left-30
-              translate-middle badge rounded-pill bg-danger text-1">
-                9
+              translate-middle badge rounded-pill bg-danger text-1" v-if="cartAmount > 0">
+                {{cartAmount}}
                 <span class="visually-hidden">unread messages</span>
               </span>
             <router-link to="/cart">
@@ -33,43 +33,58 @@
             </router-link>
             <!--購物車清單-->
             <div class="cart-list bg-white rounded p-4 position-absolute">
-              <ul class="item-cart-list">
-                <li class="d-flex align-items-center mb-2 p-2 rounded"
-                v-for="item in cartLists.carts" :key="item">
-                  <div class="item-cart-pic rounded mr-4"
-                  :style="{backgroundImage: 'url('+ item.product.imageUrl +')'}"></div>
-                  <div>
-                    <div class="text-4">{{item.product.title}}</div>
-                    <div class="text-4 text-secondary">{{item.product.price}}</div>
+              <div v-if="cartAmount > 0">
+                <ul class="item-cart-list">
+                  <li class="d-flex align-items-center mb-2 p-2 rounded"
+                  v-for="item in cartLists.carts" :key="item">
+                    <div class="item-cart-pic rounded mr-4"
+                    :style="{backgroundImage: 'url('+ item.product.imageUrl +')'}"></div>
                     <div>
-                      <!-- <button class="btn btn-primary">-</button> -->
-                      <input
-                          v-model.number="item.qty"
-                          min="1"
-                          type="number"
-                          class="form-control"
-                          @blur="this.$store.dispatch('frontend/fetchAddToCart',
-                          {product_id: item.product.id,qty: qty})"
-                          :disabled="spinner === item.product.id"
-                        />
-                      <!-- <button class="btn btn-primary">+</button> -->
+                      <div class="text-4">{{item.product.title}}</div>
+                      <div class="text-4 text-secondary">
+                        {{$filters.currency(item.product.price)}}
+                      </div>
+                      <div>
+                        <!-- <button class="btn btn-primary">-</button> -->
+                        <input
+                            v-model.number="item.qty"
+                            min="1"
+                            type="number"
+                            class="form-control"
+                            @blur="this.$store.dispatch('frontend/fetchAddToCart',
+                            {product_id: item.product.id,qty: item.qty})"
+                            :disabled="spinner === item.product.id"
+                          />
+                        <!-- <button class="btn btn-primary">+</button> -->
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <span class="material-icons text-danger text-6"
-                    role="button" @click="delSingleProduct(item.id)">
-                      delete_forever
-                    </span>
-                  </div>
-                </li>
-              </ul>
-              <hr class="text-gray-100"/>
-              <div class="d-flex justify-content-between mb-3">
-                <span class="text-secondary">總額</span>
-                <span class="text-secondary">{{cartLists.final_total}}</span>
+                    <div>
+                      <span class="material-icons text-danger text-6"
+                      role="button" @click="delSingleProduct(item.id)">
+                        delete_forever
+                      </span>
+                    </div>
+                  </li>
+                </ul>
+                <hr class="text-gray-100"/>
+                <div class="d-flex justify-content-between mb-3">
+                  <span class="text-secondary">總額</span>
+                  <span class="text-secondary">{{$filters.currency(cartLists.final_total)}}</span>
+                </div>
+                <div>
+                  <router-link to="/cart" href="javascript:;"
+                  class="btn btn-primary w-100 text-white">
+                    結帳去
+                  </router-link>
+                </div>
               </div>
-              <div>
-                <a href="javascript:;" class="btn btn-primary w-100 text-white">結帳去</a>
+              <div class="text-center" v-else>
+                <div class="p-5">
+                  <p>您的購物車是空的</p>
+                  <router-link to="/products" class="btn btn-primary text-white">
+                    前往瀏覽商品
+                  </router-link>
+                </div>
               </div>
             </div>
             <!--購物車清單-->
@@ -138,12 +153,14 @@ export default {
       lastPos: 0,
       sm_width: 767,
       isActive: false,
+      qty: 1,
     };
   },
   computed: {
     ...mapGetters({
       loading: 'all/loading',
       cartLists: 'frontend/cartLists',
+      cartAmount: 'frontend/cartAmount',
       spinner: 'all/spinner',
     }),
   },
@@ -151,7 +168,6 @@ export default {
     await this.$store.dispatch('frontend/fetchGetCartLists');
   },
   mounted() {
-    console.log(this.cartLists.cart);
     window.addEventListener('scroll', this.scrollAnimation);
   },
   methods: {
