@@ -1,6 +1,6 @@
 <template>
 <div class="inner-page">
-  <div class="inner-banner mb-17"></div>
+  <InnerBanner :msg="msg" />
   <div class="table-box container">
     <!--步驟化-->
     <div class="mx-auto w-80 mb-10">
@@ -38,7 +38,7 @@
           <th scope="col">圖片</th>
           <th class="text-left" scope="col">商品名稱/數量</th>
           <th class="text-right" scope="col">小計</th>
-          <th class="text-right" scope="col">功能</th>
+          <th class="text-right" scope="col" width="60">功能</th>
         </tr>
       </thead>
       <tbody>
@@ -93,7 +93,7 @@
               confirmation_number
             </span> -->
           </td>
-          <td class="text-right">
+          <td class="text-right"  width="60">
             <button
               type="button"
               class="btn js-del btn-sm"
@@ -113,13 +113,13 @@
           <td></td>
           <td></td>
           <td class="text-end">總計</td>
-          <td class="text-end">{{ $filters.currency(cartLists.total) }}</td>
+          <td class="text-end" width="100">{{ $filters.currency(cartLists.total) }}</td>
         </tr>
         <tr>
           <td></td>
           <td></td>
           <td class="text-end">運費</td>
-          <td class="text-end"> +0</td>
+          <td class="text-end" width="100"> +0</td>
         </tr>
         <tr>
           <td class="d-none d-md-table-cell"></td>
@@ -137,11 +137,11 @@
               v-model="coupon">
               <button class="btn btn-outline-secondary"
               type="button" id="button-addon2" @click="useCoupon">
-                使用優惠券
+                送出
               </button>
             </div>
           </td>
-          <td class="text-end text-success" width="150">
+          <td class="text-end text-success" width="100">
             <span>
               - {{ $filters.currency(Math.round(cartLists.total - cartLists.final_total)) }}</span>
           </td>
@@ -150,20 +150,26 @@
           <td></td>
           <td></td>
           <td class="text-end text-primary font-weight-bold">實付金額</td>
-          <td>{{ $filters.currency(Math.round(cartLists.final_total)) }}</td>
+          <td class="text-right" width="100">
+            {{ $filters.currency(Math.round(cartLists.final_total)) }}
+          </td>
         </tr>
       </tfoot>
     </table>
-    <div class="row w-100 mx-auto">
+    <div class="row w-100 mx-auto gx-0">
       <div class="col-4">
-        <router-link class="btn btn-gray-200 w-100 text-white" to="/products">繼續購物</router-link>
+        <router-link
+        class="btn btn-gray-200 w-100 text-white rounded-0" to="/products">
+          繼續購物
+        </router-link>
       </div>
       <div class="col-4">
-        <a v-if="cartAmount > 0" href="javascript:;" class="btn btn-danger w-100 text-white"
+        <a v-if="cartAmount > 0" href="javascript:;"
+          class="btn btn-danger w-100 text-white rounded-0"
         @click="$store.dispatch('frontend/fetchRemoveAllProduct')">清空購物車</a>
       </div>
       <div class="col-4" v-if="cartAmount>0">
-        <router-link class="btn btn-secondary w-100 text-white" to="/createOrder">
+        <router-link class="btn btn-secondary w-100 text-white rounded-0" to="/createOrder">
           前往結帳
         </router-link>
       </div>
@@ -175,12 +181,17 @@
 <script>
 import AOS from 'aos';
 import { mapGetters } from 'vuex';
+import InnerBanner from '@/components/InnerBanner.vue';
 
 export default {
+  components: {
+    InnerBanner,
+  },
   data() {
     return {
       qty: 1,
       coupon: '',
+      msg: '確認購物清單',
     };
   },
   computed: {

@@ -45,9 +45,6 @@
                     width: 80px;
                 }
             }
-            &:nth-child(4){
-                width: 60px;
-            }
         }
         td{
             &:nth-child(1){
@@ -58,9 +55,6 @@
                 @include media-max(sm){
                     width: 80px;
                 }
-            }
-            &:nth-child(4){
-                width: 50px;
             }
         }
         .input-group{

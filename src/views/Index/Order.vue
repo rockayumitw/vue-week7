@@ -1,6 +1,6 @@
 <template>
 <div class="inner-page">
-  <div class="inner-banner mb-17"></div>
+  <InnerBanner :msg="msg" />
   <div class="table-box container">
     <!--步驟化-->
     <div class="mx-auto w-80 mb-10">
@@ -37,9 +37,9 @@
       <thead>
         <tr>
           <th scope="col">圖片</th>
-          <th class="text-left" scope="col">商品名稱/</th>
-          <th>數量</th>
-          <th class="text-right" scope="col">小計</th>
+          <th class="text-left" scope="col">商品名稱</th>
+          <th width="80">數量</th>
+          <th width="80" class="text-right" scope="col">小計</th>
         </tr>
       </thead>
       <tbody>
@@ -51,12 +51,12 @@
             </div>
           </td>
           <td><div class="font-weight-bold text-3">{{ item.product.title }}</div></td>
-          <td>
+          <td width="80" >
             <div class="input-group input-group-sm">
               {{item.qty}} / {{item.product.unit}}
             </div>
           </td>
-          <td class="text-end">
+          <td class="text-end" width="80" >
             <del class="text-1 text-gray-200">
               {{ $filters.currency(item.product.origin_price) }}
             </del><br/>
@@ -127,10 +127,15 @@
 <script>
 import AOS from 'aos';
 import { mapGetters } from 'vuex';
+import InnerBanner from '@/components/InnerBanner.vue';
 
 export default {
+  components: {
+    InnerBanner,
+  },
   data() {
     return {
+      msg: '確認訂單資料',
     };
   },
   computed: {
