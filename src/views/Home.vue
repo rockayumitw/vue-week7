@@ -1,9 +1,7 @@
 <template>
     <Header />
-    <loading
-    v-model:active="loading"
-    :can-cancel="true"
-    loader="dots"></loading>
+    <loading v-model:active="loading" loader="dots"
+    :can-cancel="true"></loading>
       <router-view/>
     <Footer />
 </template>

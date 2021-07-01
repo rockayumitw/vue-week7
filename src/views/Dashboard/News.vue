@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Loading :active="loading" :z-index="1060"></Loading>
     <div class="inner-banner mb-17">
       <InnerBanner :msg="msg" />
     </div>
@@ -88,7 +87,6 @@ export default {
   computed: {
     ...mapGetters({
       articleLists: 'backend/articleLists',
-      loading: 'all/loading',
     }),
   },
   async created() {

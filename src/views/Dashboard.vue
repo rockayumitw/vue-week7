@@ -1,5 +1,7 @@
 <template>
   <Header />
+  <loading v-model:active="loading" loader="dots"
+    :can-cancel="true"></loading>
   <div class="inner-page">
     <router-view v-if="authCheck"></router-view>
   </div>
@@ -9,11 +11,19 @@
 <script>
 import Header from '@/components/backend/Header.vue';
 import Footer from '@/components/Footer.vue';
+import Loading from 'vue-loading-overlay';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
     Header,
     Footer,
+    Loading,
+  },
+  computed: {
+    ...mapGetters({
+      loading: 'all/loading',
+    }),
   },
   data() {
     return {

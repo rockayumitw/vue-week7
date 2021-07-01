@@ -75,7 +75,6 @@
         ></Pagination>
       </ul>
     </div>
-  <loading v-model:active="loading" :can-cancel="true" loader="dots"></loading>
   <DelModal :item="tempProduct" @del-item="delProduct" @cancel="cancel"/>
   <ProdcutInfo @change-products="changeProducts" :product="tempProduct"/>
 </div>
@@ -84,7 +83,6 @@
 <script>
 import Pagination from '@/components/Pagination.vue';
 import { mapGetters } from 'vuex';
-import Loading from 'vue-loading-overlay';
 import DelModal from '@/components/modal/DelModal.vue';
 import ProdcutInfo from '@/components/modal/ProductInfo.vue';
 import InnerBanner from '@/components/InnerBanner.vue';
@@ -93,14 +91,12 @@ export default {
   props: ['token'],
   components: {
     Pagination,
-    Loading,
     DelModal,
     ProdcutInfo,
     InnerBanner,
   },
   computed: {
     ...mapGetters({
-      loading: 'all/loading',
       product: 'backend/product',
       pagination: 'backend/pagination',
       productLists: 'backend/productLists',

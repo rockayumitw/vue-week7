@@ -1,7 +1,6 @@
 <template>
   <div class="inner-page">
     <div class="container mt-5">
-      <loading v-model:active="loading" :can-cancel="true" loader="dots"></loading>
       <form class="row justify-content-center" @submit.prevent="login">
         <div class="col-md-6">
           <h1 class="h3 mb-3 font-weight-normal">請先登入</h1>
@@ -25,7 +24,6 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import Loading from 'vue-loading-overlay';
 
 export default {
   data() {
@@ -35,14 +33,6 @@ export default {
         password: '',
       },
     };
-  },
-  components: {
-    Loading,
-  },
-  computed: {
-    ...mapGetters({
-      loading: 'all/loading',
-    }),
   },
   methods: {
     async login() {

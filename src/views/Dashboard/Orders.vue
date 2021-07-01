@@ -1,7 +1,6 @@
 <template>
 <div>
   <InnerBanner :msg="msg" />
-  <loading v-model:active="loading" :can-cancel="true" loader="dots"></loading>
   <button class="btn btn-secondary float-end mb-5 text-white"
     @click="$store.dispatch('backend/fetchRemoveAllOrder')">
     刪除全部訂單
@@ -109,7 +108,6 @@ export default {
   },
   computed: {
     ...mapGetters({
-      loading: 'all/loading',
       pagination: 'backend/pagination',
       orderLists: 'backend/orderLists',
     }),

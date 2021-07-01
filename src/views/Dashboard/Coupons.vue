@@ -1,6 +1,5 @@
 <template>
   <div>
-    <loading :active="loading" :z-index="1060"/>
     <InnerBanner :msg="msg" />
     <div class="text-end mt-4">
       <button class="btn btn-primary"
@@ -85,7 +84,6 @@ export default {
   },
   computed: {
     ...mapGetters({
-      loading: 'all/loading',
       couponLists: 'backend/couponLists',
       pagination: 'backend/pagination',
     }),
