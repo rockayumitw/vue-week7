@@ -1,10 +1,10 @@
 <template>
-<div class="inner-page">
-    <div class="container">
+<div class="inner-banner mb-17"></div>
+<div class="container">
     <h1 class="h3 pt-4 text-white font-weight-bold text-center">Product List</h1>
     <div class="btn-area text-end mt-4">
       <button
-        class="btn btn-primary font-weight-bold mr-5"
+        class="btn btn-secondary font-weight-bold float-end mb-5 text-white"
         data-bs-toggle="modal"
         data-bs-target="#productModal"
       >
@@ -79,7 +79,6 @@
   <loading v-model:active="loading" :can-cancel="true" loader="dots"></loading>
   <DelModal :item="tempProduct" @del-item="delProduct" @cancel="cancel"/>
   <ProdcutInfo @change-products="changeProducts" :product="tempProduct"/>
-  </div>
 </div>
 </template>
 

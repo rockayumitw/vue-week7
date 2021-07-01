@@ -1,22 +1,13 @@
 <template>
   <Header />
   <div class="inner-page">
-    <h1>後台頁面</h1>
-    <div id="nav" class="text-center">
-      <router-link to="/home">回到前台</router-link> |
-      <router-link to="/admin/products">後台產品列表</router-link> |
-      <router-link to="/admin/orders">後台訂單</router-link> |
-      <router-link to="/admin/coupons">優惠券列表</router-link> |
-      <router-link to="/admin/news">文章列表</router-link> |
-      <a href="#" @click.prevent="signOut">登出</a>
-    </div>
     <router-view v-if="authCheck"></router-view>
   </div>
   <Footer />
 </template>
 
 <script>
-import Header from '@/components/Header.vue';
+import Header from '@/components/backend/Header.vue';
 import Footer from '@/components/Footer.vue';
 
 export default {

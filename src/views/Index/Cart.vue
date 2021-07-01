@@ -156,10 +156,10 @@
     </table>
     <div class="row w-100 mx-auto">
       <div class="col-4">
-        <router-link class="btn btn-gray-200 w-100 text-white" to="/">繼續購物</router-link>
+        <router-link class="btn btn-gray-200 w-100 text-white" to="/products">繼續購物</router-link>
       </div>
       <div class="col-4">
-        <a href="javascript:;" class="btn btn-danger w-100 text-white"
+        <a v-if="cartAmount > 0" href="javascript:;" class="btn btn-danger w-100 text-white"
         @click="$store.dispatch('frontend/fetchRemoveAllProduct')">清空購物車</a>
       </div>
       <div class="col-4" v-if="cartAmount>0">

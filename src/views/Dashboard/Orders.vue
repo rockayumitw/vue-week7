@@ -1,8 +1,11 @@
 <template>
 <div>
-    <loading v-model:active="loading" :can-cancel="true" loader="dots"></loading>
-  <h1>後台訂單列表</h1>
-  <button @click="$store.dispatch('backend/fetchRemoveAllOrder')">刪除全部訂單</button>
+  <div class="inner-banner mb-17"></div>
+  <loading v-model:active="loading" :can-cancel="true" loader="dots"></loading>
+  <button class="btn btn-secondary float-end mb-5 text-white"
+    @click="$store.dispatch('backend/fetchRemoveAllOrder')">
+    刪除全部訂單
+  </button>
   <table class="table mt-4">
     <thead>
       <tr>

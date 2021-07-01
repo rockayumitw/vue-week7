@@ -43,6 +43,9 @@ ul{
         content: '';
         height: 100px;
         display: block;
+        @include media-max(lg){
+            height: 60px;
+        }
     }
 }
 

@@ -1,6 +1,7 @@
 <template>
   <div>
     <Loading :active="loading" :z-index="1060"></Loading>
+    <div class="inner-banner mb-17"></div>
     <div class="text-end mt-4">
       <button class="btn btn-primary"
       type="button"

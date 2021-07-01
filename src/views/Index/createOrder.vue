@@ -183,14 +183,14 @@
         ></textarea>
       </div>
       <div class="row w-100 mx-auto">
-      <div class="col-4">
+      <div class="col-6">
         <router-link class="btn btn-gray-200 w-100 text-white" to="/Cart">返回確認清單</router-link>
       </div>
-      <div class="col-4">
-        <a href="javascript:;" class="btn btn-danger w-100 text-white"
+      <!-- <div class="col-4">
+        <a v-if="cartAmount > 0" href="javascript:;" class="btn btn-danger w-100 text-white"
         @click="$store.dispatch('frontend/fetchRemoveAllProduct')">清空購物車</a>
-      </div>
-      <div class="col-4">
+      </div> -->
+      <div class="col-6">
         <!-- <router-link class="btn btn-secondary w-100 text-white"
         to="/createOrder">前往結帳</router-link> -->
         <button type="submit" class="btn btn-secondary w-100 text-white"
@@ -235,6 +235,7 @@ export default {
       cartLists: 'frontend/cartLists',
       spinner: 'all/spinner',
     }),
+    cartAmount: 'frontend/cartAmount',
   },
   components: {
     Loading,
