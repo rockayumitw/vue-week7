@@ -20,11 +20,10 @@
     }
     tr {
         color: white;
-        display: inline-table;
-        width: 100%;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: .3s;
         &:hover{
-            background: rgba(0,0,0,0.5);
+            transition: .3s;
+            background: $gray-400;
             .item-product-pic{
                 transition: .3s;
                 transform: scale(1.2);

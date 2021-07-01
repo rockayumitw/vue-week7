@@ -1,6 +1,6 @@
 <template>
   <div class="inner-page products">
-    <div class="inner-banner mb-17"></div>
+    <InnerBanner :msg="msg" />
     <div class="container">
       <div class="mb-5 text-center">
         <button class="btn btn-secondary mr-1 text-white">全部商品</button>
@@ -34,8 +34,8 @@
             <div class="card-body">
               <h5 class="card-title text-right text-white font-weight-bold">{{product.title}}</h5>
               <p class="card-text text-right text-white">
-                <del>{{product.origin_price}}</del> |
-                <span>{{product.price}}</span> /
+                <del>{{$filters.currency(product.origin_price)}}</del> |
+                <span>{{$filters.currency(product.price)}}</span> /
                 <span>{{product.unit}}</span>
               </p>
             </div>
@@ -63,10 +63,17 @@
 <script>
 import Pagination from '@/components/Pagination.vue';
 import { mapGetters } from 'vuex';
+import InnerBanner from '@/components/InnerBanner.vue';
 
 export default {
   components: {
     Pagination,
+    InnerBanner,
+  },
+  data() {
+    return {
+      msg: '商品列表',
+    };
   },
   computed: {
     ...mapGetters({

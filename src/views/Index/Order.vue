@@ -70,7 +70,7 @@
           <td></td>
           <td></td>
           <td class="text-end text-primary font-weight-bold">實付金額</td>
-          <td>{{ $filters.currency(order.total) }}</td>
+          <td class="text-right">{{ $filters.currency(order.total) }}</td>
         </tr>
       </tfoot>
     </table>
