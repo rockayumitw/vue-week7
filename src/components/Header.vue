@@ -104,7 +104,7 @@
     <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item text-center">
-          <router-link class="nav-link active text-4" aria-current="page" to="/">
+          <router-link class="nav-link active text-4" aria-current="page" to="/home">
             首頁
           </router-link>
         </li>
