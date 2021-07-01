@@ -1,51 +1,61 @@
 <template>
-  <div>
-    <InnerBanner :msg="msg" />
+<InnerBanner :msg="msg" />
+  <div class="container">
     <div class="text-end mt-4">
-      <button class="btn btn-primary"
+      <button class="btn btn-secondary text-white mb-2"
       type="button"
       data-bs-toggle="modal"
       data-bs-target="#couponModal">
         建立新的優惠券
       </button>
     </div>
-    <table class="table mt-4">
-      <thead>
-      <tr>
-        <th>名稱</th>
-        <th>折扣百分比</th>
-        <th>到期日</th>
-        <th>是否啟用</th>
-        <th>編輯</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="(item, key) in couponLists" :key="key">
-        <td>{{ item.title }}</td>
-        <td>{{ item.percent }}%</td>
-        <td>{{ item.due_date }}</td>
-        <td>
-          <span v-if="item.is_enabled === 1" class="text-success">啟用</span>
-          <span v-else class="text-muted">未啟用</span>
-        </td>
-        <td>
-          <div class="btn-group">
-            <button
-            class="btn btn-outline-primary btn-sm"
-            data-bs-toggle="modal"
-            data-bs-target="#couponModal"
-            @click="tempCouponObj(item)"
-            >編輯</button>
-            <button class="btn btn-outline-danger btn-sm"
-            data-bs-toggle="modal"
-            data-bs-target="#delModal"
-                    @click="tempCouponObj(item)"
-            >刪除</button>
-          </div>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+    <div class="table">
+      <div class="table-thead row text-white w-100 py-3 align-items-center gx-1">
+        <div class="col-3">名稱</div>
+        <div class="col-2 text-center">
+          折扣
+        </div>
+        <div class="col-3 text-center">到期日</div>
+        <div class="col-2 text-center">
+          狀態
+        </div>
+        <div class="col-2 text-center">編輯</div>
+      </div>
+      <div class="table-tr row text-white w-100 align-items-center py-3 align-items-center gx-1"
+      v-for="(item, key) in couponLists" :key="key">
+        <div class="col-3">{{ item.title }}</div>
+        <div class="col-2 text-center">{{ item.percent }}%</div>
+        <div class="col-3 text-center">{{ $filters.date(item.due_date) }}</div>
+        <div class="col-2 text-center">
+          <span v-if="item.is_enabled === 1" class="text-success">
+            <span class="material-icons">toggle_on</span>
+          </span>
+          <span v-else class="text-muted">
+            <span class="material-icons">toggle_on</span>
+          </span>
+        </div>
+        <div class="col-2 text-center">
+          <div class="btn-group p-0 p-md-1">
+              <button
+              class="btn btn-outline-primary btn-sm"
+              data-bs-toggle="modal"
+              data-bs-target="#couponModal"
+              @click="tempCouponObj(item)"
+              >
+                <span class="material-icons text-3">edit</span>
+              </button>
+              <button class="btn btn-outline-danger btn-sm"
+              data-bs-toggle="modal"
+              data-bs-target="#delModal"
+                      @click="tempCouponObj(item)"
+              >
+              <span class="material-icons text-3">delete</span>
+              </button>
+            </div>
+        </div>
+      </div>
+    </div>
+
     <ul class="pagination justify-content-center">
         <Pagination
           :current-page="pagination.current_page"
@@ -99,7 +109,7 @@ export default {
       await this.$store.dispatch('backend/fetchChangeCoupons', tempCoupon);
     },
     async delCoupon(coupon) {
-      await this.$store.dispatch('backend/fetchRemoveSingleCoupon', coupon.id);
+      await this.$store.dispatch('backend/fetchRemoveSingleCoupon', coupon);
     },
   },
 };

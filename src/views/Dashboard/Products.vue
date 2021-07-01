@@ -7,66 +7,76 @@
         data-bs-toggle="modal"
         data-bs-target="#productModal"
       >
-        ADD NEW PRODUCT
+        新增產品
       </button>
     </div>
-    <div class="table-box">
-      <table class="table mt-4">
-        <thead>
-          <tr>
-            <th class="text-left" width="150">CATEGORY</th>
-            <th>PRODUCTNAME</th>
-            <th class="text-right" width="150">ORIGINPRICE</th>
-            <th class="text-right" width="150">PRICE</th>
-            <th class="text-center" width="120">ENABLE</th>
-          </tr>
-        </thead>
-        <tbody id="productList" class="js-productList">
-          <tr v-for="(product, key) in productLists" :key="key">
-            <td class="text-left" width="150">{{ product.category }}</td>
-            <td>
-              <div>{{ product.title }}</div>
-              <img
-                v-if="product.imageUrl != ''"
-                width="150"
-                :src="product.imageUrl"
-                alt=""
-              />
-            </td>
-            <td class="text-end" width="150">{{ product.origin_price }}</td>
-            <td class="text-end" width="150">{{ product.price }}</td>
-            <td class="text-center" width="120">
-              <span class="text-center" v-if="product.is_enabled">啟用</span>
-              <span class="text-center" v-else>未啟用</span>
-            </td>
-            <td width="120" class="text-center">
-              <div class="btn-group">
+
+    <div class="table">
+      <div class="table-thead row text-white w-100 py-3 align-items-center gx-1">
+        <div class="col-2">類別</div>
+        <div class="col-4 col-md-2">產品名稱</div>
+        <div class="col-2 d-none d-md-block">產品圖片</div>
+        <div class="col-2 text-right">價格</div>
+        <div class="col-2 text-center">狀態</div>
+        <div class="col-2 text-center">功能</div>
+      </div>
+      <div class="table-tr row text-white w-100 align-items-center py-3 align-items-center gx-1"
+      v-for="(product, key) in productLists" :key="key">
+
+        <div class="col-2">{{ product.category}}</div>
+        <div class="col-4 col-md-2">
+          <span class="d-block">{{ product.title }}</span>
+          <img class="d-block d-md-none"
+            v-if="product.imageUrl != ''"
+            width="80"
+            :src="product.imageUrl"
+            alt=""
+          />
+        </div>
+        <div class="col-2 d-none d-md-block">
+          <img
+            v-if="product.imageUrl != ''"
+            width="150"
+            :src="product.imageUrl"
+            alt=""
+          />
+        </div>
+        <div class="col-2 text-right">
+          <del class="text-1 text-gray-200 p-0 d-block" v-if="product.origin_price">
+            {{ $filters.currency(product.origin_price) }}
+          </del>
+          <span class="p-0">{{ $filters.currency(product.price) }}</span>
+        </div>
+        <div class="col-2 text-center">
+          <span class="material-icons text-success" v-if="product.is_enabled">toggle_on</span>
+          <span class="material-icons" v-else>toggle_off</span>
+        </div>
+        <div class="col-2 text-center">
+          <div class="btn-group p-0 p-md-1">
                 <button
                   type="button"
-                  class="btn btn-sm js-edit"
+                  class="btn btn-sm btn-outline-primary"
                   @click="getProduct(product)"
                   data-bs-toggle="modal"
                   data-bs-target="#productModal"
                 >
-                  <!-- <i class="fas fa-edit"></i> -->
-                  編輯
+                  <span class="material-icons text-3">edit</span>
                 </button>
                 <button
                   type="button"
-                  class="btn btn-sm js-del"
+                  class="btn btn-sm btn-outline-danger"
                   data-bs-toggle="modal"
                   data-bs-target="#delModal"
                   @click="getProduct(product)"
                 >
-                  <!-- <i class="far fa-trash-alt"></i> -->
-                  刪除
+                  <span class="material-icons text-3">delete</span>
                 </button>
               </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <ul class="pagination justify-content-center">
+        </div>
+      </div>
+    </div>
+
+    <ul class="pagination justify-content-center">
         <Pagination
           :current-page="pagination.current_page"
           :total-page="pagination.total_pages"
@@ -74,7 +84,7 @@
           v-if="productLists.length > 1"
         ></Pagination>
       </ul>
-    </div>
+
   <DelModal :item="tempProduct" @del-item="delProduct" @cancel="cancel"/>
   <ProdcutInfo @change-products="changeProducts" :product="tempProduct"/>
 </div>

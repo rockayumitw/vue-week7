@@ -3,12 +3,20 @@
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         font-size: 13px;
     }
-    thead {
+    thead, .table-thead {
         background: rgba(255, 255, 255, 0.3);
     }
     th {
         color: white;
         border: 0;
+    }
+    .table-tr {
+        transition: .3s;
+        border-bottom: 1px solid $gray-400;
+        &:hover{
+            transition: .3s;
+            background: $gray-400;
+        }
     }
     tr {
         color: white;
@@ -16,6 +24,7 @@
         width: 100%;
         border: 1px solid rgba(255, 255, 255, 0.1);
         &:hover{
+            background: rgba(0,0,0,0.5);
             .item-product-pic{
                 transition: .3s;
                 transform: scale(1.2);

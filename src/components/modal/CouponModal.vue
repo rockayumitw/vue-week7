@@ -6,12 +6,12 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">
-            <span v-if="tempCoupon.id">新增優惠卷</span>
-            <span v-else>編輯優惠卷</span>
-          </h5>
+          <h4 class="modal-title font-weight-bold" id="exampleModalLabel">
+            <span v-if="tempCoupon.id">編輯優惠卷</span>
+            <span v-else>新增優惠卷</span>
+          </h4>
           <button type="button" class="btn-close"
-                  data-bs-dismiss="modal" aria-label="Close"></button>
+            data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <div class="mb-3">
@@ -48,9 +48,9 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                  @click="$emit('update-coupon', tempCoupon), init()">更新優惠券
+          <button type="button" class="btn btn-gray-100" data-bs-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-secondary text-white" data-bs-dismiss="modal"
+                  @click="$emit('update-coupon', tempCoupon), init()">確定
           </button>
         </div>
       </div>

@@ -2,51 +2,56 @@
 <div>
   <InnerBanner :msg="msg" />
   <button class="btn btn-secondary float-end mb-5 text-white"
-    @click="$store.dispatch('backend/fetchRemoveAllOrder')">
+    @click="$store.dispatch('backend/fetchRemoveAllOrder')" v-if="orderLists.length > 0">
     刪除全部訂單
   </button>
-  <table class="table mt-4">
-    <thead>
-      <tr>
-        <th>購買時間</th>
-        <th>Email</th>
-        <th>購買款項</th>
-        <th>應付金額</th>
-        <th>是否付款</th>
-        <th>編輯</th>
-      </tr>
-    </thead>
-    <tbody>
-      <template v-for="(item, key) in orderLists" :key="key">
-        <tr v-if="orderLists.length" :class="{ 'text-secondary': !item.is_paid }">
-          <td>{{ $filters.date(item.create_at) }}</td>
-          <td><span v-text="item.user.email" v-if="item.user"></span></td>
-          <td>
-            <ul class="list-unstyled">
-              <li v-for="(product, i) in item.products" :key="i">
-                {{ product.product.title }} 數量：{{ product.qty }}
-                {{ product.product.unit }}
-              </li>
-            </ul>
-          </td>
-          <td class="text-right">{{ item.total }}</td>
-          <td>
-            <div class="form-check form-switch">
+  <div class="table">
+      <div class="table-thead row text-white w-100 py-3 align-items-center gx-1">
+        <div class="col-2 col-md-2 d-none d-md-block">購買時間</div>
+        <div class="col-5 col-md-3 text-left">
+          Email
+        </div>
+        <div class="col-3 col-md-3 text-right d-none">購買款項</div>
+        <div class="col-3 col-md-2 text-center">應付金額</div>
+        <div class="col-2 col-md-2 text-center">
+          是否付款
+        </div>
+        <div class="col-2 col-md-2 text-center">編輯</div>
+      </div>
+
+      <div class="table-tr row text-white w-100 align-items-center py-3 align-items-center gx-1"
+      v-for="(item, key) in orderLists" :key="key" :class="{ 'text-secondary': !item.is_paid }">
+        <div class="col-2 col-md-2 d-none d-md-block">
+          {{ $filters.date(item.create_at) }}
+        </div>
+        <div class="col-5 col-md-3 text-left">
+          <span class="d-inline d-md-none">{{ $filters.date(item.create_at) }}<br/></span>
+          <span v-text="item.user.email" v-if="item.user"></span>
+        </div>
+        <div class="col-3 col-md-3 text-center d-none">
+          <ul class="list-unstyled">
+            <li class="text-left" v-for="(product, i) in item.products" :key="i">
+              <div>{{ product.product.title }}</div>
+              數量：{{ product.qty }} / {{ product.product.unit }}
+            </li>
+          </ul>
+        </div>
+        <div class="col-3 col-md-2 text-right">
+          {{ $filters.currency(item.total) }}
+        </div>
+        <div class="col-2 col-md-2 text-center d-flex justify-content-center align-items-center">
+          <div class="form-check form-switch">
               <input
-                class="form-check-input"
+                class="form-check-input clearfix mx-auto"
                 type="checkbox"
                 :id="`paidSwitch${item.id}`"
                 v-model="item.is_paid"
                 @change="updatePaid(item)"
               />
-              <label class="form-check-label" :for="`paidSwitch${item.id}`">
-                <span v-if="item.is_paid">已付款</span>
-                <span v-else>未付款</span>
-              </label>
             </div>
-          </td>
-          <td>
-            <div class="btn-group">
+        </div>
+        <div class="col-2 col-md-2 text-center">
+          <div class="btn-group p-0 p-md-1">
               <button
                 class="btn btn-outline-primary btn-sm"
                 type="button"
@@ -54,7 +59,9 @@
                 data-bs-target="#orderProductModal"
                 @click="getOrder(item)"
               >
-                檢視
+                <span class="material-icons text-3">
+                  visibility
+                </span>
               </button>
               <button
                 class="btn btn-outline-danger btn-sm"
@@ -63,14 +70,13 @@
                 data-bs-target="#delModal"
                 @click="getOrder(item)"
               >
-                刪除
+                <span class="material-icons text-3">delete</span>
               </button>
             </div>
-          </td>
-        </tr>
-      </template>
-    </tbody>
-  </table>
+        </div>
+      </div>
+    </div>
+
    <ul class="pagination justify-content-center">
         <Pagination
           :current-page="pagination.current_page"

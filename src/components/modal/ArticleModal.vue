@@ -13,7 +13,7 @@
       <div class="modal-content border-0">
         <div class="modal-header bg-dark text-white">
           <h5 class="modal-title" id="exampleModalLabel">
-            <span v-if="tempArticle.id">新增貼文</span>
+            <span v-if="tempArticle.id == undefined">新增貼文</span>
             <span v-else>編輯貼文</span>
           </h5>
           <button
@@ -97,7 +97,7 @@
                     tempArticle.tag[tempArticle.tag.length - 1] ||
                     !tempArticle.tag.length">
                   <button
-                    class="btn btn-outline-primary btn-sm d-block w-100"
+                    class="btn btn-secondary btn-sm w-100 text-white"
                     @click="tempArticle.tag.push('')"
                   >
                     新增標籤
@@ -131,14 +131,14 @@
         <div class="modal-footer">
           <button
             type="button"
-            class="btn btn-outline-secondary"
+            class="btn btn-gray-100"
             data-bs-dismiss="modal"
           >
             取消
           </button>
           <button
             type="button"
-            class="btn btn-primary"
+            class="btn btn-secondary text-white"
             data-bs-dismiss="modal"
             @click="$emit('update-article', tempArticle)"
           >

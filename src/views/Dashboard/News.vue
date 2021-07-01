@@ -3,37 +3,51 @@
     <div class="inner-banner mb-17">
       <InnerBanner :msg="msg" />
     </div>
-    <div class="text-end mt-4">
-      <button class="btn btn-primary"
+    <div class="text-end mb-4">
+      <button class="btn btn-secondary text-white"
       type="button"
       data-bs-toggle="modal"
       data-bs-target="#articleModal">
         建立新的頁面
       </button>
     </div>
-    <table class="table mt-4">
-      <thead>
-        <tr>
-          <th style="width: 200px">標題</th>
-          <th style="width: 200px">作者</th>
-          <th>描述</th>
-          <th style="width: 100px">建立時間</th>
-          <th style="width: 100px">是否公開</th>
-          <th style="width: 120px">編輯</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="article in articleLists" :key="article.id">
-          <td>{{ article.title }}</td>
-          <td>{{ article.author }}</td>
-          <td><p v-html="article.description"></p></td>
-          <td>{{ $filters.date(article.create_at) }}</td>
-          <td>
-            <span v-if="article.isPublic">已公開</span>
-            <span v-else>未公開</span>
-          </td>
-          <td>
-            <div class="btn-group">
+    <!---->
+    <div class="table">
+      <div class="table-thead row text-white w-100 py-3 align-items-center gx-1">
+        <div class="col-3 col-md-2">標題</div>
+        <div class="col-2 text-center">
+          作者
+        </div>
+        <div class="col-2 text-center d-none d-md-block">描述</div>
+        <div class="col-3 col-md-2 text-center">
+          建立時間
+        </div>
+        <div class="col-2 text-center">狀態</div>
+        <div class="col-2 text-center">編輯</div>
+      </div>
+
+      <div class="table-tr row text-white w-100 align-items-center py-3 align-items-center gx-1"
+      v-for="article in articleLists" :key="article.id">
+        <div class="col-3 col-md-2">{{ article.title }}</div>
+        <div class="col-2 text-center">
+          {{ article.author }}
+        </div>
+        <div class="col-2 text-left overflow-hidden d-none d-md-block">
+          <div class="ellipsis py-0" v-html="article.description"></div>
+        </div>
+        <div class="col-3 col-md-2 text-center">
+          {{ $filters.date(article.create_at) }}
+        </div>
+        <div class="col-2 text-center">
+          <span v-if="article.isPublic" class="text-success">
+            <span class="material-icons">toggle_on</span>
+          </span>
+          <span v-else class="text-muted">
+            <span class="material-icons">toggle_on</span>
+          </span>
+        </div>
+        <div class="col-2 text-center">
+          <div class="btn-group p-0 p-md-1">
               <button
                 class="btn btn-outline-primary btn-sm"
                 type="button"
@@ -41,7 +55,7 @@
                 data-bs-toggle="modal"
                 data-bs-target="#articleModal"
               >
-                編輯
+                <span class="material-icons text-3">edit</span>
               </button>
               <button
                 class="btn btn-outline-danger btn-sm"
@@ -50,13 +64,12 @@
                 data-bs-target="#delModal"
                 @click="getArticle(article)"
               >
-                刪除
+                <span class="material-icons text-3">delete</span>
               </button>
             </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+        </div>
+      </div>
+    </div>
     <ArticleModal
       ref="articleModal"
       :article="tempArticle"

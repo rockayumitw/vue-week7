@@ -102,10 +102,11 @@ const backend = {
       }).catch((err) => console.log(err.response));
     },
     async fetchChangeProduct({ state, dispatch }, paylod) {
-      const methods = paylod.id === '' ? 'post' : 'put';
+      console.log(paylod.id);
+      const methods = paylod.id === undefined ? 'post' : 'put';
       let url = 'https://vue3-course-api.hexschool.io/api/traveltime1221/admin/product';
       const data = { data: { ...paylod } };
-      url = paylod.id === '' ? url : url += `/${paylod.id}`;
+      url = paylod.id === undefined ? url : url += `/${paylod.id}`;
       console.log(methods);
       await axios[methods](url, data).then(async (res) => {
         console.log(res);
@@ -187,13 +188,23 @@ const backend = {
       console.log(methods);
       await axios[methods](url, { data: { ...paylod } }).then((res) => {
         console.log(res);
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: res.data.message,
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        if (res.data.message) {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: res.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        } else {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: res.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
         dispatch('fetchGetCoupons');
         commit('all/SAVE_LOADING', false, { root: true });
       }).catch((err) => console.log(err));
@@ -214,7 +225,13 @@ const backend = {
           });
           dispatch('fetchGetCoupons');
         } else {
-          console.log(res, '刪除優惠券');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: res.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         }
       });
     },

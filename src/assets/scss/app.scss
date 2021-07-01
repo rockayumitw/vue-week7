@@ -56,57 +56,49 @@ $squareColor: rgba(255,255,255,0.1);
 ////////
 
 
-// .table-box{
-//   overflow-x: auto;
-//   .table{
-//     min-width: 1000px;
-//   }
-//   margin-bottom: 10px;
-// }
-
 /// 彈窗
-.modal{
-    .modal-header{
-        border-bottom: 0 !important;
-    }
-    .modal-body{
-        .fa-exclamation-triangle{
-            font-size: 70px;
-        }
-        label{
-            font-weight: bold;
-        }
-        input, textarea{
-            border-bottom: 1px solid gray;
-            border-radius: 0;
-            margin-bottom: 10px;
-            color: black;
-        }
-        .table{
-          th, td{
-            color: #000;
-          }
-        }
-    }
-    .modal-footer{
-      width: 100%;
-      border-top: 0;
-      margin: 0 auto;
-      display: flex;
-      flex-wrap: inherit;
-      .btn{
-        width: 100%;
-      }
-      .btn-primary{
-        border: 1px solid #23D5AB;
-        &:hover{
-          background: white;
-          color: darken(#23D5AB, 10%);
-          border: 1px solid darken(#23D5AB, 10%);
-        }
-      }
-    }
-}
+// .modal{
+//     .modal-header{
+//         border-bottom: 0 !important;
+//     }
+//     .modal-body{
+//         .fa-exclamation-triangle{
+//             font-size: 70px;
+//         }
+//         label{
+//             font-weight: bold;
+//         }
+//         input, textarea{
+//             border-bottom: 1px solid gray;
+//             border-radius: 0;
+//             margin-bottom: 10px;
+//             color: black;
+//         }
+//         .table{
+//           th, td{
+//             color: #000;
+//           }
+//         }
+//     }
+//     .modal-footer{
+//       width: 100%;
+//       border-top: 0;
+//       margin: 0 auto;
+//       display: flex;
+//       flex-wrap: inherit;
+//       .btn{
+//         width: 100%;
+//       }
+//       .btn-primary{
+//         border: 1px solid #23D5AB;
+//         &:hover{
+//           background: white;
+//           color: darken(#23D5AB, 10%);
+//           border: 1px solid darken(#23D5AB, 10%);
+//         }
+//       }
+//     }
+// }
 
 .swal2-html-container{
   color: white;

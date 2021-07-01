@@ -12,8 +12,8 @@
       <div class="modal-content border-0">
         <div class="modal-header">
           <h5 id="productModalLabel" class="modal-title text-black font-weight-bold">
-            <span v-if="product.id == ''">新增產品 {{ product.id }}</span>
-            <span v-else>新增產品</span>
+            <span v-if="tempProduct.id == undefined">新增產品</span>
+            <span v-else>編輯產品</span>
           </h5>
         </div>
         <div class="modal-body">
@@ -45,7 +45,7 @@
                   hidden
                 />
                 <button
-                  class="btn btn-outline-primary btn-sm d-block w-100"
+                  class="btn btn-outline-secondary btn-sm d-block w-100"
                   @click="uploadImage"
                 >
                   新增圖片
@@ -162,12 +162,12 @@
         <div class="modal-footer">
           <button
             type="button"
-            class="btn btn-outline-secondary"
+            class="btn btn-gray-100 text-white"
             data-bs-dismiss="modal"
           >
             取消
           </button>
-          <button type="button" class="btn btn-primary"
+          <button type="button" class="btn btn-secondary text-white"
           data-bs-dismiss="modal"
           @click="$emit('changeProducts', tempProduct)">
             確認
@@ -199,6 +199,7 @@ export default {
   mounted() {
     this.$refs.productModal.addEventListener('hidden.bs.modal', () => {
       this.tempProduct = {};
+      this.image = '';
       this.due_date = 0;
     });
   },

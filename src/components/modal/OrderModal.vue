@@ -21,43 +21,43 @@
         </div>
         <div class="modal-body">
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-lg-4">
               <h3>用戶資料</h3>
               <table class="table">
                 <tbody v-if="tempOrder.user">
                   <tr>
-                    <th style="width: 100px">姓名</th>
+                    <th width="100">姓名</th>
                     <td>{{ tempOrder.user.name }}</td>
                   </tr>
                   <tr>
-                    <th>Email</th>
+                    <th width="100">Email</th>
                     <td>{{ tempOrder.user.email }}</td>
                   </tr>
                   <tr>
-                    <th>電話</th>
+                    <th width="100">電話</th>
                     <td>{{ tempOrder.user.tel }}</td>
                   </tr>
                   <tr>
-                    <th>地址</th>
+                    <th width="100">地址</th>
                     <td>{{ tempOrder.user.address }}</td>
                   </tr>
                 </tbody>
               </table>
             </div>
-            <div class="col-md-8">
+            <div class="col-lg-8">
               <h3>訂單細節</h3>
               <table class="table text-black">
                 <tbody>
                   <tr>
-                    <th style="width: 100px">訂單編號</th>
+                    <th width="100">訂單編號</th>
                     <td>{{ tempOrder.id }}</td>
                   </tr>
                   <tr>
-                    <th>下單時間</th>
+                    <th width="100">下單時間</th>
                     <td>{{ $filters.date(tempOrder.create_at) }}</td>
                   </tr>
                   <tr>
-                    <th>付款時間</th>
+                    <th width="100">付款時間</th>
                     <td>
                       <span v-if="tempOrder.paid_date">
                         {{ tempOrder.paid_date }}
@@ -66,7 +66,7 @@
                     </td>
                   </tr>
                   <tr>
-                    <th>付款狀態</th>
+                    <th width="100">付款狀態</th>
                     <td>
                       <strong v-if="tempOrder.is_paid" class="text-success"
                         >已付款</strong
@@ -75,7 +75,7 @@
                     </td>
                   </tr>
                   <tr>
-                    <th>總金額</th>
+                    <th width="100">總金額</th>
                     <td>
                       {{ tempOrder.total }}
                     </td>
@@ -89,12 +89,12 @@
                 </thead>
                 <tbody>
                   <tr v-for="item in tempOrder.products" :key="item.id">
-                    <th>
+                    <th width="100">
                       {{ item.product.title }}
                     </th>
                     <td>{{ item.qty }} / {{ item.product.unit }}</td>
                     <td class="text-end">
-                      {{ item.final_total }}
+                      {{ $filters.currency(item.final_total) }}
                     </td>
                   </tr>
                 </tbody>
@@ -120,14 +120,14 @@
         <div class="modal-footer">
           <button
             type="button"
-            class="btn btn-outline-secondary"
+            class="btn btn-gray-100"
             data-bs-dismiss="modal"
           >
             取消
           </button>
           <button
             type="button"
-            class="btn btn-primary"
+            class="btn btn-secondary text-white"
             data-bs-dismiss="modal"
             @click="$store.dispatch('backend/fetchUpdateOrderPaid', tempOrder)"
           >
