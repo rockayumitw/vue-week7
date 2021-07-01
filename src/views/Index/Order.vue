@@ -121,14 +121,12 @@
       </div>
     </div>
   </div>
-  <loading v-model:active="loading" :can-cancel="true" loader="dots"></loading>
 </div>
 </template>
 
 <script>
 import AOS from 'aos';
 import { mapGetters } from 'vuex';
-import Loading from 'vue-loading-overlay';
 
 export default {
   data() {
@@ -137,13 +135,9 @@ export default {
   },
   computed: {
     ...mapGetters({
-      loading: 'all/loading',
       spinner: 'all/spinner',
       order: 'frontend/order',
     }),
-  },
-  components: {
-    Loading,
   },
   async created() {
     await this.$store.dispatch('frontend/fetchGetOrder', this.$route.params.id);

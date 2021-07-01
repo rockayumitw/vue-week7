@@ -1,7 +1,7 @@
 <template>
   <div>
     <loading :active="loading" :z-index="1060"/>
-    <div class="inner-banner mb-17"></div>
+    <InnerBanner :msg="msg" />
     <div class="text-end mt-4">
       <button class="btn btn-primary"
       type="button"
@@ -64,11 +64,17 @@
 import { mapGetters } from 'vuex';
 import CouponModal from '@/components/modal/CouponModal.vue';
 import DelModal from '@/components/modal/DelModal.vue';
+import InnerBanner from '@/components/InnerBanner.vue';
 
 export default {
-  components: { CouponModal, DelModal },
+  components: {
+    CouponModal,
+    DelModal,
+    InnerBanner,
+  },
   data() {
     return {
+      msg: '優惠券管理',
       tempCoupon: {
         title: '',
         is_enabled: 0,

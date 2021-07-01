@@ -1,5 +1,4 @@
 <template>
-<Loading :active="loading" :z-index="1060"></Loading>
 <div class="inner-page">
   <div class="inner-banner mb-17"></div>
   <div class="container">
@@ -55,7 +54,6 @@ export default {
   computed: {
     ...mapGetters({
       articleLists: 'frontend/articleLists',
-      loading: 'all/loading',
       pagination: 'frontend/pagination',
     }),
   },

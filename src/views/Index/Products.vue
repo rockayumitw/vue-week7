@@ -57,23 +57,19 @@
       </ul>
     </div>
     </div>
-    <loading v-model:active="loading" :can-cancel="true" loader="dots"></loading>
   </div>
 </template>
 
 <script>
 import Pagination from '@/components/Pagination.vue';
 import { mapGetters } from 'vuex';
-import Loading from 'vue-loading-overlay';
 
 export default {
   components: {
     Pagination,
-    Loading,
   },
   computed: {
     ...mapGetters({
-      loading: 'all/loading',
       spinner: 'all/spinner',
       product: 'frontend/product',
       pagination: 'frontend/pagination',

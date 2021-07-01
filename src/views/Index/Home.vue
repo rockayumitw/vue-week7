@@ -111,7 +111,6 @@ export default {
   computed: {
     ...mapGetters({
       articleLists: 'frontend/articleLists',
-      loading: 'all/loading',
       pagination: 'frontend/pagination',
     }),
   },

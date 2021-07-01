@@ -106,22 +106,22 @@
         </li>
         <li class="nav-item text-center">
           <router-link class="nav-link text-4" to="/admin/products">
-            後台產品列表
+            產品管理
           </router-link>
         </li>
         <li class="nav-item text-center">
           <router-link class="nav-link text-4" to="/admin/orders">
-            後台訂單
+            訂單管理
           </router-link>
         </li>
         <li class="nav-item text-center">
           <router-link class="nav-link text-4" to="/admin/coupons">
-            優惠券列表
+            優惠券管理
           </router-link>
         </li>
         <li class="nav-item text-center">
           <router-link class="nav-link text-4" to="/admin/news">
-            文章列表
+            文章管理
           </router-link>
         </li>
         <li class="nav-item text-center">

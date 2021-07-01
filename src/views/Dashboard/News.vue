@@ -1,7 +1,9 @@
 <template>
   <div>
     <Loading :active="loading" :z-index="1060"></Loading>
-    <div class="inner-banner mb-17"></div>
+    <div class="inner-banner mb-17">
+      <InnerBanner :msg="msg" />
+    </div>
     <div class="text-end mt-4">
       <button class="btn btn-primary"
       type="button"
@@ -69,16 +71,19 @@
 import { mapGetters } from 'vuex';
 import ArticleModal from '@/components/modal/ArticleModal.vue';
 import DelModal from '@/components/modal/DelModal.vue';
+import InnerBanner from '@/components/InnerBanner.vue';
 
 export default {
   data() {
     return {
+      msg: '文章管理',
       tempArticle: {},
     };
   },
   components: {
     DelModal,
     ArticleModal,
+    InnerBanner,
   },
   computed: {
     ...mapGetters({

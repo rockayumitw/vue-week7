@@ -203,14 +203,12 @@
     </Form>
   </div>
   </div>
-  <loading v-model:active="loading" :can-cancel="true" loader="dots"></loading>
 </div>
 </template>
 
 <script>
 import AOS from 'aos';
 import { mapGetters } from 'vuex';
-import Loading from 'vue-loading-overlay';
 
 export default {
   data() {
@@ -231,14 +229,10 @@ export default {
   },
   computed: {
     ...mapGetters({
-      loading: 'all/loading',
       cartLists: 'frontend/cartLists',
       spinner: 'all/spinner',
     }),
     cartAmount: 'frontend/cartAmount',
-  },
-  components: {
-    Loading,
   },
   async created() {
     await this.$store.dispatch('frontend/fetchGetCartLists');

@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div class="inner-banner mb-17"></div>
+  <InnerBanner :msg="msg" />
   <loading v-model:active="loading" :can-cancel="true" loader="dots"></loading>
   <button class="btn btn-secondary float-end mb-5 text-white"
     @click="$store.dispatch('backend/fetchRemoveAllOrder')">
@@ -92,10 +92,12 @@ import DelModal from '@/components/modal/DelModal.vue';
 import OrderModal from '@/components/modal/OrderModal.vue';
 import Pagination from '@/components/Pagination.vue';
 import { mapGetters } from 'vuex';
+import InnerBanner from '@/components/InnerBanner.vue';
 
 export default {
   data() {
     return {
+      msg: '訂單管理',
       tempOrder: {},
     };
   },
@@ -103,6 +105,7 @@ export default {
     Pagination,
     DelModal,
     OrderModal,
+    InnerBanner,
   },
   computed: {
     ...mapGetters({

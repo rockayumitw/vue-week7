@@ -1,7 +1,6 @@
 <template>
-<div class="inner-banner mb-17"></div>
+<InnerBanner :msg="msg" />
 <div class="container">
-    <h1 class="h3 pt-4 text-white font-weight-bold text-center">Product List</h1>
     <div class="btn-area text-end mt-4">
       <button
         class="btn btn-secondary font-weight-bold float-end mb-5 text-white"
@@ -88,6 +87,7 @@ import { mapGetters } from 'vuex';
 import Loading from 'vue-loading-overlay';
 import DelModal from '@/components/modal/DelModal.vue';
 import ProdcutInfo from '@/components/modal/ProductInfo.vue';
+import InnerBanner from '@/components/InnerBanner.vue';
 
 export default {
   props: ['token'],
@@ -96,6 +96,7 @@ export default {
     Loading,
     DelModal,
     ProdcutInfo,
+    InnerBanner,
   },
   computed: {
     ...mapGetters({
@@ -112,6 +113,7 @@ export default {
   },
   data() {
     return {
+      msg: '產品管理',
       tempProduct: {},
       image: '',
     };

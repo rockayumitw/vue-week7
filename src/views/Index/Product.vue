@@ -1,5 +1,4 @@
 <template>
-<loading v-model:active="loading" :can-cancel="true" loader="dots"></loading>
 <div class="inner-page bg-white">
   <div class="inner-banner mb-5"></div>
   <div class="container position-relative w-100">
@@ -52,19 +51,14 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import Loading from 'vue-loading-overlay';
 
 export default {
   data() {
     return {
     };
   },
-  components: {
-    Loading,
-  },
   computed: {
     ...mapGetters({
-      loading: 'all/loading',
       product: 'frontend/product',
     }),
   },
