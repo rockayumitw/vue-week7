@@ -122,7 +122,7 @@ const backend = {
             title: res.data.message,
             text: '',
           });
-          await dispatch('fetchgetProductLists', state.pagination.current_page);
+          dispatch('fetchgetProductLists', state.pagination.current_page);
         }
       }).catch((err) => console.log(err));
     },
@@ -188,7 +188,7 @@ const backend = {
       console.log(methods);
       await axios[methods](url, { data: { ...paylod } }).then((res) => {
         console.log(res);
-        if (res.data.message) {
+        if (res.data.success) {
           Swal.fire({
             position: 'top-end',
             icon: 'success',

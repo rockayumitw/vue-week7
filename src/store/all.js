@@ -6,7 +6,7 @@ const all = {
   state: () => ({
     loading: false,
     lang: null,
-    spinner: '',
+    spinner: false,
   }),
   mutations: {
     SAVE_LOADING(state, value) {

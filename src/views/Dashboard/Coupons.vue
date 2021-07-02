@@ -4,10 +4,15 @@
     <div class="text-end mt-4">
       <button class="btn btn-secondary text-white mb-2"
       type="button"
+      @click="$refs.couponModal.modal('show')">
+        建立新的優惠券
+      </button>
+      <!-- <button class="btn btn-secondary text-white mb-2"
+      type="button"
       data-bs-toggle="modal"
       data-bs-target="#couponModal">
         建立新的優惠券
-      </button>
+      </button> -->
     </div>
     <div class="table">
       <div class="table-thead row text-white w-100 py-3 align-items-center gx-1">
@@ -64,7 +69,7 @@
           v-if="couponLists.length > 1"
         ></Pagination>
       </ul>
-    <CouponModal :coupon="tempCoupon" @update-coupon="updateCoupon"/>
+    <CouponModal :coupon="tempCoupon" ref="couponModal" @update-coupon="updateCoupon"/>
     <DelModal :item="tempCoupon" ref="delModal" @del-item="delCoupon"/>
   </div>
 </template>

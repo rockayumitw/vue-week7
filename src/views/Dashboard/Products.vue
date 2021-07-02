@@ -4,8 +4,7 @@
     <div class="btn-area text-end mt-4">
       <button
         class="btn btn-secondary font-weight-bold float-end mb-5 text-white"
-        data-bs-toggle="modal"
-        data-bs-target="#productModal"
+        @click="$refs.productModal.modal('show')"
       >
         新增產品
       </button>
@@ -56,9 +55,7 @@
                 <button
                   type="button"
                   class="btn btn-sm btn-outline-primary"
-                  @click="getProduct(product)"
-                  data-bs-toggle="modal"
-                  data-bs-target="#productModal"
+                  @click="getProduct(product), $refs.productModal.modal('show')"
                 >
                   <span class="material-icons text-3">edit</span>
                 </button>
@@ -86,7 +83,7 @@
       </ul>
 
   <DelModal :item="tempProduct" @del-item="delProduct" @cancel="cancel"/>
-  <ProdcutInfo @change-products="changeProducts" :product="tempProduct"/>
+  <ProductModal ref="productModal" @change-products="changeProducts" :product="tempProduct"/>
 </div>
 </template>
 
@@ -94,7 +91,7 @@
 import Pagination from '@/components/Pagination.vue';
 import { mapGetters } from 'vuex';
 import DelModal from '@/components/modal/DelModal.vue';
-import ProdcutInfo from '@/components/modal/ProductInfo.vue';
+import ProductModal from '@/components/modal/ProductModal.vue';
 import InnerBanner from '@/components/InnerBanner.vue';
 
 export default {
@@ -102,7 +99,7 @@ export default {
   components: {
     Pagination,
     DelModal,
-    ProdcutInfo,
+    ProductModal,
     InnerBanner,
   },
   computed: {

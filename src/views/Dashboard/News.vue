@@ -6,8 +6,7 @@
     <div class="text-end mb-4">
       <button class="btn btn-secondary text-white"
       type="button"
-      data-bs-toggle="modal"
-      data-bs-target="#articleModal">
+      @click="$refs.articleModal.modal('show')">
         建立新的頁面
       </button>
     </div>

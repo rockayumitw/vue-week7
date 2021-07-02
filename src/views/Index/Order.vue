@@ -113,9 +113,9 @@
   <div class="row w-100 mx-auto" v-if="!order.is_paid">
       <div class="col-12">
         <button type="submit" class="btn btn-secondary w-100 text-white"
-        :disabled="submitSpinner"
+        :disabled="spinner"
         @click="$store.dispatch('frontend/fetchPayOrder', $route.params.id)">
-          <i class="fas fa-spinner fa-pulse" v-if="submitSpinner"></i>
+          <i class="fas fa-spinner fa-pulse" v-if="spinner"></i>
           <span v-else>結帳</span>
         </button>
       </div>
