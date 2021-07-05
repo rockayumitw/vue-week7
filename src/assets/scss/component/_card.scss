@@ -1,0 +1,18 @@
+// 購物車列表
+
+.card, .product-card{
+    .icon-bookmark {
+        top: -35px;
+        transition: .3s;
+    }
+    &:hover{
+        .icon-bookmark {
+            top: 10px;
+            transition: .3s;
+        }
+        .item-product-pic{
+            transition: .3s;
+            transform: scale(1.2);
+        }
+    }
+}

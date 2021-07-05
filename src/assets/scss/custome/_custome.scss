@@ -40,7 +40,7 @@ ul{
     overflow: hidden;
     &:before{
         content: '';
-        height: 100px;
+        height: 120px;
         display: block;
         @include media-max(lg){
             height: 60px;
@@ -335,6 +335,7 @@ ul{
     overflow: hidden;
 }
 
+// 首頁產品
 .item-product-image{
     overflow: hidden;
     background-size: cover;
@@ -395,23 +396,7 @@ ul{
     }
 }
 
-// 購物車列表
-.card{
-    .icon-bookmark {
-        top: -35px;
-        transition: .3s;
-    }
-    &:hover{
-        .icon-bookmark {
-            top: 10px;
-            transition: .3s;
-        }
-        .item-product-pic{
-            transition: .3s;
-            transform: scale(1.2);
-        }
-    }
-}
+
 
 // 商品列表
 .product-list{
@@ -428,8 +413,6 @@ ul{
     .item-product-pic{
         padding-bottom: 100%;
     }
-    // border: 0;
-    // background: $bg-gray-400;
 }
 
 
