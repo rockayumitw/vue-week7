@@ -1,6 +1,17 @@
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
+// 轉型
+const storageMethods = {
+  save(favorite) {
+    const favoriteString = JSON.stringify(favorite);
+    localStorage.setItem('favorite', favoriteString);
+  },
+  get() {
+    return JSON.parse(localStorage.getItem('favorite'));
+  },
+};
+
 const moduleA = {
   namespaced: true,
   state: () => ({
@@ -26,8 +37,12 @@ const moduleA = {
     order: {},
     recommendProducts: [],
     allPageProducts: [],
+    bookmarkLists: storageMethods.get() || [],
   }),
   mutations: {
+    SAVE_BOOKMARK_LISTS(state, data) {
+      state.bookmarkLists = data;
+    },
     SAVE_ALLPAGE_PRODUCTS(state, data) {
       state.allPageProducts = data;
     },
@@ -70,8 +85,24 @@ const moduleA = {
     order: (state) => state.order,
     recommendProducts: (state) => state.recommendProducts,
     allPageProducts: (state) => state.allPageProducts,
+    bookmarkLists: (state) => state.bookmarkLists,
   },
   actions: {
+    async fetchBookmark({ state, commit }, paylod) {
+      let repeat = false;
+      const myFavorite = state.bookmarkLists;
+      myFavorite.forEach((item) => {
+        if (paylod.id === item.id) {
+          myFavorite.splice(0, 1);
+          repeat = true;
+        }
+      });
+      if (!repeat) {
+        myFavorite.push(paylod);
+      }
+      storageMethods.save(myFavorite);
+      await commit('SAVE_BOOKMARK_LISTS', myFavorite);
+    },
     async fetchAllPageProductLists({ state, commit }) {
       commit('all/SAVE_LOADING', true, { root: true });
       const arr = [];

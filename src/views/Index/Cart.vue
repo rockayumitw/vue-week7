@@ -3,34 +3,7 @@
   <InnerBanner :msg="msg" />
   <div class="table-box container">
     <!--步驟化-->
-    <div class="mx-auto w-80 mb-10">
-      <div class="row">
-        <div class="col-3 text-center text-white">
-          <div class="bg-secondary rounded p-2">
-            STEP.1 <br/>
-            確認購物清單
-          </div>
-        </div>
-        <div class="col-3 text-center text-white">
-          <div class="bg-gray-200 rounded p-2">
-            STEP.2<br/>
-            填寫訂購資料
-          </div>
-        </div>
-        <div class="col-3 text-center text-white">
-          <div class="bg-gray-200 rounded p-2">
-            STEP.3<br/>
-            付款
-          </div>
-        </div>
-        <div class="col-3 text-center text-white">
-          <div class="bg-gray-200 rounded p-2">
-            STEP.4<br/>
-            完成訂單
-          </div>
-        </div>
-      </div>
-    </div>
+    <Step :step="step" />
     <!--步驟化-->
     <table class="table cart-list-table align-middle">
       <thead>
@@ -122,23 +95,24 @@
           <td class="text-end" width="100"> +0</td>
         </tr>
         <tr>
-          <td class="d-none d-md-table-cell"></td>
-          <td colspan="2"
-          class="text-end text-success d-flex justify-content-end align-items-center">
-            <span class="material-icons-outlined text-success mr-2">
-              confirmation_number
-            </span>
-            <span class="d-none d-md-table-cell mr-2">優惠券折抵</span>
-            <div class="input-group">
-              <input type="text" class="form-control"
-              placeholder="輸入優惠碼"
-              aria-label="輸入優惠碼"
-              aria-describedby="button-addon2"
-              v-model="coupon">
-              <button class="btn btn-outline-secondary"
-              type="button" id="button-addon2" @click="useCoupon">
-                送出
-              </button>
+          <td colspan="3"
+          class="text-end text-success">
+            <div class="d-flex justify-content-end align-items-center w-100">
+                <span class="material-icons-outlined text-success mr-2">
+                confirmation_number
+              </span>
+              <span class="d-none d-md-table-cell mr-2">優惠券折抵</span>
+              <div class="input-group">
+                <input type="text" class="form-control"
+                placeholder="輸入優惠碼"
+                aria-label="輸入優惠碼"
+                aria-describedby="button-addon2"
+                v-model="coupon">
+                <button class="btn btn-outline-secondary"
+                type="button" id="button-addon2" @click="useCoupon">
+                  送出
+                </button>
+              </div>
             </div>
           </td>
           <td class="text-end text-success" width="100">
@@ -156,20 +130,20 @@
         </tr>
       </tfoot>
     </table>
-    <div class="row w-100 mx-auto gx-0">
+    <div class="row w-100 mx-auto gx-1">
       <div class="col-4">
         <router-link
-        class="btn btn-gray-200 w-100 text-white rounded-0" to="/products">
+        class="btn btn-gray-200 w-100 text-white" to="/products">
           繼續購物
         </router-link>
       </div>
       <div class="col-4">
         <a v-if="cartAmount > 0" href="javascript:;"
-          class="btn btn-danger w-100 text-white rounded-0"
+          class="btn btn-danger w-100 text-white"
         @click="$store.dispatch('frontend/fetchRemoveAllProduct')">清空購物車</a>
       </div>
       <div class="col-4" v-if="cartAmount>0">
-        <router-link class="btn btn-secondary w-100 text-white rounded-0" to="/createOrder">
+        <router-link class="btn btn-secondary w-100 text-white rounded" to="/createOrder">
           前往結帳
         </router-link>
       </div>
@@ -182,16 +156,19 @@
 import AOS from 'aos';
 import { mapGetters } from 'vuex';
 import InnerBanner from '@/components/InnerBanner.vue';
+import Step from '@/components/Step.vue';
 
 export default {
   components: {
     InnerBanner,
+    Step,
   },
   data() {
     return {
       qty: 1,
       coupon: '',
       msg: '確認購物清單',
+      step: 1,
     };
   },
   computed: {

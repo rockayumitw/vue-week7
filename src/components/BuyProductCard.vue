@@ -1,9 +1,9 @@
 <template>
   <div class="card mb-5 border-0 overflow-hidden">
     <div class="icon-bookmark position-absolute right-10 index-bookmarked"
-    @click="addMyFavoriate(product)">
+    @click="$store.dispatch('frontend/fetchBookmark', product)">
       <span class="material-icons-outlined text-white text-6" role="button">
-        {{ myFavorite.includes(product.id) ? 'bookmark' : 'bookmark_border'}}
+        {{ bookmarkId ? 'bookmark' : 'bookmark_border'}}
       </span>
     </div>
     <a
@@ -45,40 +45,18 @@
 <script>
 import { mapGetters } from 'vuex';
 
-// 轉型
-const storageMethods = {
-  save(favorite) {
-    const favoriteString = JSON.stringify(favorite);
-    localStorage.setItem('favorite', favoriteString);
-  },
-  get() {
-    return JSON.parse(localStorage.getItem('favorite'));
-  },
-};
-
 export default {
   props: ['product'],
-  data() {
-    return {
-      myFavorite: storageMethods.get() || [],
-    };
-  },
   computed: {
     ...mapGetters({
       spinner: 'all/spinner',
+      bookmarkLists: 'frontend/bookmarkLists',
+      bookmarkIdGroup: 'frontend/bookmarkIdGroup',
     }),
-  },
-  methods: {
-    addMyFavoriate(item) {
-      console.log(item);
-      if (this.myFavorite.includes(item.id)) {
-        console.log('有重複');
-        this.myFavorite.splice(this.myFavorite.indexOf(item.id), 1);
-      } else {
-        this.myFavorite.push(item.id);
-      }
-      storageMethods.save(this.myFavorite);
-      console.log(this.myFavorite);
+    bookmarkId() {
+      const bookmarkIdGroup = [];
+      this.bookmarkLists.forEach((item) => bookmarkIdGroup.push(item.id));
+      return bookmarkIdGroup.indexOf(this.product.id) > -1;
     },
   },
 };

@@ -3,35 +3,7 @@
   <InnerBanner :msg="msg" />
   <div class="table-box container">
     <!--步驟化-->
-    <div class="mx-auto w-80 mb-10">
-      <div class="row">
-        <div class="col-3 text-center text-white">
-          <div class="bg-secondary rounded p-2">
-            STEP.1 <br/>
-            確認購物清單
-          </div>
-        </div>
-        <div class="col-3 text-center text-white">
-          <div class="bg-secondary rounded p-2">
-            STEP.2<br/>
-            填寫訂購資料
-          </div>
-        </div>
-        <div class="col-3 text-center text-white">
-          <div class="bg-secondary rounded p-2">
-            STEP.3<br/>
-            確認訂單資料
-          </div>
-        </div>
-        <div class="col-3 text-center text-white">
-          <div class="rounded p-2"
-          :class="order.is_paid == true ? 'bg-secondary' : 'bg-gray-200'">
-            STEP.4<br/>
-            完成訂單
-          </div>
-        </div>
-      </div>
-    </div>
+    <Step :step="step" :order="order"/>
     <!--步驟化-->
     <table class="table cart-list-table align-middle mb-17">
       <thead>
@@ -128,14 +100,17 @@
 import AOS from 'aos';
 import { mapGetters } from 'vuex';
 import InnerBanner from '@/components/InnerBanner.vue';
+import Step from '@/components/Step.vue';
 
 export default {
   components: {
     InnerBanner,
+    Step,
   },
   data() {
     return {
       msg: '確認訂單資料',
+      step: 3,
     };
   },
   computed: {

@@ -155,10 +155,10 @@
             }
         }
     }
-    // 購物車
-    .cart{
+    // 購物車、收藏清單
+    .cart, .bookmark-card{
         &:hover{
-            .cart-list{
+            .cart-list,.bookmark-list{
                 display: block;
             }
             &:before{
@@ -173,24 +173,30 @@
             }
         }
         // 購物清單
-        .cart-list{
+        .cart-list,.bookmark-list{
             display: none;
-            width: 400px;
+            width: 375px;
             right: -100px;
-            .item-cart-list{
+            .item-cart-list, .item-bookmark-list{
                 overflow: auto;
                 max-height: 400px;
                 li{
                     background: rgba(222,222,222,0.3);
                 }
             }
-            .item-cart-pic{
+            .item-cart-pic,.item-bookmark-pic{
                 background: url('../image/2.jpg');
                 background-size: cover;
                 min-width: 120px;
                 width: 120px;
                 height: 90px;
                 display: block;
+            }
+        }
+        .bookmark-list{
+            right: -25px;
+            @include media-max(lg){
+                right: -60px;
             }
         }
     }
