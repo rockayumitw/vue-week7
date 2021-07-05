@@ -5,7 +5,7 @@
         <span class="material-icons-outlined text-7">
             construction
         </span>
-        <p class="text-center text-black text-7"> 施工中，盡情等待！ :D</p>
+        <p class="text-center text-black text-7 py-17"> 施工中，盡情等待！ :D</p>
     </div>
 </div>
 </template>
