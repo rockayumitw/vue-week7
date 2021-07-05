@@ -48,6 +48,7 @@
                 />
                 <button
                   class="btn btn-outline-secondary btn-sm d-block w-100"
+                  type="button"
                   :disabled="spinner"
                   @click="uploadImage"
                 >
@@ -145,14 +146,12 @@
               <hr />
               <div class="form-group">
                 <label for="description">產品描述</label>
-                <textarea
-                  id="description"
-                  type="text"
-                  class="form-control"
-                  placeholder="請輸入產品描述"
+                <ckeditor
+                  :editor="editor"
+                  :config="editorConfig"
                   v-model="tempProduct.description"
-                >
-                </textarea>
+                  required
+                ></ckeditor>
               </div>
               <div class="form-group">
                 <label for="content">說明內容</label>
@@ -179,7 +178,8 @@
                 </div>
               </div>
             </div>
-            <div class="d-flex justify-content-end">
+          </form>
+          <div class="d-flex justify-content-end">
               <button
               type="button"
               class="btn btn-gray-100 text-white mr-1"
@@ -192,7 +192,6 @@
               確認
             </button>
             </div>
-          </form>
         </div>
       </div>
     </div>
@@ -202,6 +201,7 @@
 <script>
 import Modal from 'bootstrap/js/dist/modal';
 import { mapGetters } from 'vuex';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 export default {
   props: ['product'],
@@ -210,6 +210,10 @@ export default {
       tempProduct: {},
       image: '',
       prodcutModal: '',
+      editor: ClassicEditor,
+      editorConfig: {
+        toolbar: ['heading', 'typing', 'bold', 'italic', '|', 'link', 'bulletedList', 'Underline', 'Strike'],
+      },
     };
   },
   watch: {
@@ -254,40 +258,50 @@ export default {
     updateProduct() {
       // 判斷輸入
       console.log('判斷');
-      let check = false; // 未通過
-      const forms = document.querySelectorAll('.needs-validation');
-      Array.prototype.slice.call(forms).forEach((form) => {
-        form.addEventListener('submit', (event) => {
-          console.log(form.checkValidity());
-          if (!form.checkValidity()) {
-            event.preventDefault();
-            event.stopPropagation();
-            check = false;
-          } else {
-            check = true;
-          }
-          form.classList.add('was-validated');
-        }, false);
-      });
+      this.$emit('changeProducts', this.tempProduct);
+      this.modal('hide');
+      // let check = false; // 未通過
+      // const forms = document.querySelectorAll('.needs-validation');
+      // Array.prototype.slice.call(forms).forEach((form) => {
+      //   form.addEventListener('submit', (event) => {
+      //     console.log(form.checkValidity());
+      //     if (!form.checkValidity()) {
+      //       event.preventDefault();
+      //       event.stopPropagation();
+      //       check = false;
+      //     } else {
+      //       check = true;
+      //     }
+      //     form.classList.add('was-validated');
+      //   }, false);
+      // });
       // 非同步
-      setTimeout(() => {
-        if (check) {
-          this.$emit('changeProducts', this.tempProduct);
-          this.modal('hide');
-          this.init();
-        }
-      });
+      // console.log(this.tempProduct);
+      // setTimeout(() => {
+      //   if (check) {
+      //     this.$emit('changeProducts', this.tempProduct);
+      //   } else {
+      //     this.$swal.fire({
+      //       icon: 'error',
+      //       title: '必填欄未填',
+      //       text: '',
+      //     });
+      //   }
+      // });
     },
     async uploadImage(e) {
+      console.log(e);
       this.$refs.uploadImage.click();
       this.tempProduct.imageUrl = [];
       this.image = '';
       const vm = this;
+      console.log(e.target.files);
       if (e.target.files === undefined) {
         return;
       }
       const file = e.target.files[0]; // 讀取圖片
       const fr = new FileReader();
+      console.log(file);
       // eslint-disable-next-line no-shadow
       fr.onload = function (e) {
         vm.image = e.target.result;
@@ -300,6 +314,7 @@ export default {
       this.$store.commit('all/SAVE_SPINNER', true);
       // 圖片api上傳
       await this.axios.post('https://vue3-course-api.hexschool.io/api/traveltime1221/admin/upload', formData).then((res) => {
+        console.log(res);
         this.$store.commit('all/SAVE_SPINNER', false);
         if (!res.data.success) {
           this.$swal.fire({

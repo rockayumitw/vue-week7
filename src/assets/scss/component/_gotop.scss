@@ -1,0 +1,15 @@
+// gotop
+.goTop{
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 30px 30px 30px;
+    border-color: transparent transparent $primary transparent;
+    transition: .3s;
+    position: sticky;
+	bottom: 0;
+    &:hover{
+        transition: .3s;
+        border-color: transparent transparent $secondary transparent;
+    }
+}

@@ -4,7 +4,7 @@
   <div class="container d-flex d-lg-block p-0">
     <div class="navbar-content d-flex justify-content-between align-items-center">
       <div class="d-none d-lg-flex align-items-end">
-        <span class="material-icons-outlined">facebook</span>
+        <Social/>
       </div>
       <div class="">
         <a class="navbar-brand mr-0 position-relative
@@ -113,28 +113,26 @@
             商品列表頁
           </router-link>
         </li>
-        <!-- <li class="nav-item">
-          <router-link class="nav-link" to="/cart">
-            前台購物車列表頁<span class="material-icons">face</span>
-          </router-link>
-        </li> -->
         <li class="nav-item text-center">
           <router-link class="nav-link text-4" to="/News">
             最新消息
           </router-link>
         </li>
-        <!-- <li class="nav-item">
-          <router-link class="nav-link" to="/admin/products">
-            後台購物車列表頁
-            <i class="bi bi-arrow-bar-left"></i>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/">
+            關於我們
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/admin/News">
-            後台文章列表 {{ message }}
-            <i class="bi bi-arrow-bar-left"></i>
+          <router-link class="nav-link" to="/">
+            Q&A
           </router-link>
-        </li> -->
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/">
+            優惠活動
+          </router-link>
+        </li>
       </ul>
     </div>
   </div>
@@ -143,8 +141,12 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import Social from '@/components/Social.vue';
 
 export default {
+  components: {
+    Social,
+  },
   data() {
     return {
       stickyPos: 500,

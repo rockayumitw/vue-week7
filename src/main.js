@@ -15,11 +15,22 @@ import VueAxios from 'vue-axios';
 import VueLoading from 'vue-loading-overlay';
 import bootstrap from 'bootstrap';
 import CKEditor from '@ckeditor/ckeditor5-vue';
+// gsap套件
+// import gsap from 'gsap';
+// import ScrollTrigger from 'gsap/ScrollTrigger';
 
 // fontawesome
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCoffee, faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { faGooglePlus } from '@fortawesome/free-brands-svg-icons';
+import {
+  faGooglePlus,
+  faTwitter,
+  faFacebookF,
+  faInstagram,
+  faFacebookSquare,
+  faTwitterSquare,
+  faInstagramSquare,
+} from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { date, currency } from './methods/filter';
 
@@ -56,8 +67,21 @@ setLocale('zh_TW'); // 設定預設語系
 // https://vue-i18n.intlify.dev/api/general.html#availablelocales
 
 // fontawesome載入
-library.add(faCoffee, faGooglePlus, faSpinner);
+library.add(
+  faCoffee,
+  faGooglePlus,
+  faSpinner,
+  faTwitter,
+  faFacebookF,
+  faInstagram,
+  faFacebookSquare,
+  faTwitterSquare,
+  faInstagramSquare,
+);
 const app = createApp(App);
+
+// gsap註冊
+// gsap.registerPlugin(ScrollTrigger);
 
 app.config.globalProperties.$filters = {
   date,
@@ -74,6 +98,8 @@ app.use(VueLoading, {
   loader: 'dots',
 });
 app.use(CKEditor);
+// app.use(gsap);
+
 app.component('Form', Form);
 app.component('Field', Field);
 app.component('ErrorMessage', ErrorMessage);

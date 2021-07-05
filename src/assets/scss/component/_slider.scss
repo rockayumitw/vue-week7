@@ -1,0 +1,203 @@
+// slick
+.carousel{
+    margin: 0 -47.5%;
+    height: 30vw;
+    @include media-max(lg){
+        height: 350px;
+    }
+    .slick-item{
+        @include media-max(lg){
+            height: 400px;
+        }
+        .slick-item-pic{
+            @include media-max(lg){
+                max-height: 350px;
+                overflow: hidden;
+            }
+        }
+    }
+    .slick-description{
+        background: rgba($gray-300, .7);
+        height: 100%;
+        right: 0;
+        display: flex;
+        padding: 0 20px 42px 24px;
+        flex-direction: column;
+        justify-content: flex-end;
+        @include media-max(lg){
+            background: $gray-300;
+            padding: 20px;
+            align-items: center;
+            height: auto;
+            width: auto;
+            left: 50%;
+            transform: translate(-50%);
+        }
+        .item-sub-title{
+            display: flex;
+            align-items: center;
+            @include media-max(lg){
+                text-align: center;
+            }
+            &:after{
+                margin-left: 10px;
+                content: '';
+                width: 50%;
+                display: block;
+                height:1px;
+                background: $gray-200;
+                @include media-max(lg){
+                    width: 100px;
+                }
+            }
+            &:before{
+                margin-right: 10px;
+                content: '';
+                width: 50%;
+                display: block;
+                height:1px;
+                background: $gray-200;
+                display: none;
+                @include media-max(lg){
+                    display: block;
+                    width: 100px;
+                }
+            }
+        }
+    }
+    .slick-arrow{
+        position: absolute !important;
+        width: 60px;
+        height: 60px;
+        background-color: #fff;
+        opacity: 0.5;
+        transition: opacity 0.5s;
+        display: block;
+        margin-top: -20px;
+        top: 50%;
+        border-radius: 50%;
+        &:hover{
+            opacity: 1;
+        }
+        &:before{
+            content: '';
+        }
+    }
+    .slick-prev{
+        left: 33% !important;
+        z-index: 1;
+        @include media-max(lg){
+            left: 25% !important;
+        }
+    }
+    .slick-next{
+        right: 33% !important;
+        z-index: 1;
+        @include media-max(lg){
+            right: 25% !important;
+        }
+    }
+    .slick-slide{
+        a{
+            position: relative;
+            &:after{
+                position: absolute;
+                top: 0;
+                left: 0;
+                content: '';
+                z-index: 1;
+                background: rgba(0, 0, 0, 0.8);
+                width: 100%;
+                height: 100%;
+                transition: .3s;
+                @include media-max(lg){
+                    display: none;
+                }
+            }
+        }
+    }
+    .slick-slide.slick-current.slick-active.slick-center{
+        a{
+            position: relative;
+            &:after{
+                position: absolute;
+                top: 0;
+                left: 0;
+                content: '';
+                background: rgba(0, 0, 0, 0);
+                width: 100%;
+                height: 100%;
+                transition: .3s;
+            }
+        }
+    }
+    .slick-dots{
+        bottom: -80px !important;
+    }
+}
+
+// 首頁
+.products-section{
+    .swiper-slide{
+        .product-title{
+            width: 100%;
+            bottom: -50px;
+            transition: .3s;
+            background: rgba(0,0,0,0.8);
+        }
+        &:hover{
+            .product-title{
+                transition: .3s;
+                bottom: 0px;
+            }
+        }
+    }
+}
+
+// 你可能會喜歡
+.recommend-products{
+    .swiper-wrapper{
+        padding-bottom: 40px;
+    }
+    .swiper-pagination{
+        .swiper-pagination-bullet-active{
+            background: $gray-400;
+        }
+    }
+    .swiper-button-prev{
+        opacity: 0;
+        left: 0px;
+        width: 45px;
+        transition: .3s;
+        background: rgba(0,0,0,0.3);
+        border-radius: 50%;
+        &:after{
+            color: white;
+            font-size: 15px;
+        }
+    }
+    .swiper-button-next{
+        opacity: 0;
+        right: 0px;
+        width: 45px;
+        transition: .3s;
+        background: rgba(0,0,0,0.3);
+        border-radius: 50%;
+        &:after{
+            color: white;
+            font-size: 15px;
+        }
+    }
+    &:hover{
+        .swiper-button-prev{
+            opacity: 1;
+            left: 10px;
+            transition: .3s;
+        }
+        .swiper-button-next{
+            opacity: 1;
+            right: 10px;
+            transition: .3s;
+        }
+    }
+}

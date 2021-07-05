@@ -5,8 +5,8 @@
       v-for="(page, index) in totalPage"
       :key="index"
     >
-      <a class="page-link" href="#"
-      @click.prevent="goTop(), $emit('changePage', page)">{{ page }}</a>
+      <a class="page-link" href="javascript:;"
+      @click="goTop(page)">{{ page }}</a>
     </li>
 </template>
 
@@ -19,9 +19,9 @@ export default {
     return {};
   },
   methods: {
-    goTop() {
-      console.log('in0');
-      $('html, body').animate({ scrollTop: $('.container').offset().top - 0 }, 'fast');
+    goTop(page) {
+      this.$emit('changePage', page);
+      $('html, body').animate({ scrollTop: 250 }, 'fast');
     },
   },
 };

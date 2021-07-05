@@ -2,56 +2,41 @@
   <div class="inner-page products">
     <InnerBanner :msg="msg" />
     <div class="container">
-      <div class="mb-5 text-center">
-        <button class="btn btn-secondary mr-1 text-white">全部商品</button>
-        <button class="btn btn-secondary mr-1 text-white">依價格排序</button>
-        <div class="btn-group mr-1">
-          <button type="button" class="btn btn-secondary dropdown-toggle text-white"
-          data-bs-toggle="dropdown" aria-expanded="false">
-            商品分類
-          </button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Separated link</a></li>
-          </ul>
-        </div>
+      <div class="mb-5 text-center d-flex">
+        <button class="btn btn-secondary mr-1 text-white d-flex align-items-center"
+        @click="priceSort(selectSort)">
+          <span>依價格排序</span>
+          <span class="material-icons-outlined text-3" v-if="selectSort === 'none'">
+            unfold_more
+          </span>
+          <span class="material-icons-outlined text-3" v-if="selectSort === 'down'">
+            expand_less
+          </span>
+          <span class="material-icons-outlined text-3" v-if="selectSort === 'up'">
+            expand_more
+          </span>
+        </button>
+        <select class="form-select btn btn-secondary w-40 text-white"
+        aria-label="分類" v-model="selected">
+          <option value=0 selected>全部</option>
+          <option value=1>冰淇淋</option>
+          <option value=2>蛋糕</option>
+          <option value=3>派</option>
+        </select>
       </div>
       <div class="">
       <!--商品列表-->
       <ul class="product-list row">
         <li class="item-product col-6 col-sm-6 col-md-4 col-lg-3"
-        v-for="product in productLists" :key="product">
-          <div class="card mb-5 border-0">
-            <a @click="this.$router.push(`/product/${product.id}`)"
-            href="javascript:;" class="card border-0 rounded-0">
-            <div class="overflow-hidden">
-              <div class="item-product-pic _lg"
-            :style="{backgroundImage: 'url('+ product.imageUrl +')'}"></div>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title text-right text-white font-weight-bold">{{product.title}}</h5>
-              <p class="card-text text-right text-white">
-                <del>{{$filters.currency(product.origin_price)}}</del> |
-                <span>{{$filters.currency(product.price)}}</span> /
-                <span>{{product.unit}}</span>
-              </p>
-            </div>
-            </a>
-            <div class="body-footer">
-              <a href="javascript:;" class="btn btn-secondary rounded-0 text-white w-100"
-              @click.prevent="addToCart(product.id)" :disabled="spinner === product.id">加入購物車</a>
-            </div>
-          </div>
+        v-for="product in newLists" :key="product">
+          <BuyProductCard :product="product" @add-to-cart="addToCart"/>
         </li>
       </ul>
       <!--商品列表-->
       <ul class="pagination justify-content-center">
-        <Pagination
-          :current-page="pagination.current_page"
-          :total-page="pagination.total_pages"
+         <Pagination
+          :current-page="currentPage"
+          :total-page="totalPage"
           @change-page="changePage"
         ></Pagination>
       </ul>
@@ -64,15 +49,22 @@
 import Pagination from '@/components/Pagination.vue';
 import { mapGetters } from 'vuex';
 import InnerBanner from '@/components/InnerBanner.vue';
+import BuyProductCard from '@/components/BuyProductCard.vue';
 
 export default {
   components: {
     Pagination,
     InnerBanner,
+    BuyProductCard,
   },
   data() {
     return {
       msg: '商品列表',
+      selected: '0',
+      products: [],
+      currentPage: 1,
+      perPage: 12,
+      selectSort: 'none',
     };
   },
   computed: {
@@ -81,24 +73,94 @@ export default {
       product: 'frontend/product',
       pagination: 'frontend/pagination',
       productLists: 'frontend/productLists',
+      allPageProducts: 'frontend/allPageProducts',
     }),
+    totalPage() {
+      console.log(this.products.length);
+      return Math.round(this.products.length / this.perPage);
+    },
+    newLists() {
+      return this.products.slice(
+        (this.currentPage - 1) * this.perPage, this.currentPage * this.perPage,
+      );
+    },
+  },
+  watch: {
+    selected(newValue) {
+      if (newValue) {
+        this.init();
+        let select = this.selected;
+        switch (select) {
+          case '0':
+            select = '全部';
+            break;
+          case '1':
+            select = '冰淇淋';
+            break;
+          case '2':
+            select = '蛋糕';
+            break;
+          case '3':
+            select = '派';
+            break;
+          default:
+        }
+        if (select !== '全部') {
+          this.products = this.products.filter((item) => item.category === select);
+        }
+        this.changePage(this.currentPage);
+      }
+    },
   },
   async created() {
     await this.$store.dispatch('frontend/fetchgetProductLists');
+    await this.$store.dispatch('frontend/fetchAllPageProductLists');
+    this.products = this.allPageProducts;
+    if (this.$route.query.categoryId !== undefined) {
+      this.selected = this.$route.query.categoryId;
+    } else {
+      this.selected = this.$route.query.categoryId;
+    }
   },
   mounted() {
-    console.log(this.productLists);
   },
   methods: {
+    init() {
+      this.selectSort = 'none';
+      this.currentPage = 1;
+      this.products = this.allPageProducts;
+    },
+    priceSort(value) {
+      let sortValue = value;
+      if (sortValue === 'none' || sortValue === 'down') {
+        sortValue = 'up';
+        this.selectSort = 'up';
+        console.log(this.selectSort);
+        let arySort = this.newLists;
+        arySort = arySort.sort((a, b) => (a.price > b.price ? 1 : -1));
+        this.newLists = arySort;
+      } else if (sortValue === 'up') {
+        this.selectSort = 'down';
+        let arySort = this.newLists;
+        arySort = arySort.sort((a, b) => (a.price < b.price ? 1 : -1));
+        this.newLists = arySort;
+      }
+    },
+    async changePage(page) {
+      this.currentPage = page;
+      let ary = this.products;
+      ary = ary.slice(
+        (page - 1) * this.perPage, page * this.perPage,
+      );
+      this.newLists = ary;
+      // await this.$store.dispatch('frontend/fetchgetProductLists', page);
+    },
     async addToCart(productId, qty = 1) {
       await this.$store.commit('all/SAVE_SPINNER', productId);
       await this.$store.dispatch('frontend/fetchAddToCart', {
         product_id: productId,
         qty,
       });
-    },
-    async changePage(page) {
-      await this.$store.dispatch('frontend/fetchgetProductLists', page);
     },
   },
 };
