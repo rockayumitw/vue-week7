@@ -106,7 +106,6 @@
         HOT PRODUCT
       </div>
           <swiper
-          :centeredSlides="true"
           :spaceBetween="10"
           :grabCursor="true"
           :scrollbar='{
@@ -123,21 +122,20 @@
             },
             "768": {
               "slidesPerView": 2,
-              "spaceBetween": 10
+              "spaceBetween": 20
             },
             "1024": {
-              "slidesPerView": 4,
-              "spaceBetween": 10
+              "slidesPerView": 6,
+              "spaceBetween": 20
             }
           }' class="mySwiper">
               <swiper-slide v-for="product in hotProductLists"
-              :key="product" class="overflow-hidden">
-                <a href="/" class="item-product-image"
-                :style="{ backgroundImage: 'url(' + product.imageUrl + ')' }">
-                </a>
+              :key="product" class="overflow-hidden product-list">
+                <BuyProductCard :product="product" @add-to-cart="addToCart"/>
               </swiper-slide>
           </swiper>
     </div>
+
     <!--新品上架-->
     <div class="newProducts products-section my-17">
       <div class="container">
@@ -146,7 +144,6 @@
           <div class="text-5 text-white">新品上市</div>
         </div>
         <swiper
-          :centeredSlides="true"
           :spaceBetween="10"
           :breakpoints='{
             "320": {
@@ -158,7 +155,7 @@
               "spaceBetween": 10
             },
             "768": {
-              "slidesPerView": 2,
+              "slidesPerView": 3,
               "spaceBetween": 10
             },
             "1024": {
@@ -167,30 +164,49 @@
             }
           }' class="mySwiper">
               <swiper-slide v-for="product in NewProductLists"
-              :key="product" class="overflow-hidden position-relative">
-                <div class="overflow-hidden">
-                  <router-link to="/" class="item-product-image"
-                  :style="{ backgroundImage: 'url(' + product.imageUrl + ')' }">
-                  </router-link>
-                </div>
-                <!-- <div
-                class="product-title position-absolute text-white text-4 text-center py-3">
-                  {{product.title}}
-                </div> -->
-                <div class="text-white text-5">
-                  {{product.title}}
-                </div>
-                <div class="text-white">
-                  {{$filters.currency(product.price)}}
-                </div>
+              :key="product" class="overflow-hidden position-relative product-list">
+                <!-- <ProductCard :product="product"/> -->
+                <BuyProductCard :product="product" @add-to-cart="addToCart"/>
               </swiper-slide>
           </swiper>
       </div>
     </div>
-    <!--好友連結-->
-
-    <br/><br/><br/><br/><br/><br/><br/><br/>
-
+    <!--相關連結-->
+    <div class="newProducts products-section my-17">
+      <div class="container">
+        <div class="section-title text-center mb-10">
+          <small class="text-primary">Related Links</small>
+          <div class="text-5 text-white">相關連結</div>
+        </div>
+        <swiper
+          :spaceBetween="10"
+          :breakpoints='{
+            "320": {
+              "slidesPerView": 2,
+              "spaceBetween": 10
+            },
+            "640": {
+              "slidesPerView": 2,
+              "spaceBetween": 10
+            },
+            "768": {
+              "slidesPerView": 4,
+              "spaceBetween": 10
+            },
+            "1024": {
+              "slidesPerView": 5,
+              "spaceBetween": 10
+            }
+          }' class="mySwiper">
+              <swiper-slide v-for="item in relatedLists"
+              :key="item" class="overflow-hidden position-relative product-list">
+                <a :href="item.url" target="_blank">
+                  <img :src="item.image">
+                </a>
+              </swiper-slide>
+          </swiper>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -203,6 +219,8 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 import SwiperCore, { Pagination } from 'swiper/core';
 import { mapGetters } from 'vuex';
 import NewCard from '@/components/NewCard.vue';
+// import ProductCard from '@/components/ProductCard.vue';
+import BuyProductCard from '@/components/BuyProductCard.vue';
 
 SwiperCore.use([Pagination]);
 
@@ -212,6 +230,8 @@ export default {
     Swiper,
     SwiperSlide,
     NewCard,
+    // ProductCard,
+    BuyProductCard,
   },
   computed: {
     ...mapGetters({
@@ -227,7 +247,6 @@ export default {
     },
     NewProductLists() {
       const data = this.productLists.slice(1, 7);
-      console.log(data);
       return data;
     },
   },
@@ -263,6 +282,28 @@ export default {
           url: '/product/-M_kblUuQett2o1b4PSH',
         },
       ],
+      relatedLists: [
+        {
+          url: 'https://www.starbucks.com.tw/home/index.jspx?r=55',
+          image: './related/1.png',
+        },
+        {
+          url: 'https://cjsj-official.com/shop/',
+          image: './related/2.png',
+        },
+        {
+          url: 'https://www.creamtea.com.tw/tw/about/index.aspx',
+          image: './related/3.png',
+        },
+        {
+          url: 'https://www.heti-hotel.com.tw/index.php',
+          image: './related/4.png',
+        },
+        {
+          url: 'https://www.pinkoi.com/',
+          image: './related/5.png',
+        },
+      ],
     };
   },
   async created() {
@@ -270,7 +311,6 @@ export default {
     await this.$store.dispatch('frontend/fetchgetProductLists', 1);
   },
   mounted() {
-    console.log(this.hotProductLists);
     $('.carousel').slick({
       slidesToShow: 3,
       slidesToScroll: 1,
@@ -299,6 +339,16 @@ export default {
         },
       ],
     });
+  },
+  methods: {
+    async addToCart(productId, qty = 1) {
+      console.log(productId);
+      await this.$store.commit('all/SAVE_SPINNER', productId);
+      await this.$store.dispatch('frontend/fetchAddToCart', {
+        product_id: productId,
+        qty,
+      });
+    },
   },
 };
 </script>

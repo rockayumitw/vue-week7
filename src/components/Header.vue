@@ -6,16 +6,18 @@
       <div class="d-none d-lg-flex align-items-end">
         <Social/>
       </div>
-      <div class="">
+      <div class="logo">
         <a class="navbar-brand mr-0 position-relative
-        position-lg-absolute top-lg-20 text-5 text-white font-weight-bold"
-        href="#">LOGO</a>
+        position-lg-absolute top-0 text-5 text-white font-weight-bold"
+        href="#">
+          <img class="text-white img-fluid w-100" :src="logo">
+        </a>
       </div>
       <div class="navbar-tool">
-        <div class="text-right">
+        <div class="tool-top text-right">
           <span class="material-icons-outlined text-5 px-2">public</span>
         </div>
-        <div>
+        <div class="tool-bottom">
           <router-link to="/login">
             <span class="material-icons text-5 px-2 cursor-pointer">person</span>
           </router-link>
@@ -72,18 +74,18 @@
             最新消息
           </router-link>
         </li>
-        <li class="nav-item">
-          <router-link class="nav-link" to="/">
+        <li class="nav-item text-center">
+          <router-link class="nav-link text-4" to="/About">
             關於我們
           </router-link>
         </li>
-        <li class="nav-item">
-          <router-link class="nav-link" to="/">
+        <li class="nav-item text-center">
+          <router-link class="nav-link text-4" to="/QA">
             Q&A
           </router-link>
         </li>
-        <li class="nav-item">
-          <router-link class="nav-link" to="/">
+        <li class="nav-item text-center">
+          <router-link class="nav-link text-4" to="/Coupons">
             優惠活動
           </router-link>
         </li>
@@ -107,6 +109,7 @@ export default {
   },
   data() {
     return {
+      logo: './image/logo.svg',
       stickyPos: 500,
       limitPos: 1000,
       scrolled: false,

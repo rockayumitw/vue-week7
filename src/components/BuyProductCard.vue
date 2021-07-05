@@ -51,7 +51,6 @@ export default {
     ...mapGetters({
       spinner: 'all/spinner',
       bookmarkLists: 'frontend/bookmarkLists',
-      bookmarkIdGroup: 'frontend/bookmarkIdGroup',
     }),
     bookmarkId() {
       const bookmarkIdGroup = [];
