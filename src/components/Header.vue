@@ -7,11 +7,11 @@
         <Social/>
       </div>
       <div class="logo">
-        <a class="navbar-brand mr-0 position-relative
+        <router-link class="navbar-brand mr-0 position-relative
         position-lg-absolute top-0 text-5 text-white font-weight-bold"
-        href="#">
+        to="/home">
           <img class="text-white img-fluid w-100" :src="logo">
-        </a>
+        </router-link>
       </div>
       <div class="navbar-tool">
         <div class="tool-top text-right">

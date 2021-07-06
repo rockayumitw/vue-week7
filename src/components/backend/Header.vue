@@ -8,8 +8,10 @@
       </div>
       <div class="logo">
         <router-link class="navbar-brand mr-0 position-relative
-        position-lg-absolute top-lg-20 text-5 text-white font-weight-bold"
-        to="/home">LOGO</router-link>
+        position-lg-absolute top-0 text-5 text-white font-weight-bold"
+        to="/home">
+          <img class="text-white img-fluid w-100" :src="logo">
+        </router-link>
       </div>
       <div class="navbar-tool">
         <div class="text-right">
@@ -148,6 +150,7 @@ export default {
       sm_width: 767,
       isActive: false,
       qty: 1,
+      logo: './image/logo.svg',
     };
   },
   computed: {
