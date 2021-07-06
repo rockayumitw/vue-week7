@@ -130,6 +130,9 @@
         </tr>
       </tfoot>
     </table>
+    <div class="py-17">
+      <RecommendProducts :recommend-products="recommendProducts"/>
+    </div>
     <div class="row w-100 mx-auto gx-1">
       <div class="col-4">
         <router-link
@@ -157,11 +160,13 @@ import AOS from 'aos';
 import { mapGetters } from 'vuex';
 import InnerBanner from '@/components/InnerBanner.vue';
 import Step from '@/components/Step.vue';
+import RecommendProducts from '@/components/RecommendProducts.vue';
 
 export default {
   components: {
     InnerBanner,
     Step,
+    RecommendProducts,
   },
   data() {
     return {
@@ -176,10 +181,24 @@ export default {
       cartLists: 'frontend/cartLists',
       spinner: 'all/spinner',
       cartAmount: 'frontend/cartAmount',
+      allPageProducts: 'frontend/allPageProducts',
+      recommendProducts: 'frontend/recommendProducts',
     }),
+    product() {
+      // 先取購物車第一筆資料做測試
+      return this.cartLists.carts[0].product;
+    },
   },
   async created() {
+    // 從購物車隨機選一個products出來
+    await this.$store.dispatch('frontend/fetchgetProductLists');
     await this.$store.dispatch('frontend/fetchGetCartLists');
+    await this.$store.dispatch('frontend/fetchAllPageProductLists');
+    console.log(this.product);
+    await this.$store.dispatch('frontend/getRecommendProducts', {
+      product: this.product,
+      productLists: this.allPageProducts,
+    });
   },
   mounted() {
     this.$nextTick(() => {
@@ -208,3 +227,32 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.table-box{
+  .maybe-you-like{
+    color: #fff !important;
+  }
+  .recommend-products{
+    .card{
+      opacity: .9;
+      background: #424242;
+      transition: .3s;
+      a{
+        .item-product-title{
+          color: #fff !important;
+        }
+        .item-product-price{
+          color: #fff !important;
+        }
+      }
+      &:hover{
+        opacity: .9;
+        background: lighten(#424242, 5%);
+        transition: .3s;
+      }
+    }
+  }
+}
+
+</style>

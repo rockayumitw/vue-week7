@@ -60,32 +60,33 @@
     <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item text-center">
-          <router-link class="nav-link active text-4" aria-current="page" to="/home">
+          <router-link class="nav-link active text-5 text-lg-4"
+          aria-current="page" to="/home"  @click="close">
             首頁
           </router-link>
         </li>
         <li class="nav-item text-center">
-          <router-link class="nav-link text-4" to="/products">
+          <router-link class="nav-link text-5 text-lg-4" to="/products"  @click="close">
             商品列表頁
           </router-link>
         </li>
         <li class="nav-item text-center">
-          <router-link class="nav-link text-4" to="/News">
+          <router-link class="nav-link text-5 text-lg-4" to="/News" @click="close">
             最新消息
           </router-link>
         </li>
         <li class="nav-item text-center">
-          <router-link class="nav-link text-4" to="/About">
+          <router-link class="nav-link text-5 text-lg-4" to="/About" @click="close">
             關於我們
           </router-link>
         </li>
         <li class="nav-item text-center">
-          <router-link class="nav-link text-4" to="/QA">
+          <router-link class="nav-link text-5 text-lg-4" to="/QA" @click="close">
             Q&A
           </router-link>
         </li>
         <li class="nav-item text-center">
-          <router-link class="nav-link text-4" to="/Coupons">
+          <router-link class="nav-link text-5 text-lg-4" to="/Coupons" @click="close">
             優惠活動
           </router-link>
         </li>
@@ -96,6 +97,7 @@
 </template>
 
 <script>
+import $ from 'jquery';
 import { mapGetters } from 'vuex';
 import Social from '@/components/Social.vue';
 import CartLists from '@/components/CartLists.vue';
@@ -136,6 +138,9 @@ export default {
     window.addEventListener('scroll', this.scrollAnimation);
   },
   methods: {
+    close() {
+      $('.hamburger').click();
+    },
     scrollAnimation() {
       this.scrollY = window.scrollY;
       if (window.scrollY > 100) {

@@ -166,7 +166,7 @@
         to="/createOrder">前往結帳</router-link> -->
         <button type="submit" class="btn btn-secondary w-100 text-white"
         :disabled="submitSpinner" @click="onSubmit">
-          <i class="fas fa-spinner fa-pulse" v-if="submitSpinner"></i>
+          <font-awesome-icon icon="spinner" v-if="submitSpinner" class="fa-spin"/>
           <span v-else>送出訂單</span>
         </button>
       </div>

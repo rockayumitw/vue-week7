@@ -1,7 +1,11 @@
 <template>
     <Header />
     <loading v-model:active="loading" loader="dots"
-    :can-cancel="true"></loading>
+    :can-cancel="true"
+    background-color="#000"
+    color='#c8a769'
+    opacity='0.7'
+    transition="fade"></loading>
       <router-view/>
     <GoTop/>
     <Footer />

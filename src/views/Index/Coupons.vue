@@ -1,8 +1,14 @@
 <template>
-<div class="inner-page bg-white">
+<div class="inner-page bg-white pb-17">
     <InnerBanner :msg="msg" />
     <div class="container py-17 mb-17 w-100" style="height: 500px;">
-      <div class="row">
+      <p class="text-6 font-weight-bold text-center" data-aos="fade-up" data-duration="1000">
+        歡迎! 來抽獎吧!
+      </p>
+      <p class="text-center mb-17"  data-aos="fade-up" data-duration="1000">
+        請選擇一張卡片並翻開，即可獲取優惠碼立即使用唷!
+      </p>
+      <div class="row ">
         <div class="col-6" v-for="card in couponGroup" :key="card">
           <div class="game-box text-center position-relative">
             <div class="card" :class="select === `${card.select}` ? 'active' : ''"
@@ -26,6 +32,7 @@
 
 <script>
 import InnerBanner from '@/components/InnerBanner.vue';
+import AOS from 'aos';
 
 export default {
   components: {
@@ -49,6 +56,11 @@ export default {
         },
       ],
     };
+  },
+  mounted() {
+    this.$nextTick(() => {
+      AOS.init();
+    });
   },
   methods: {
     selectCard(value) {

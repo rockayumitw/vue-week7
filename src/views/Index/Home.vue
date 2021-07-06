@@ -1,7 +1,7 @@
 <template>
     <div class="home">
     <!--slider-->
-    <div class="carousel index-carousel">
+    <div class="carousel index-carousel" data-aos="fade-In" data-duration="1000">
       <div v-for="slide in swiperLists" :key="slide"
         class="slick-item overflow-hidden index-carousel position-relative">
         <router-link :to="slide.url" style="display: block;">
@@ -23,11 +23,12 @@
       </div>
     </div>
     <!--分類-->
-    <div class="category py-17 pt-md-0">
+    <div class="category py-17 pt-lg-0">
       <div class="container">
         <div class="row">
           <div class="col-12 col-md-4">
-            <div class="item-category overflow-hidden position-relative rounded">
+            <div class="item-category overflow-hidden position-relative rounded mb-5 mb-md-0"
+            data-aos="fade-up" data-duration="1000">
               <div class="item-grid" role="button" @click="$router.push('/products?categoryId=1')">
                 <a href="javascript:;" class="item-box pic1"></a>
                 <div class="item-content
@@ -43,7 +44,8 @@
             </div>
         </div>
         <div class="col-12 col-md-4">
-          <div class="item-category overflow-hidden position-relative rounded">
+          <div class="item-category overflow-hidden position-relative rounded mb-5 mb-md-0"
+          data-aos="fade-up" data-duration="1000">
             <div class="item-grid" role="button" @click="$router.push('/products?categoryId=2')">
               <a href="/" class="item-box pic2"></a>
               <div class="item-content
@@ -59,7 +61,8 @@
           </div>
         </div>
         <div class="col-12 col-md-4">
-          <div class="item-category overflow-hidden position-relative rounded">
+          <div class="item-category overflow-hidden position-relative rounded mb-5 mb-md-0"
+          data-aos="fade-up">
             <div class="item-grid" role="button" @click="$router.push('/products?categoryId=3')">
               <a href="/" class="item-box pic3"></a>
               <div class="item-content
@@ -81,19 +84,22 @@
     <!--最新消息-->
     <div class="news py-17">
       <div class="container">
-        <div class="section-title text-center mb-10">
+        <div class="section-title text-center mb-10"
+        data-aos="fade-up" data-duration="1000">
           <small class="text-primary">News</small>
           <div class="text-5 text-white">最新消息</div>
         </div>
         <!--最新消息項目-->
         <ul>
-          <li class="mb-9" v-for="article in newsLists" :key="article.id">
+          <li class="mb-9" v-for="article in newsLists" :key="article.id"
+          data-aos="fade-up" data-duration="1000">
             <NewCard :article="article"/>
           </li>
         </ul>
         <!--最新消息項目-->
         <div class="text-center mb-17">
-          <router-link to="/News" class="btn btn-secondary text-white">
+          <router-link to="/News" class="btn btn-secondary text-white"
+          data-aos="fade-up" data-duration="1000">
             瀏覽更多最新消息
           </router-link>
         </div>
@@ -102,7 +108,8 @@
     <!--最新消息-->
     <!--熱門商品-->
     <div class="hot-products products-section my-17">
-      <div class="container font-weight-bold text-6 text-white mb-5">
+      <div class="container font-weight-bold text-6 text-white mb-5"
+      data-aos="fade-up" data-duration="1000">
         HOT PRODUCT
       </div>
           <swiper
@@ -139,7 +146,7 @@
     <!--新品上架-->
     <div class="newProducts products-section my-17">
       <div class="container">
-        <div class="section-title text-center mb-10">
+        <div class="section-title text-center mb-10" data-aos="fade-up" data-duration="1000">
           <small class="text-primary">New Product</small>
           <div class="text-5 text-white">新品上市</div>
         </div>
@@ -162,7 +169,7 @@
               "slidesPerView": 4,
               "spaceBetween": 10
             }
-          }' class="mySwiper">
+          }' class="mySwiper" data-aos="fade-up" data-duration="1000">
               <swiper-slide v-for="product in NewProductLists"
               :key="product" class="overflow-hidden position-relative product-list">
                 <!-- <ProductCard :product="product"/> -->
@@ -174,7 +181,7 @@
     <!--相關連結-->
     <div class="newProducts products-section my-17">
       <div class="container">
-        <div class="section-title text-center mb-10">
+        <div class="section-title text-center mb-10" data-aos="fade-up" data-duration="1000">
           <small class="text-primary">Related Links</small>
           <div class="text-5 text-white">相關連結</div>
         </div>
@@ -199,7 +206,8 @@
             }
           }' class="mySwiper">
               <swiper-slide v-for="item in relatedLists"
-              :key="item" class="overflow-hidden position-relative product-list">
+              :key="item" class="overflow-hidden position-relative product-list"
+              data-aos="fade-up" data-duration="1000">
                 <a :href="item.url" target="_blank">
                   <img :src="item.image">
                 </a>
@@ -219,8 +227,8 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 import SwiperCore, { Pagination } from 'swiper/core';
 import { mapGetters } from 'vuex';
 import NewCard from '@/components/NewCard.vue';
-// import ProductCard from '@/components/ProductCard.vue';
 import BuyProductCard from '@/components/BuyProductCard.vue';
+import AOS from 'aos';
 
 SwiperCore.use([Pagination]);
 
@@ -338,6 +346,9 @@ export default {
           },
         },
       ],
+    });
+    this.$nextTick(() => {
+      AOS.init();
     });
   },
   methods: {

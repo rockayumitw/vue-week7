@@ -4,7 +4,8 @@
     <div class="container py-17">
       <div class="py-17">
         <ul class="list-unstyled row">
-          <li class="col-6 col-md-3 text-center">
+          <li class="col-6 col-md-3 text-center"
+          data-aos="fade-up" data-duration="1000" data-aos-delay="500">
             <div>
               <span class="material-icons-outlined text-5 text-md-7 p-5 mb-3">
                 signal_cellular_alt
@@ -13,7 +14,8 @@
             <p class="font-weight-bold text-4 text-md-5 mb-3">備受肯定</p>
             <p>客戶回購率高、網路熱銷多家百貨邀約、多次受邀網媒採訪</p>
           </li>
-          <li class="col-6 col-md-3 text-center">
+          <li class="col-6 col-md-3 text-center"
+          data-aos="fade-up" data-duration="1000" data-aos-delay="600">
             <div>
               <span class="material-icons-outlined text-5 text-md-7 p-5 mb-3">
                 takeout_dining
@@ -22,7 +24,8 @@
             <p class="font-weight-bold text-4 text-md-5 mb-3">注重細節</p>
             <p>注重原料品質來源、包裝細節不馬虎</p>
           </li>
-          <li class="col-6 col-md-3 text-center">
+          <li class="col-6 col-md-3 text-center"
+          data-aos="fade-up" data-duration="1000" data-aos-delay="700">
             <div>
               <span class="material-icons-outlined text-5 text-md-7 p-5 mb-3"> share </span>
             </div>
@@ -31,7 +34,8 @@
               喜歡創新、運用季節性的產地水果開發新的驚喜，同時也樂於分享甜點製作，創造快樂的氣氛
             </p>
           </li>
-          <li class="col-6 col-md-3 text-center">
+          <li class="col-6 col-md-3 text-center"
+          data-aos="fade-up" data-duration="1000" data-aos-delay="800">
             <div>
               <span class="material-icons-outlined text-5 text-md-7 p-5 mb-3"> request_quote </span>
             </div>
@@ -43,18 +47,21 @@
     </div>
     <div class="parallax text-center d-flex align-items-center justify-content-center"
     :style="{ backgroundImage: 'url(' + image2 + ')' }">
-        <p class="text-white text-5 index-carousel">觸動你的視覺，抓住您的味蕾，療育您的心靈</p>
+        <p class="text-white text-5 index-carousel" data-aos="zoom-in">
+          觸動你的視覺，抓住您的味蕾，療育您的心靈
+        </p>
     </div>
     <div class="container py-17">
       <div class="row py-17 align-items-center">
-        <div class="col-md-5">
+        <div class="col-md-5"  data-aos="fade-up" data-duration="1000">
           <img class="img-fluid mb-10 mb-md-0" :src="image" />
         </div>
         <div class="col-md-7">
           <div class="text-center mb-2">
-            <img :src="logo" width="200"/>
+            <img :src="logo" width="200"  data-aos="fade-up" data-duration="1000"/>
           </div>
-          <div class="about-content text-4 py-5 text-center">
+          <div class="about-content text-4 py-5 text-center"
+          data-aos="fade-up" data-duration="1000">
             XX店面座落在XX市XXXX域，<br />
             我們是來自一群喜愛巧克力的夥伴一起合作，<br />
             秉持"療育您的心靈"的理念，<br />
@@ -72,6 +79,7 @@
 
 <script>
 import InnerBanner from '@/components/InnerBanner.vue';
+import AOS from 'aos';
 
 export default {
   components: {
@@ -84,6 +92,11 @@ export default {
       image2: './slider/3.jpg',
       logo: './image/logo-black.svg',
     };
+  },
+  mounted() {
+    this.$nextTick(() => {
+      AOS.init();
+    });
   },
 };
 </script>

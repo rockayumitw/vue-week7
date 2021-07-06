@@ -28,7 +28,8 @@
       <!--商品列表-->
       <ul class="product-list row">
         <li class="item-product col-6 col-sm-6 col-md-4 col-lg-3"
-        v-for="product in newLists" :key="product">
+        v-for="product in newLists" :key="product"
+        data-aos="fade-up" data-duration="1000">
           <BuyProductCard :product="product" @add-to-cart="addToCart"/>
         </li>
       </ul>
@@ -50,6 +51,7 @@ import Pagination from '@/components/Pagination.vue';
 import { mapGetters } from 'vuex';
 import InnerBanner from '@/components/InnerBanner.vue';
 import BuyProductCard from '@/components/BuyProductCard.vue';
+import AOS from 'aos';
 
 export default {
   components: {
@@ -123,6 +125,9 @@ export default {
     }
   },
   mounted() {
+    this.$nextTick(() => {
+      AOS.init();
+    });
   },
   methods: {
     init() {

@@ -19,7 +19,8 @@
     <!--搜尋-->
     <!--最新消息列表-->
     <ul>
-      <li class="mb-9" v-for="article in articleLists" :key="article.id">
+      <li class="mb-9" v-for="article in articleLists" :key="article.id"
+      data-aos="fade-up" data-duration="1000">
         <NewCard :article="article"/>
       </li>
     </ul>
@@ -40,6 +41,7 @@
 import { mapGetters } from 'vuex';
 import NewCard from '@/components/NewCard.vue';
 import Pagination from '@/components/Pagination.vue';
+import AOS from 'aos';
 
 export default {
   data() {
@@ -59,6 +61,11 @@ export default {
   },
   async created() {
     await this.$store.dispatch('frontend/fetchGetArticleLists', 1);
+  },
+  mounted() {
+    this.$nextTick(() => {
+      AOS.init();
+    });
   },
   methods: {
     async changePage(page) {

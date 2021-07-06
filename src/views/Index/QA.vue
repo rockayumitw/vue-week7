@@ -4,7 +4,8 @@
     <div class="container py-17 mb-17">
       <div class="accordion accordion-flush" id="accordionFlushExample">
         <!---->
-        <div class="accordion-item" v-for="item in qaLists" :key="item">
+        <div class="accordion-item" v-for="item in qaLists" :key="item"
+         data-aos="fade-up" data-duration="1000">
           <h2 class="accordion-header" :id="`flush-headingOne-${item.id}`">
             <button class="accordion-button collapsed"
             type="button"
