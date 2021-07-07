@@ -78,7 +78,6 @@ export default {
       allPageProducts: 'frontend/allPageProducts',
     }),
     totalPage() {
-      console.log(this.products.length);
       return Math.round(this.products.length / this.perPage);
     },
     newLists() {
@@ -118,11 +117,7 @@ export default {
     await this.$store.dispatch('frontend/fetchgetProductLists');
     await this.$store.dispatch('frontend/fetchAllPageProductLists');
     this.products = this.allPageProducts;
-    if (this.$route.query.categoryId !== undefined) {
-      this.selected = this.$route.query.categoryId;
-    } else {
-      this.selected = this.$route.query.categoryId;
-    }
+    this.selected = this.$route.query.categoryId !== undefined ? this.$route.query.categoryId : '0';
   },
   mounted() {
     this.$nextTick(() => {
@@ -140,7 +135,6 @@ export default {
       if (sortValue === 'none' || sortValue === 'down') {
         sortValue = 'up';
         this.selectSort = 'up';
-        console.log(this.selectSort);
         let arySort = this.newLists;
         arySort = arySort.sort((a, b) => (a.price > b.price ? 1 : -1));
         this.newLists = arySort;

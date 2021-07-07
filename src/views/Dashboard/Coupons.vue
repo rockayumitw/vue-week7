@@ -14,49 +14,51 @@
         建立新的優惠券
       </button> -->
     </div>
-    <div class="table">
-      <div class="table-thead row text-white w-100 py-3 align-items-center gx-1">
-        <div class="col-3">名稱</div>
-        <div class="col-2 text-center">
-          折扣
+    <div class="table-box">
+      <div class="table">
+        <div class="table-thead row text-white w-100 py-3 align-items-center gx-1">
+          <div class="col-3">名稱</div>
+          <div class="col-2 text-center">
+            折扣
+          </div>
+          <div class="col-3 text-center">到期日</div>
+          <div class="col-2 text-center">
+            狀態
+          </div>
+          <div class="col-2 text-center">編輯</div>
         </div>
-        <div class="col-3 text-center">到期日</div>
-        <div class="col-2 text-center">
-          狀態
-        </div>
-        <div class="col-2 text-center">編輯</div>
-      </div>
-      <div class="table-tr row text-white w-100 align-items-center py-3 align-items-center gx-1"
-      v-for="(item, key) in couponLists" :key="key">
-        <div class="col-3">{{ item.title }}</div>
-        <div class="col-2 text-center">{{ item.percent }}%</div>
-        <div class="col-3 text-center">{{ $filters.date(item.due_date) }}</div>
-        <div class="col-2 text-center">
-          <span v-if="item.is_enabled === 1" class="text-success">
-            <span class="material-icons">toggle_on</span>
-          </span>
-          <span v-else class="text-muted">
-            <span class="material-icons">toggle_on</span>
-          </span>
-        </div>
-        <div class="col-2 text-center">
-          <div class="btn-group p-0 p-md-1">
-              <button
-              class="btn btn-outline-primary btn-sm"
-              data-bs-toggle="modal"
-              data-bs-target="#couponModal"
-              @click="tempCouponObj(item)"
-              >
-                <span class="material-icons text-3">edit</span>
-              </button>
-              <button class="btn btn-outline-danger btn-sm"
-              data-bs-toggle="modal"
-              data-bs-target="#delModal"
-                      @click="tempCouponObj(item)"
-              >
-              <span class="material-icons text-3">delete</span>
-              </button>
-            </div>
+        <div class="table-tr row text-white w-100 align-items-center py-3 align-items-center gx-1"
+        v-for="(item, key) in couponLists" :key="key">
+          <div class="col-3">{{ item.title }}</div>
+          <div class="col-2 text-center">{{ item.percent }}%</div>
+          <div class="col-3 text-center">{{ $filters.date(item.due_date) }}</div>
+          <div class="col-2 text-center">
+            <span v-if="item.is_enabled === 1" class="text-success">
+              <span class="material-icons">toggle_on</span>
+            </span>
+            <span v-else class="text-muted">
+              <span class="material-icons">toggle_on</span>
+            </span>
+          </div>
+          <div class="col-2 text-center">
+            <div class="btn-group p-0 p-md-1">
+                <button
+                class="btn btn-outline-primary btn-sm"
+                data-bs-toggle="modal"
+                data-bs-target="#couponModal"
+                @click="tempCouponObj(item)"
+                >
+                  <span class="material-icons text-3">edit</span>
+                </button>
+                <button class="btn btn-outline-danger btn-sm"
+                data-bs-toggle="modal"
+                data-bs-target="#delModal"
+                        @click="tempCouponObj(item)"
+                >
+                <span class="material-icons text-3">delete</span>
+                </button>
+              </div>
+          </div>
         </div>
       </div>
     </div>

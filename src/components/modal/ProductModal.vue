@@ -10,11 +10,11 @@
   >
     <div class="modal-dialog modal-xl modal-dialog-centered">
       <div class="modal-content border-0">
-        <div class="modal-header">
-          <h5 id="productModalLabel" class="modal-title text-black font-weight-bold">
+        <div class="modal-header border-bottom-0">
+          <h4 id="productModalLabel" class="modal-title text-black font-weight-bold">
             <span v-if="tempProduct.id == undefined">新增產品</span>
             <span v-else>編輯產品</span>
-          </h5>
+          </h4>
         </div>
         <div class="modal-body">
           <form class="row needs-validation" novalidate>

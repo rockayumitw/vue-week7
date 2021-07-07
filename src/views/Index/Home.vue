@@ -107,12 +107,13 @@
     </div>
     <!--最新消息-->
     <!--熱門商品-->
-    <div class="hot-products products-section my-17">
+    <div class="hot-products products-section my-17" v-if="hotProductLists.length > 0">
       <div class="container font-weight-bold text-6 text-white mb-5"
       data-aos="fade-up" data-duration="1000">
         HOT PRODUCT
       </div>
           <swiper
+          :observer="true"
           :spaceBetween="10"
           :grabCursor="true"
           :scrollbar='{
@@ -144,13 +145,14 @@
     </div>
 
     <!--新品上架-->
-    <div class="newProducts products-section my-17">
+    <div class="newProducts products-section my-17" v-if="NewProductLists.length > 0">
       <div class="container">
         <div class="section-title text-center mb-10" data-aos="fade-up" data-duration="1000">
           <small class="text-primary">New Product</small>
           <div class="text-5 text-white">新品上市</div>
         </div>
         <swiper
+          :observer="true"
           :spaceBetween="10"
           :breakpoints='{
             "320": {
@@ -169,10 +171,9 @@
               "slidesPerView": 4,
               "spaceBetween": 10
             }
-          }' class="mySwiper" data-aos="fade-up" data-duration="1000">
+          }' class="mySwiper">
               <swiper-slide v-for="product in NewProductLists"
               :key="product" class="overflow-hidden position-relative product-list">
-                <!-- <ProductCard :product="product"/> -->
                 <BuyProductCard :product="product" @add-to-cart="addToCart"/>
               </swiper-slide>
           </swiper>
@@ -206,10 +207,9 @@
             }
           }' class="mySwiper">
               <swiper-slide v-for="item in relatedLists"
-              :key="item" class="overflow-hidden position-relative product-list"
-              data-aos="fade-up" data-duration="1000">
+              :key="item" class="overflow-hidden position-relative product-list">
                 <a :href="item.url" target="_blank">
-                  <img :src="item.image">
+                  <img class="img-fluid" :src="item.image">
                 </a>
               </swiper-slide>
           </swiper>
@@ -238,7 +238,6 @@ export default {
     Swiper,
     SwiperSlide,
     NewCard,
-    // ProductCard,
     BuyProductCard,
   },
   computed: {
@@ -248,18 +247,19 @@ export default {
       productLists: 'frontend/productLists',
     }),
     newsLists() {
-      return this.articleLists.slice(1, 5);
+      return this.articleLists.slice(0, 5);
     },
     hotProductLists() {
       return this.productLists;
     },
     NewProductLists() {
-      const data = this.productLists.slice(1, 7);
-      return data;
+      return this.productLists.slice(1, 7);
     },
   },
   data() {
     return {
+      newProductSwiperStatus: false,
+      hotProductSwiperStatus: false,
       swiperLists: [
         {
           imageUrl: './slider/1.jpg',

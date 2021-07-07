@@ -24,7 +24,12 @@
               </span>
             </div>
             <div>
-              <span class="material-icons text-7 text-secondary">bookmark</span>
+              <div class="icon-bookmark position-absolute right-10 index-bookmarked"
+                @click="$store.dispatch('frontend/fetchBookmark', product)">
+                  <span class="material-icons-outlined text-white text-6" role="button">
+                    {{ bookmarkId ? 'bookmark' : 'bookmark_border'}}
+                  </span>
+                </div>
             </div>
           </div>
           <div class="d-flex pt-0 mt-0 pt-md-15 mt-md-15">
@@ -88,7 +93,13 @@ export default {
       product: 'frontend/product',
       allPageProducts: 'frontend/allPageProducts',
       recommendProducts: 'frontend/recommendProducts',
+      bookmarkLists: 'frontend/bookmarkLists',
     }),
+    bookmarkId() {
+      const bookmarkIdGroup = [];
+      this.bookmarkLists.forEach((item) => bookmarkIdGroup.push(item.id));
+      return bookmarkIdGroup.indexOf(this.product.id) > -1;
+    },
   },
   async created() {
     await this.$store.dispatch('frontend/fetchgetProductLists');

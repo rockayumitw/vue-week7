@@ -101,7 +101,9 @@ export default {
   },
   methods: {
     close() {
-      $('.hamburger').click();
+      if (window.innerWidth < 992) {
+        $('.hamburger').click();
+      }
     },
     scrollAnimation() {
       this.scrollY = window.scrollY;

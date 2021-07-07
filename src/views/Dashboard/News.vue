@@ -11,61 +11,61 @@
       </button>
     </div>
     <!---->
-    <div class="table">
-      <div class="table-thead row text-white w-100 py-3 align-items-center gx-1">
-        <div class="col-3 col-md-2">標題</div>
-        <div class="col-2 text-center">
-          作者
+    <div class="table-box">
+      <div class="table">
+        <div class="table-thead row text-white w-100 py-3 align-items-center gx-1">
+          <div class="col-3 col-md-2">標題</div>
+          <div class="col-2 text-center">
+            作者
+          </div>
+          <div class="col-2 text-center d-none d-md-block">描述</div>
+          <div class="col-3 col-md-2 text-center">
+            建立時間
+          </div>
+          <div class="col-2 text-center">狀態</div>
+          <div class="col-2 text-center">編輯</div>
         </div>
-        <div class="col-2 text-center d-none d-md-block">描述</div>
-        <div class="col-3 col-md-2 text-center">
-          建立時間
-        </div>
-        <div class="col-2 text-center">狀態</div>
-        <div class="col-2 text-center">編輯</div>
-      </div>
 
-      <div class="table-tr row text-white w-100 align-items-center py-3 align-items-center gx-1"
-      v-for="article in articleLists" :key="article.id">
-        <div class="col-3 col-md-2">{{ article.title }}</div>
-        <div class="col-2 text-center">
-          {{ article.author }}
-        </div>
-        <div class="col-2 text-left overflow-hidden d-none d-md-block">
-          <div class="ellipsis py-0" v-html="article.description"></div>
-        </div>
-        <div class="col-3 col-md-2 text-center">
-          {{ $filters.date(article.create_at) }}
-        </div>
-        <div class="col-2 text-center">
-          <span v-if="article.isPublic" class="text-success">
-            <span class="material-icons">toggle_on</span>
-          </span>
-          <span v-else class="text-muted">
-            <span class="material-icons">toggle_on</span>
-          </span>
-        </div>
-        <div class="col-2 text-center">
-          <div class="btn-group p-0 p-md-1">
-              <button
-                class="btn btn-outline-primary btn-sm"
-                type="button"
-                @click="getArticle(article)"
-                data-bs-toggle="modal"
-                data-bs-target="#articleModal"
-              >
-                <span class="material-icons text-3">edit</span>
-              </button>
-              <button
-                class="btn btn-outline-danger btn-sm"
-                type="button"
-                data-bs-toggle="modal"
-                data-bs-target="#delModal"
-                @click="getArticle(article)"
-              >
-                <span class="material-icons text-3">delete</span>
-              </button>
-            </div>
+        <div class="table-tr row text-white w-100 align-items-center py-3 align-items-center gx-1"
+        v-for="article in articleLists" :key="article.id">
+          <div class="col-3 col-md-2">{{ article.title }}</div>
+          <div class="col-2 text-center">
+            {{ article.author }}
+          </div>
+          <div class="col-2 text-left overflow-hidden d-none d-md-block">
+            <div class="ellipsis py-0" v-html="article.description"></div>
+          </div>
+          <div class="col-3 col-md-2 text-center">
+            {{ $filters.date(article.create_at) }}
+          </div>
+          <div class="col-2 text-center">
+            <span v-if="article.isPublic" class="text-success">
+              <span class="material-icons">toggle_on</span>
+            </span>
+            <span v-else class="text-muted">
+              <span class="material-icons">toggle_on</span>
+            </span>
+          </div>
+          <div class="col-2 text-center">
+            <div class="btn-group p-0 p-md-1">
+                <button
+                  class="btn btn-outline-primary btn-sm"
+                  type="button"
+                  @click="getArticle(article), $refs.articleModal.modal('show');"
+                >
+                  <span class="material-icons text-3">edit</span>
+                </button>
+                <button
+                  class="btn btn-outline-danger btn-sm"
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#delModal"
+                  @click="getArticle(article)"
+                >
+                  <span class="material-icons text-3">delete</span>
+                </button>
+              </div>
+          </div>
         </div>
       </div>
     </div>

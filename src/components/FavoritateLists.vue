@@ -30,8 +30,11 @@
         </li>
       </ul>
     </div>
-    <div v-else>
-      目前沒有收藏的產品
+    <div v-else class="text-center">
+      <div class="text-gray-100 text-7 mb-5">
+        (^_^)b
+      </div>
+      <p class="text-gray-200">目前沒有收藏的產品</p>
     </div>
   </div>
 </template>

@@ -8,8 +8,8 @@
         <div class="col-md-6">
           <form class="justify-content-center mt-0 mt-md-17 mt-lg-0" @submit.prevent="login">
             <div class="">
-               <h4 class="h3 mb-15 font-weight-normal text-white">
-                LOGO
+              <h4 class="h3 mb-15 font-weight-normal text-white">
+                <img style="width: 250px" class="text-white img-fluid logo" :src="logo">
               </h4>
               <h4 class="h3 mb-3 font-weight-normal text-white">
                 Sign Up
@@ -41,6 +41,7 @@
 export default {
   data() {
     return {
+      logo: './image/logo.svg',
       user: {
         username: '',
         password: '',
@@ -65,3 +66,12 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.logo{
+    width: 250px;
+    background: #2d2d2d;
+    border-radius: 5px;
+    padding: 8px;
+}
+</style>

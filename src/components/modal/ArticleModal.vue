@@ -11,10 +11,10 @@
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content border-0">
         <div class="modal-header bg-dark text-white">
-          <h5 class="modal-title" id="exampleModalLabel">
+          <h4 class="modal-title font-weight-bold" id="exampleModalLabel">
             <span v-if="tempArticle.id == undefined">新增貼文</span>
             <span v-else>編輯貼文</span>
-          </h5>
+          </h4>
           <button
             type="button"
             class="btn-close"
@@ -260,8 +260,8 @@ export default {
       // 非同步
       setTimeout(() => {
         if (check) {
-          this.modal('hide');
           this.$emit('update-article', this.tempArticle);
+          this.modal('hide');
           this.init();
         }
       });

@@ -3,6 +3,7 @@
     <div class="maybe-you-like text-5 mb-5">你可能會喜歡</div>
     <div class="">
       <swiper
+        :observer="true"
         :slidesPerView="3"
         :spaceBetween="10"
         :pagination="{

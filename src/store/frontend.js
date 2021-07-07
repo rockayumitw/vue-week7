@@ -89,6 +89,7 @@ const moduleA = {
   },
   actions: {
     async fetchBookmark({ state, commit }, paylod) {
+      console.log(paylod);
       let repeat = false;
       const myFavorite = state.bookmarkLists;
       myFavorite.forEach((item) => {
@@ -289,9 +290,12 @@ const moduleA = {
       await axios.post(url).then(async (res) => {
         if (res.data.success) {
           Swal.fire({
-            icon: 'success',
             title: res.data.message,
-            text: '',
+            text: '謝謝您的支持! 祝您有美好的一天!',
+            imageUrl: './image/thankYou.jpg',
+            imageWidth: 400,
+            imageHeight: 200,
+            imageAlt: 'Custom image',
           });
           await dispatch('fetchGetOrder', paylod);
         } else {

@@ -5,7 +5,7 @@
        ref="couponModal" data-bs-target="#couponModal">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header border-bottom-0">
           <h4 class="modal-title font-weight-bold" id="exampleModalLabel">
             <span v-if="tempCoupon.id">編輯優惠卷</span>
             <span v-else>新增優惠卷</span>

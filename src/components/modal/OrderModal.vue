@@ -6,12 +6,12 @@
     aria-labelledby="exampleModalLabel"
     aria-hidden="true"
   >
-    <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
       <div class="modal-content border-0">
-        <div class="modal-header bg-dark text-white">
-          <h5 class="modal-title" id="exampleModalLabel">
+        <div class="modal-header border-bottom-0 font-weight-bold">
+          <h4 class="modal-title font-weight-bold" id="exampleModalLabel">
             <span>訂單細節</span>
-          </h5>
+          </h4>
           <button
             type="button"
             class="btn-close"
@@ -22,8 +22,8 @@
         <div class="modal-body">
           <div class="row">
             <div class="col-lg-4">
-              <h3>用戶資料</h3>
-              <table class="table">
+              <h4 class="font-weight-bold">用戶資料</h4>
+              <table class="table text-gray-400">
                 <tbody v-if="tempOrder.user">
                   <tr>
                     <th width="100">姓名</th>
@@ -45,7 +45,7 @@
               </table>
             </div>
             <div class="col-lg-8">
-              <h3>訂單細節</h3>
+              <h4 class="font-weight-bold">訂單細節</h4>
               <table class="table text-black">
                 <tbody>
                   <tr>
@@ -82,7 +82,7 @@
                   </tr>
                 </tbody>
               </table>
-              <h3>選購商品</h3>
+              <h4 class="font-weight-bold">選購商品</h4>
               <table class="table">
                 <thead>
                   <tr></tr>
@@ -117,7 +117,7 @@
             </div>
           </div>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer border-top-0">
           <button
             type="button"
             class="btn btn-gray-100"

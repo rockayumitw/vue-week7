@@ -1,63 +1,68 @@
-.table {
-    tbody {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        font-size: 13px;
-    }
-    thead, .table-thead {
-        background: rgba(255, 255, 255, 0.3);
-    }
-    th {
-        color: white;
-        border: 0;
-    }
-    .table-tr {
-        transition: .3s;
-        border-bottom: 1px solid $gray-400;
-        &:hover{
-            transition: .3s;
-            background: $gray-400;
+.table-box {
+    .table {
+        // :not(caption) > * > * {
+        //     border-bottom: 0px;
+        // }
+        tbody {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 13px;
         }
-    }
-    tr {
-        color: white;
-        transition: .3s;
-        &:hover{
+        thead, .table-thead {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        th {
+            color: white;
+            border: 0;
+        }
+        .table-tr {
             transition: .3s;
-            background: $gray-400;
-            .item-product-pic{
+            border-bottom: 1px solid $gray-400;
+            &:hover{
                 transition: .3s;
-                transform: scale(1.2);
+                background: $gray-400;
             }
         }
-    }
-    td {
-        vertical-align: middle;
-    }
-    &.cart-list-table{
-        th{
-            &:nth-child(1){
-                width: 200px;
-                @include media-max(md){
-                    width: 100px;
-                }
-                @include media-max(sm){
-                    width: 80px;
+        tr {
+            color: white;
+            transition: .3s;
+            &:hover{
+                transition: .3s;
+                background: $gray-400;
+                .item-product-pic{
+                    transition: .3s;
+                    transform: scale(1.2);
                 }
             }
         }
-        td{
-            &:nth-child(1){
-                width: 200px;
-                @include media-max(md){
-                    width: 100px;
-                }
-                @include media-max(sm){
-                    width: 80px;
+        td {
+            vertical-align: middle;
+        }
+        &.cart-list-table{
+            th{
+                &:nth-child(1){
+                    width: 200px;
+                    @include media-max(md){
+                        width: 100px;
+                    }
+                    @include media-max(sm){
+                        width: 80px;
+                    }
                 }
             }
-        }
-        .input-group{
-            max-width: 400px;
+            td{
+                &:nth-child(1){
+                    width: 200px;
+                    @include media-max(md){
+                        width: 100px;
+                    }
+                    @include media-max(sm){
+                        width: 80px;
+                    }
+                }
+            }
+            .input-group{
+                max-width: 400px;
+            }
         }
     }
 }

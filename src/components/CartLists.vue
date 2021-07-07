@@ -62,7 +62,10 @@
     </div>
     <div class="text-center" v-else>
       <div class="p-5">
-        <p>您的購物車是空的</p>
+        <div class="text-gray-100 text-7 mb-5">
+          ( O_O )"
+        </div>
+        <p class="text-gray-200">您的購物車是空的</p>
         <router-link to="/products" class="btn btn-primary text-white">
           前往瀏覽商品
         </router-link>

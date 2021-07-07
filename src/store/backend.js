@@ -267,16 +267,12 @@ const backend = {
     async fetchUpdateArticle({ state, commit, dispatch }, paylod) { // 後台 -新增/編輯最新消息
     // 依樣用id判斷是否為新增或編輯文章
       commit('all/SAVE_LOADING', true, { root: true });
-      console.log(paylod.id);
       const methods = paylod.id === undefined ? 'post' : 'put';
       let url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/article`;
       const param = paylod;
       param.content = paylod.description;
       const data = { data: { ...param } };
       url = paylod.id === undefined ? url : url += `/${paylod.id}`;
-      console.log(data);
-      console.log(url);
-      console.log(methods);
       commit('all/SAVE_LOADING', false, { root: true });
       await axios[methods](url, data).then(async (res) => {
         if (!res.data.success) {
