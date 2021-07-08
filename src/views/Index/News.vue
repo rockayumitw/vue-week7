@@ -1,8 +1,7 @@
 <template>
 <div class="inner-page">
-  <div class="inner-banner mb-17"></div>
+  <InnerBanner :msg="msg" />
   <div class="container">
-    <h3 class="text-left text-white mb-9">最新消息列表</h3>
     <!--搜尋-->
     <div class="mb-5 clearfix mr-1 mb-9">
       <select class="form-select float-start w-40" aria-label="Default select example" disabled>
@@ -26,7 +25,7 @@
     </ul>
     <!--最新消息列表-->
     <!--頁碼-->
-    <ul class="pagination justify-content-center mb-17">
+    <ul class="pagination justify-content-center mb-17" v-if="pagination.total_pages > 1">
       <Pagination
         :current-page="pagination.current_page"
         :total-page="pagination.total_pages"
@@ -42,16 +41,19 @@ import { mapGetters } from 'vuex';
 import NewCard from '@/components/NewCard.vue';
 import Pagination from '@/components/Pagination.vue';
 import AOS from 'aos';
+import InnerBanner from '@/components/InnerBanner.vue';
 
 export default {
   data() {
     return {
+      msg: '最新消息',
       tempArticle: {},
     };
   },
   components: {
     NewCard,
     Pagination,
+    InnerBanner,
   },
   computed: {
     ...mapGetters({

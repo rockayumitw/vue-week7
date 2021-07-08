@@ -15,7 +15,7 @@
             <th width="80" class="text-right" scope="col">小計</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody v-if="this.order.id !== undefined">
           <tr v-for="item in order.products" :key="item.id">
             <td>
               <div class="overflow-hidden rounded item-product-box">
@@ -52,7 +52,7 @@
     <div class="my-5 row justify-content-center" data-aos="fade-In" data-aos-duration="1000">
     <div class="bg-secondary text-white w-100 p-2 text-center">訂購資料</div>
     <table class="table text-left text-3">
-    <tbody>
+    <tbody v-if="this.order.id !== undefined">
         <tr>
             <td width="150" class="text-4 font-weight-bold">收件人</td>
             <td>{{order.user.name}}</td>

@@ -2,8 +2,8 @@
 <div class="inner-page">
   <div class="inner-banner"></div>
   <div class="bg-white pb-17">
-    <div class="container pt-17">
-      <img class="img-fulid w-100 mb-17" src="/product/1.jpg">
+    <div class="container pt-17 position-relative top-y-250">
+      <img class="img-fulid w-100 mb-17" :src="article.imageUrl">
       <div class="d-flex">
         <div class="d-none d-md-flex flex-column tool-share">
           <span class="material-icons-outlined text-center text-7 mb-3">facebook</span>
