@@ -3,7 +3,7 @@
     <div class="container mt-5 mb-17">
       <div class="row justify-content-center align-items-center py-17 my-17 py-md-10">
         <div class="col-md-6 d-none d-md-block" height="800">
-          <img class="img-fluid rounded-sm" src="./image/login.jpg" alt="登入">
+          <img class="img-fluid rounded-sm" :src="loginImage" alt="登入">
         </div>
         <div class="col-md-6">
           <form class="justify-content-center mt-0 mt-md-17 mt-lg-0" @submit.prevent="login">
@@ -42,6 +42,7 @@ export default {
   data() {
     return {
       logo: './image/logo.svg',
+      loginImage: './image/login.jpg',
       user: {
         username: '',
         password: '',
